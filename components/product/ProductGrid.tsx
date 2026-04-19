@@ -1,4 +1,3 @@
-// components/product/ProductGrid.tsx
 import ProductCard from './ProductCard'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 
@@ -9,16 +8,25 @@ interface Props {
 
 export default function ProductGrid({ products, locale }: Props) {
   if (products.length === 0) {
-    return <p className="text-brand-muted">No products found.</p>
+    return (
+      <section className="max-w-[1920px] mx-auto px-8 md:px-16 py-32 flex flex-col items-center justify-center text-center h-[512px]">
+        <h2 className="font-headline text-3xl md:text-4xl font-semibold text-on-surface mb-8 tracking-tight">Our objects are coming soon.</h2>
+      </section>
+    )
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
-      {products.map((product) => (
-        <li key={product.id}>
-          <ProductCard product={product} locale={locale} />
-        </li>
-      ))}
-    </ul>
+    <section className="max-w-[1920px] mx-auto px-8 md:px-16 py-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16">
+        {products.map((product, index) => (
+          <ProductCard 
+            key={product.id} 
+            product={product} 
+            locale={locale} 
+            isPriority={index < 4}
+          />
+        ))}
+      </div>
+    </section>
   )
 }

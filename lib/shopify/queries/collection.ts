@@ -5,14 +5,16 @@ export const GET_COLLECTION = `
     $handle: String!,
     $first: Int!,
     $country: CountryCode!,
-    $language: LanguageCode!
+    $language: LanguageCode!,
+    $sortKey: ProductCollectionSortKeys,
+    $reverse: Boolean
   ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
       title
       description
       image { url altText }
-      products(first: $first) {
+      products(first: $first, sortKey: $sortKey, reverse: $reverse) {
         nodes {
           id title handle vendor
           priceRange { minVariantPrice { amount currencyCode } }

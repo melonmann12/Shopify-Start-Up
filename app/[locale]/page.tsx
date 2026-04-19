@@ -1,7 +1,8 @@
-// app/[locale]/page.tsx
-import HeroBanner from '@/components/home/HeroBanner'
-import FeaturedCollection from '@/components/home/FeaturedCollection'
-import BrandStory from '@/components/home/BrandStory'
+import Hero from '@/components/home/Hero'
+import TrustBar from '@/components/home/TrustBar'
+import FeaturedProducts from '@/components/home/FeaturedProducts'
+import EditorialSection from '@/components/home/EditorialSection'
+import CategoryShowcase from '@/components/home/CategoryShowcase'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -9,12 +10,15 @@ interface Props {
 
 export default async function HomePage(props: Props) {
   const params = await props.params
+  const { locale } = params
+
   return (
     <>
-      <HeroBanner />
-      <FeaturedCollection handle="new-featured" title="New & Featured" />
-      <BrandStory />
-      <FeaturedCollection handle="new-arrivals" title="New Arrivals" />
+      <Hero />
+      <TrustBar />
+      <FeaturedProducts handle="new-arrivals" title="Curated Selection" locale={locale} />
+      <EditorialSection />
+      <CategoryShowcase />
     </>
   )
 }
