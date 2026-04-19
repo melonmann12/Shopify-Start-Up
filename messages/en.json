@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "new": "New & Featured",
+    "men": "Men",
+    "women": "Women",
+    "kids": "Kids",
+    "sale": "Sale",
+    "search": "Search",
+    "cart": "Cart"
+  },
+  "product": {
+    "addToBag": "Add to Bag",
+    "selectSize": "Select Size",
+    "sizeGuide": "Size Guide",
+    "outOfStock": "Out of Stock",
+    "favourite": "Favourite",
+    "sizeAndFit": "Size & Fit",
+    "deliveryAndReturns": "Free Delivery and Returns",
+    "reviews": "Reviews"
+  },
+  "cart": {
+    "title": "Your Bag",
+    "empty": "Your bag is empty.",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "continueShopping": "Continue Shopping"
+  }
+}

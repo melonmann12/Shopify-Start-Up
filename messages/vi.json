@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "new": "Mới & Nổi Bật",
+    "men": "Nam",
+    "women": "Nữ",
+    "kids": "Trẻ Em",
+    "sale": "Khuyến Mãi",
+    "search": "Tìm kiếm",
+    "cart": "Giỏ hàng"
+  },
+  "product": {
+    "addToBag": "Thêm vào Túi",
+    "selectSize": "Chọn Kích Cỡ",
+    "sizeGuide": "Hướng Dẫn Chọn Cỡ",
+    "outOfStock": "Hết Hàng",
+    "favourite": "Yêu thích",
+    "sizeAndFit": "Kích Cỡ & Phù Hợp",
+    "deliveryAndReturns": "Giao Hàng & Đổi Trả Miễn Phí",
+    "reviews": "Đánh Giá"
+  },
+  "cart": {
+    "title": "Túi Của Bạn",
+    "empty": "Túi của bạn đang trống.",
+    "checkout": "Thanh Toán",
+    "subtotal": "Tạm Tính",
+    "continueShopping": "Tiếp Tục Mua Sắm"
+  }
+}
