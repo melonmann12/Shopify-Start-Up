@@ -20,8 +20,8 @@ export default function NavClient() {
   }, [totalQuantity])
 
   return (
-    <div className="flex items-center gap-4 text-zinc-600 dark:text-zinc-400">
-      <button aria-label="search" className="hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 transition-all duration-200 p-2 rounded-full flex items-center justify-center">
+    <div className="flex items-center gap-4 text-zinc-600">
+      <button aria-label="search" className="hover:bg-zinc-100/50 transition-all duration-200 p-2 rounded-full flex items-center justify-center">
         <span className="material-symbols-outlined">search</span>
       </button>
 
@@ -29,7 +29,7 @@ export default function NavClient() {
         id="cart-icon-btn"
         aria-label={`Cart (${totalQuantity} items)`}
         onClick={openCart}
-        className="hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50 transition-all duration-200 p-2 rounded-full relative flex items-center justify-center"
+        className="hover:bg-zinc-100/50 transition-all duration-200 p-2 rounded-full relative flex items-center justify-center"
       >
         <span className="material-symbols-outlined transition-colors">shopping_bag</span>
         {totalQuantity > 0 && (

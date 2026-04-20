@@ -4,6 +4,7 @@ import VariantSelector from './VariantSelector'
 import AddToCartButton from './AddToCartButton'
 import ProductBadge from './ProductBadge'
 import type { ShopifyProduct } from '@/lib/shopify/types'
+import Link from 'next/link'
 
 interface Props {
   product: ShopifyProduct
@@ -20,6 +21,13 @@ export default function ProductInfo({ product, locale }: Props) {
   return (
     <div className="flex w-full flex-col">
       <div className="mb-8">
+        <nav aria-label="Breadcrumb" className="mb-6 flex items-center text-xs font-label text-on-surface-variant gap-2 uppercase tracking-widest">
+          <Link href={`/${locale}`} className="hover:text-on-surface transition-colors">Home</Link>
+          <span className="text-outline-variant">/</span>
+          <Link href={`/${locale}/collections`} className="hover:text-on-surface transition-colors">Shop</Link>
+          <span className="text-outline-variant">/</span>
+          <span className="text-on-surface truncate">{product.title}</span>
+        </nav>
         <h1 className="text-5xl font-headline font-bold text-on-surface tracking-tight mb-2">
           {product.title}
         </h1>

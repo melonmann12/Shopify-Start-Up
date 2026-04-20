@@ -17,7 +17,7 @@ export default async function HomePage(props: Props) {
       <Hero />
       <TrustBar />
       <FeaturedProducts handle="new-arrivals" title="Curated Selection" locale={locale} />
-      <EditorialSection />
+      <EditorialSection locale={locale} />
       <CategoryShowcase />
     </>
   )

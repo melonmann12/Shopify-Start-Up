@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function EditorialSection() {
+interface Props {
+  locale?: string
+}
+
+export default function EditorialSection({ locale = 'en' }: Props) {
   return (
     <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-40">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
@@ -21,8 +25,8 @@ export default function EditorialSection() {
           <p className="font-body text-lg leading-relaxed text-on-surface-variant mb-10 max-w-md">
             We believe in objects that last. Our design philosophy is rooted in essentialism—removing the unnecessary to highlight the purity of form, material, and construction. Every piece is an investment in enduring style.
           </p>
-          <Link href="#" className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-1 border-b border-primary group">
-            DISCOVER OUR ETHOS 
+          <Link href={`/${locale}/about`} className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-1 border-b border-primary group">
+            LEARN OUR STORY
             <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </Link>
         </div>

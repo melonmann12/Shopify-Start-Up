@@ -31,7 +31,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
       <div className="flex justify-between items-end mb-16">
         <h2 className="font-headline font-bold text-3xl md:text-4xl tracking-tight">{title}</h2>
         <Link
-          href={`/${locale}/collections/${handle}`}
+          href={`/${locale}/collections`}
           className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-1 border-b border-primary"
         >
           VIEW ALL <span className="material-symbols-outlined text-lg" data-icon="arrow_forward">arrow_forward</span>
