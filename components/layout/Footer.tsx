@@ -8,8 +8,8 @@ export default function Footer() {
         QLBusiness
       </div>
       <nav className="flex flex-wrap justify-center gap-8 max-w-2xl text-center">
-        <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/contact">Privacy Policy</Link>
-        <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/contact">Terms of Service</Link>
+        <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/policies/privacy-policy">Privacy Policy</Link>
+        <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/policies/terms-of-service">Terms of Service</Link>
         <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/contact">Accessibility</Link>
         <Link className="font-label text-xs tracking-widest uppercase leading-loose text-zinc-400 hover:text-zinc-900 transition-colors" href="/en/contact">Contact & Support</Link>
       </nav>

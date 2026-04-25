@@ -10,7 +10,7 @@ export default function LegalLinks() {
           <p className="font-label text-xs uppercase tracking-widest leading-loose text-on-surface-variant">
             Complimentary standard shipping on all domestic orders. Express options available at checkout.
           </p>
-          <Link href="#" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
+          <Link href="/en/policies/shipping-policy" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
             Read Full Policy
           </Link>
         </div>
@@ -20,7 +20,7 @@ export default function LegalLinks() {
           <p className="font-label text-xs uppercase tracking-widest leading-loose text-on-surface-variant">
             Returns accepted within 30 days. Items must be in original condition with tags attached.
           </p>
-          <Link href="#" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
+          <Link href="/en/policies/refund-policy" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
             Start a Return
           </Link>
         </div>
@@ -30,7 +30,7 @@ export default function LegalLinks() {
           <p className="font-label text-xs uppercase tracking-widest leading-loose text-on-surface-variant">
             We respect your privacy. Your information is securely encrypted and never shared.
           </p>
-          <Link href="#" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
+          <Link href="/en/policies/privacy-policy" className="inline-block font-label text-xs uppercase tracking-widest text-primary border-b border-primary/30 hover:border-primary transition-colors pb-1 mt-4">
             View Privacy Terms
           </Link>
         </div>

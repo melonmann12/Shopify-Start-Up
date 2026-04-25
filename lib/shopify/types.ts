@@ -67,3 +67,18 @@ export interface ShopifyMetafield {
   key: string
   value: string
 }
+
+export interface ShopifyPolicy {
+  id: string
+  title: string
+  body: string
+}
+
+export interface ShopifyPoliciesResponse {
+  shop: {
+    privacyPolicy: ShopifyPolicy | null
+    shippingPolicy: ShopifyPolicy | null
+    termsOfService: ShopifyPolicy | null
+    refundPolicy: ShopifyPolicy | null
+  }
+}
