@@ -12,6 +12,7 @@ export interface ShopifyProduct {
   metafields: ShopifyMetafield[]
   priceRange: { minVariantPrice: Money; maxVariantPrice: Money }
   images: { nodes: ShopifyImage[] }
+  featuredImage?: ShopifyImage | null
   options: ShopifyProductOption[]
   variants: { nodes: ShopifyProductVariant[] }
   seo: { title: string; description: string }

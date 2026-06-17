@@ -20,20 +20,20 @@ export default function NavClient() {
   }, [totalQuantity])
 
   return (
-    <div className="flex items-center gap-4 text-zinc-600">
-      <button aria-label="search" className="hover:bg-zinc-100/50 transition-all duration-200 p-2 rounded-full flex items-center justify-center">
-        <span className="material-symbols-outlined">search</span>
+    <div className="flex items-center gap-6 text-on-surface-variant">
+      <button aria-label="search" className="hover:text-on-background transition-all duration-200 flex items-center justify-center">
+        <span className="material-symbols-outlined text-[20px]">search</span>
       </button>
 
       <button
         id="cart-icon-btn"
         aria-label={`Cart (${totalQuantity} items)`}
         onClick={openCart}
-        className="hover:bg-zinc-100/50 transition-all duration-200 p-2 rounded-full relative flex items-center justify-center"
+        className="hover:text-on-background transition-all duration-200 relative flex items-center justify-center"
       >
-        <span className="material-symbols-outlined transition-colors">shopping_bag</span>
+        <span className="material-symbols-outlined text-[20px] transition-colors">shopping_bag</span>
         {totalQuantity > 0 && (
-          <span className={`absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white transition-transform duration-300 ${isBouncing ? 'scale-125' : 'scale-100'}`}>
+          <span className={`absolute -right-2.5 -top-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white transition-transform duration-300 ${isBouncing ? 'scale-125' : 'scale-100'}`}>
             {totalQuantity}
           </span>
         )}
@@ -42,9 +42,9 @@ export default function NavClient() {
       <button
         aria-label="Menu"
         onClick={() => setMenuOpen((v) => !v)}
-        className="lg:hidden p-2"
+        className="lg:hidden p-2 text-on-surface-variant hover:text-on-background"
       >
-        <span className="material-symbols-outlined">{menuOpen ? 'close' : 'menu'}</span>
+        <span className="material-symbols-outlined text-[20px]">{menuOpen ? 'close' : 'menu'}</span>
       </button>
     </div>
   )

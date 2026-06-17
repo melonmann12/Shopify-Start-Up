@@ -8,12 +8,12 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
     // Basic Validation
     if (!name || !email || !message) {
-      return { success: false, error: 'Please fill out all fields.' }
+      return { success: false, error: 'Please fill out all fields.', message: '' }
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email as string)) {
-      return { success: false, error: 'Please submit a valid email address.' }
+      return { success: false, error: 'Please submit a valid email address.', message: '' }
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY
@@ -21,7 +21,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
     if (!RESEND_API_KEY) {
       console.error('Missing RESEND_API_KEY environment variable.')
-      return { success: false, error: 'Server configuration error. Please try again later.' }
+      return { success: false, error: 'Server configuration error. Please try again later.', message: '' }
     }
 
     const emailTemplate = `
@@ -58,13 +58,15 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
     return { 
       success: true, 
-      message: 'Message sent successfully. Our concierge team will assist you shortly.' 
+      message: 'Message sent successfully. Our concierge team will assist you shortly.',
+      error: ''
     }
   } catch (error) {
     console.error('Contact Form Error:', error)
     return { 
       success: false, 
-      error: 'Unable to send message. Please try again later.' 
+      error: 'Unable to send message. Please try again later.',
+      message: ''
     }
   }
 }

@@ -4,21 +4,21 @@ import NavClient from './NavClient'
 
 export default function Navbar() {
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl">
-      <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto shadow-[0_20px_40px_rgba(45,52,53,0.06)]">
-        <Link href="/" className="text-xl font-bold tracking-tighter text-zinc-900 font-headline">
+    <header className="fixed top-0 w-full z-50 bg-surface/80 border-b border-outline/20 backdrop-blur-md">
+      <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-8 py-6 max-w-full mx-auto">
+        <Link href="/" className="text-2xl font-normal tracking-tight text-on-background font-serif">
           QLBusiness
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-8 font-['Manrope'] font-semibold tracking-tight">
-          <Link href="/en/collections" className="text-zinc-500 hover:text-zinc-900 transition-all duration-300 active:scale-95">
+        <div className="hidden md:flex items-center gap-12 font-mono text-[10px] uppercase tracking-[0.2em]">
+          <Link href="/en/collections" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
             Collections
           </Link>
-          <Link href="/en/collections/new-arrivals" className="text-zinc-500 hover:text-zinc-900 transition-all duration-300 active:scale-95">
+          <Link href="/en/collections/new-arrivals" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
             New Arrivals
           </Link>
-          <Link href="/en/about" className="text-zinc-500 hover:text-zinc-900 transition-all duration-300 active:scale-95">
+          <Link href="/en/about" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
             Our Story
           </Link>
         </div>

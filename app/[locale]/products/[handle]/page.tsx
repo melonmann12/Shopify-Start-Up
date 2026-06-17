@@ -60,15 +60,15 @@ export default async function ProductDetailPage(props: Props) {
   const product = data.product
 
   return (
-    <main className="flex-grow w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-20 flex flex-col lg:flex-row gap-16 lg:gap-24">
+    <main className="flex-grow w-full max-w-[1600px] mx-auto px-6 md:px-[8.333vw] py-12 md:py-20 flex flex-col lg:flex-row gap-[8.333vw] relative z-10">
       {/* Left Column: Images */}
-      <div className="w-full lg:w-3/5 flex flex-col gap-6">
+      <div className="w-full lg:w-[50%] flex flex-col gap-4">
         {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="flex text-sm text-on-surface-variant font-label mb-2">
-          <ol className="flex items-center space-x-2">
-            <li><Link className="hover:text-on-surface transition-colors" href={`/${locale}`}>Home</Link></li>
+        <nav aria-label="Breadcrumb" className="flex text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-mono mb-8">
+          <ol className="flex items-center space-x-3">
+            <li><Link className="hover:text-on-background transition-colors" href={`/${locale}`}>Home</Link></li>
             <li><span className="text-on-surface-variant/50">/</span></li>
-            <li><Link className="hover:text-on-surface transition-colors" href={`/${locale}/products`}>Products</Link></li>
+            <li><Link className="hover:text-on-background transition-colors" href={`/${locale}/products`}>Products</Link></li>
             <li><span className="text-on-surface-variant/50">/</span></li>
             <li><span className="text-on-surface-variant">{product.title}</span></li>
           </ol>
@@ -78,7 +78,7 @@ export default async function ProductDetailPage(props: Props) {
       </div>
 
       {/* Right Column: Product Details */}
-      <div className="w-full lg:w-2/5 flex flex-col">
+      <div className="w-full lg:w-[40%] flex flex-col pt-8">
         <ProductInfo product={product} locale={locale} />
       </div>
     </main>

@@ -12,18 +12,18 @@ export default function ThankYouClient({ locale }: Props) {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('order_id')
   const email = searchParams.get('email')
-  
+
   // Quick state to ensure fade-in animation triggers purely on client mount
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
   return (
     <div className={`flex-grow flex flex-col items-center justify-center px-6 py-24 sm:py-32 lg:py-40 max-w-3xl mx-auto w-full text-center transition-opacity duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-      
+
       {/* Subtle Visual Cue */}
       <div className="mb-12 flex justify-center">
-        <span 
-          className="material-symbols-outlined text-[4rem] text-primary" 
+        <span
+          className="material-symbols-outlined text-[4rem] text-primary"
           style={{ fontVariationSettings: "'wght' 200, 'FILL' 1" }}
         >
           check_circle
@@ -64,14 +64,14 @@ export default function ThankYouClient({ locale }: Props) {
 
       {/* Actions */}
       <div className="flex flex-col items-center space-y-6 w-full max-w-sm mx-auto">
-        <Link 
+        <Link
           href={`/${locale}/collections/all`}
           className="w-full inline-flex justify-center items-center px-8 py-4 bg-primary text-on-primary rounded-full font-label text-sm uppercase tracking-[0.05em] font-semibold transition-colors duration-300 hover:bg-primary-fixed hover:text-on-primary-fixed"
         >
           CONTINUE EXPLORING
         </Link>
-        
-        <Link 
+
+        <Link
           href={`/${locale}/contact`}
           className="inline-flex items-center space-x-2 font-body text-sm text-on-surface-variant hover:text-primary transition-colors duration-200 group"
         >

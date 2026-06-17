@@ -20,21 +20,14 @@ export default function ProductInfo({ product, locale }: Props) {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="mb-8">
-        <nav aria-label="Breadcrumb" className="mb-6 flex items-center text-xs font-label text-on-surface-variant gap-2 uppercase tracking-widest">
-          <Link href={`/${locale}`} className="hover:text-on-surface transition-colors">Home</Link>
-          <span className="text-outline-variant">/</span>
-          <Link href={`/${locale}/collections`} className="hover:text-on-surface transition-colors">Shop</Link>
-          <span className="text-outline-variant">/</span>
-          <span className="text-on-surface truncate">{product.title}</span>
-        </nav>
-        <h1 className="text-5xl font-headline font-bold text-on-surface tracking-tight mb-2">
-          {product.title}
-        </h1>
-        <p className="text-lg text-on-surface-variant font-label tracking-wide uppercase mb-6">
+      <div className="mb-12">
+        <p className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-4">
           {product.vendor || "QLBusiness"}
         </p>
-        <p className="text-2xl font-body font-medium text-on-surface">
+        <h1 className="text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
+          {product.title}
+        </h1>
+        <p className="text-3xl font-serif text-on-background">
           {formatPrice(basePrice.amount, basePrice.currencyCode, locale)}
         </p>
       </div>
@@ -42,10 +35,10 @@ export default function ProductInfo({ product, locale }: Props) {
       <VariantSelector product={product} locale={locale} />
 
       {/* Description Panel */}
-      <div className="bg-surface-container-low p-8 rounded-xl mt-4">
-        <h3 className="text-sm font-label text-on-surface-variant uppercase tracking-widest mb-4">Description</h3>
+      <div className="border-t border-outline/20 pt-8 mt-8">
+        <h3 className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-6">Description</h3>
         <div 
-          className="text-on-surface-variant leading-relaxed font-body [&_ul]:mt-6 [&_ul]:space-y-2 [&_ul]:text-sm [&_li]:flex [&_li]:items-center [&_li]:gap-2 [&_li]:before:content-[''] [&_li]:before:w-1.5 [&_li]:before:h-1.5 [&_li]:before:rounded-full [&_li]:before:bg-outline-variant [&_li]:before:shrink-0"
+          className="text-on-surface-variant leading-relaxed font-sans text-sm font-light [&_p]:mb-4 [&_ul]:mt-6 [&_ul]:space-y-3 [&_ul]:text-sm [&_li]:flex [&_li]:items-center [&_li]:gap-3 [&_li]:before:content-[''] [&_li]:before:w-1 [&_li]:before:h-1 [&_li]:before:bg-outline [&_li]:before:shrink-0"
           dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
         />
       </div>

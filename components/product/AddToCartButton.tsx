@@ -13,7 +13,7 @@ export default function AddToCartButton({ variant }: Props) {
   const isAvailable = variant?.availableForSale
 
   return (
-    <div className="flex flex-col gap-4 mb-12 mt-4">
+    <div className="flex flex-col gap-4 mb-16 mt-4">
       <button
         onClick={() => {
           if (variant) {
@@ -21,21 +21,21 @@ export default function AddToCartButton({ variant }: Props) {
           }
         }}
         disabled={!variant || !isAvailable}
-        className={`w-full py-5 rounded-full font-medium text-base transition-all duration-200 ${!variant || !isAvailable
-          ? 'cursor-not-allowed bg-[#f5f5f5] text-[#cccccc]'
-          : 'bg-black text-white hover:bg-[#333333] active:scale-[0.98]'
-          }`}
+        className={`w-full py-5 border font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${
+          !variant || !isAvailable
+            ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40'
+            : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest'
+        }`}
       >
         {!variant
-          ? 'Select Size'
+          ? 'SELECT SIZE'
           : !isAvailable
-            ? 'Out of Stock'
-            : 'Add to Cart'}
+            ? 'OUT OF STOCK'
+            : 'ADD TO BAG'}
       </button>
 
-      <button className="w-full py-5 rounded-full border border-[#e5e5e5] text-black flex justify-center items-center gap-2 hover:border-black transition-colors duration-200">
-        <span className="material-symbols-outlined">favorite</span>
-        <span className="font-medium">Favourite</span>
+      <button className="w-full py-5 border border-outline/40 bg-transparent text-on-surface-variant font-mono text-[11px] uppercase tracking-[0.2em] hover:border-on-background hover:text-on-background transition-colors duration-300">
+        FAVOURITE
       </button>
     </div>
   )
