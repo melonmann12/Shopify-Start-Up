@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import ProductBadge from './ProductBadge'
 import { formatPrice } from '@/lib/currency'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 
@@ -13,12 +12,46 @@ interface Props {
 export default function ProductCard({ product, locale, isPriority = false }: Props) {
   const image = product.images.nodes[0]
   const price = product.priceRange.minVariantPrice
-  const badge = product.metafields?.[0]?.value
+
+  // Lấy badge từ metafield (Ví dụ: NEW, POPULAR, SALE 25%)
+  const badge = product.metafields?.find(
+    (m) => m?.namespace === 'custom' && m?.key === 'badge_label'
+  )?.value || 'NEW' // Để tạm 'NEW' nếu chưa có data để test UI
+
+  // Lấy một đoạn mô tả ngắn (có thể cấu hình trong phần SEO description của Shopify)
+  const shortDesc = product.seo?.description || "A REFINED GESTURE FOR ENHANCING ANY MOMENT."
 
   return (
-    <Link href={`/${locale}/products/${product.handle}`} className="group block">
-      {/* Image */}
-      <div className="bg-surface-variant aspect-[3/4] mb-8 overflow-hidden relative">
+    <Link
+      href={`/${locale}/products/${product.handle}`}
+      // Box thẻ nền trắng, padding vừa phải, viền mỏng
+      className="bg-white border border-outline-variant/20 shadow-sm p-6 flex flex-col group h-full hover:shadow-md transition-all duration-500 rounded-none"
+    >
+
+      {/* 1. KHU VỰC THUỘC TÍNH (Ở TRÊN CÙNG) */}
+      <div className="flex flex-col gap-4 mb-6">
+        {/* Ô Tag (Boxed) */}
+        {badge && (
+          <div className="border border-outline-variant/40 px-2 py-1 self-start">
+            <span className="font-mono text-[9px] uppercase tracking-widest text-on-background">
+              {badge}
+            </span>
+          </div>
+        )}
+
+        {/* Các dòng text thuộc tính (Subtitle & Description) */}
+        <div className="flex flex-col gap-1">
+          <p className="font-mono text-[9px] tracking-[0.15em] text-on-background uppercase font-bold">
+            {product.vendor || 'A THOUGHTFUL INTRODUCTION'}
+          </p>
+          <p className="font-mono text-[9px] tracking-[0.1em] text-on-surface-variant uppercase line-clamp-2">
+            {shortDesc}
+          </p>
+        </div>
+      </div>
+
+      {/* 2. KHU VỰC HÌNH ẢNH */}
+      <div className="w-full aspect-[4/3] bg-transparent overflow-hidden relative mb-6">
         {image && (
           <Image
             src={image.url}
@@ -26,22 +59,29 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
             fill
             priority={isPriority}
             loading={isPriority ? "eager" : undefined}
-            className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out"
+            // Ảnh contain gọn gàng, không bị cắt
+            className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-700 ease-out p-2"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         )}
-        {badge && <ProductBadge label={badge} />}
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col gap-1">
-        <p className="font-body text-xs text-on-surface-variant uppercase tracking-widest">{product.vendor || 'QLBusiness'}</p>
-        <h3 className="font-headline text-lg font-semibold text-on-surface">{product.title}</h3>
-        <p className="font-body text-sm text-on-surface mt-2">
-          {formatPrice(price.amount, price.currencyCode, locale)}
-        </p>
+      {/* 3. KHU VỰC TÊN & NÚT (Ở DƯỚI CÙNG) */}
+      <div className="flex flex-col gap-4 mt-auto">
+        <div className="flex flex-col gap-1.5">
+          <h3 className="font-serif text-2xl font-normal text-on-background leading-tight">
+            {product.title}
+          </h3>
+          {/* Vẫn giữ giá trị cốt lõi là hiện giá tiền */}
+          <p className="font-mono text-[11px] tracking-[0.15em] text-on-surface-variant uppercase">
+            {formatPrice(price.amount, price.currencyCode, locale)}
+          </p>
+        </div>
+
+        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-on-background group-hover:opacity-50 transition-opacity duration-300 mt-2">
+          Purchase
+        </div>
       </div>
     </Link>
   )
 }
-

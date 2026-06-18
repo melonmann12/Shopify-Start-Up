@@ -21,11 +21,10 @@ export default function AddToCartButton({ variant }: Props) {
           }
         }}
         disabled={!variant || !isAvailable}
-        className={`w-full py-5 border font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${
-          !variant || !isAvailable
-            ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40'
-            : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest'
-        }`}
+        className={`w-full py-5 border font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${!variant || !isAvailable
+          ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40'
+          : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest'
+          }`}
       >
         {!variant
           ? 'SELECT SIZE'

@@ -13,12 +13,16 @@ export default async function HomePage(props: Props) {
   const { locale } = params
 
   return (
-    <>
-      <Hero />
+    <div className="w-full relative overflow-hidden">
+      {/* Atmospheric Backgrounds */}
+      <div className="grid-bg"></div>
+      <div className="misty-bg"></div>
+
+      <Hero locale={locale} />
       <TrustBar />
       <FeaturedProducts handle="new-arrivals" title="Curated Selection" locale={locale} />
       <EditorialSection locale={locale} />
       <CategoryShowcase />
-    </>
+    </div>
   )
 }

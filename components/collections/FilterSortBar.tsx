@@ -16,22 +16,22 @@ export default function FilterSortBar() {
   }
 
   return (
-    <div className="max-w-[1920px] mx-auto px-8 md:px-16 py-8 flex flex-col md:flex-row justify-between items-center border-b border-surface-container-highest/50 gap-4">
-      <button className="flex items-center gap-2 bg-surface-container-highest text-on-surface px-6 py-3 rounded-full hover:bg-surface-variant transition-colors font-body text-sm font-medium">
-        <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 0" }}>tune</span>
+    <div className="max-w-[1920px] mx-auto py-6 flex flex-row justify-between items-center border-b border-outline-variant/30 gap-4 mb-12 relative z-10">
+      <button className="flex items-center gap-2 text-on-background font-mono text-[11px] uppercase tracking-[0.2em] hover:text-on-surface-variant transition-colors duration-200">
+        <span className="material-symbols-outlined text-[16px]">tune</span>
         Filter
       </button>
 
-      <div className="flex items-center gap-3">
-        <span className="font-body text-sm text-on-surface-variant">Sort by:</span>
+      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-on-background">
+        <span className="opacity-70">Sort by:</span>
         <select 
           value={currentSort}
           onChange={handleSortChange}
-          className="bg-transparent border-none text-on-surface font-headline text-sm font-semibold focus:ring-0 cursor-pointer pr-8 py-2"
+          className="bg-transparent border-none text-on-background font-mono text-[11px] uppercase tracking-[0.1em] focus:ring-0 cursor-pointer pr-6 py-1 outline-none"
         >
-          <option value="newest">Newest</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
+          <option value="newest" className="bg-surface text-on-background">Newest</option>
+          <option value="price-asc" className="bg-surface text-on-background">Price: Low to High</option>
+          <option value="price-desc" className="bg-surface text-on-background">Price: High to Low</option>
         </select>
       </div>
     </div>

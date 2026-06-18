@@ -1,10 +1,6 @@
-// lib/utils.ts
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-
-/** Merge Tailwind classes safely (shadcn/ui pattern) */
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+/** Merge Tailwind classes safely (vanilla JS class merger) */
+export function cn(...inputs: any[]) {
+  return inputs.flat().filter(Boolean).join(' ')
 }
 
 /** Format a Shopify money object into a display string */
