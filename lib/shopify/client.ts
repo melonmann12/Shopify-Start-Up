@@ -40,6 +40,14 @@ export async function shopifyFetch<T>(
   const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
 
   try {
+    // 1. Strict sanitation: Ensure if context is missing or corrupted by static file routing (e.g. "ROBOTS.TXT"), it safely defaults to "EN" or "VI".
+    if (variables.language) {
+      const lang = String(variables.language).toUpperCase()
+      if (lang !== 'EN' && lang !== 'VI') {
+        variables.language = 'EN' // Safe fallback
+      }
+    }
+
     // Debug logging (remove in production)
     if (process.env.NODE_ENV === 'development') {
       console.log('[Shopify Debug] Starting Request to Domain:', domain)
