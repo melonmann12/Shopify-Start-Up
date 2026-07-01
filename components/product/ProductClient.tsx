@@ -51,7 +51,7 @@ export default function ProductClient({ product, locale }: Props) {
   const basePrice = product.priceRange.minVariantPrice
 
   return (
-    <div className="flex flex-col lg:flex-row gap-[8.333vw] w-full">
+    <div className="flex flex-col lg:flex-row gap-8 lg:gap-[8.333vw] w-full">
       {/* ── LEFT: Image Gallery ─────────────────────────────────────────────── */}
       <div className="w-full lg:w-[55%] flex flex-col gap-4">
         {/* Mobile Swipe Slider */}
@@ -117,14 +117,14 @@ export default function ProductClient({ product, locale }: Props) {
       {/* ── RIGHT: Product Info + Variant Selector ──────────────────────────── */}
       <div className="w-full lg:w-[45%] flex flex-col pt-0 lg:pt-8">
         {/* Static product details */}
-        <div className="mb-12">
+        <div className="mb-8 md:mb-12">
           <p className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-4">
             {product.vendor || 'tiaranails'}
           </p>
-          <h1 className="text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
             {product.title}
           </h1>
-          <p className="text-3xl font-serif text-on-background">
+          <p className="text-2xl sm:text-3xl font-serif text-on-background">
             {formatPrice(basePrice.amount, basePrice.currencyCode, locale)}
           </p>
         </div>

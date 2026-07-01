@@ -57,7 +57,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               )}
             </div>
 
-            <div className={isSize ? "grid grid-cols-5 gap-3" : "flex gap-3 flex-wrap"}>
+            <div className={isSize ? "grid grid-cols-4 sm:grid-cols-5 gap-3" : "flex gap-3 flex-wrap"}>
               {option.values.map((value) => {
                 const isSelected = selectedOptions[option.name] === value
 
@@ -125,7 +125,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
           />
 
           {/* Modal Panel */}
-          <div className="bg-surface border border-outline/30 p-8 max-w-md w-full relative z-10 shadow-2xl flex flex-col">
+          <div className="bg-surface border border-outline/30 p-6 sm:p-8 max-w-md w-full relative z-10 shadow-2xl flex flex-col">
             <button
               onClick={() => setIsSizeGuideOpen(false)}
               className="absolute top-6 right-6 font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-background transition-colors"

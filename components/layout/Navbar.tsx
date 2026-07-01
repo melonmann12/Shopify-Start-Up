@@ -5,7 +5,7 @@ import NavClient from './NavClient'
 export default function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/80 border-b border-outline/20 backdrop-blur-md">
-      <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-8 py-6 max-w-full mx-auto">
+      <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-4 sm:px-8 py-4 sm:py-6 max-w-full mx-auto">
         <Link href="/" className="text-2xl font-normal tracking-tight text-on-background font-serif">
           tiaranails
         </Link>

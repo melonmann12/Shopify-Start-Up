@@ -2,6 +2,7 @@
 // components/layout/NavClient.tsx
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
+import Link from 'next/link'
 
 export default function NavClient() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -42,10 +43,49 @@ export default function NavClient() {
       <button
         aria-label="Menu"
         onClick={() => setMenuOpen((v) => !v)}
-        className="lg:hidden p-2 text-on-surface-variant hover:text-on-background"
+        className="md:hidden p-2 text-on-surface-variant hover:text-on-background"
       >
         <span className="material-symbols-outlined text-[20px]">{menuOpen ? 'close' : 'menu'}</span>
       </button>
+
+      {/* Mobile Navigation Drawer Overlay */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 bg-surface flex flex-col p-8 animate-fade-in md:hidden">
+          <div className="flex justify-between items-center mb-16">
+            <span className="text-xl font-normal tracking-tight text-on-background font-serif">tiaranails</span>
+            <button
+              aria-label="Close Menu"
+              onClick={() => setMenuOpen(false)}
+              className="p-2 text-on-surface-variant hover:text-on-background"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
+          </div>
+          <div className="flex flex-col gap-8 text-left">
+            <Link
+              href="/en/collections"
+              onClick={() => setMenuOpen(false)}
+              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+            >
+              Collections
+            </Link>
+            <Link
+              href="/en/collections/new-arrivals"
+              onClick={() => setMenuOpen(false)}
+              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+            >
+              New Arrivals
+            </Link>
+            <Link
+              href="/en/about"
+              onClick={() => setMenuOpen(false)}
+              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+            >
+              Our Story
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
