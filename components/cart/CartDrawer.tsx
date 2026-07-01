@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
+import { useCartStore } from '@/store/cart'
 import Image from 'next/image'
 
 // ─── Cart Line Sub-component with local input state ───────────────────────────
@@ -46,6 +47,7 @@ function CartLineItem({
             src={image}
             alt={merchandise.product?.title || 'Product Image'}
             fill
+            sizes="80px"
             className="object-cover"
           />
         )}
@@ -123,14 +125,31 @@ function CartLineItem({
 
 // ─── Main CartDrawer ───────────────────────────────────────────────────────────
 export default function CartDrawer() {
-  const { cart, isOpen, closeCart, removeLine, updateLineQuantity } = useCart()
+  const { cart, isOpen, isPending, closeCart, removeLine, updateLineQuantity } = useCart()
   const [isRedirecting, setIsRedirecting] = useState(false)
 
   const handleCheckout = () => {
-    if (!cart?.checkoutUrl) return
+    // Read checkoutUrl from the Zustand store at click time — never from a
+    // closure or cached ref. getState() always returns the latest snapshot,
+    // regardless of React render cycles or useEffect scheduling.
+    const latestCart = useCartStore.getState().cart
+    const url = latestCart?.checkoutUrl ?? cart?.checkoutUrl
+    if (!url || isPending || isRedirecting) return
+
     setIsRedirecting(true)
-    window.location.href = cart.checkoutUrl
+
+    // Safety reset: if navigation hasn't started within 5s, unlock the button
+    // so the user can retry rather than being permanently stuck.
+    const safetyTimer = setTimeout(() => setIsRedirecting(false), 5000)
+
+    try {
+      window.location.href = url
+    } catch {
+      clearTimeout(safetyTimer)
+      setIsRedirecting(false)
+    }
   }
+
 
   if (!isOpen) return null
 
@@ -199,14 +218,16 @@ export default function CartDrawer() {
 
             <button
               onClick={handleCheckout}
-              disabled={isRedirecting || !cart.checkoutUrl}
+              disabled={isRedirecting || isPending || !cart.checkoutUrl}
               className={`flex w-full items-center justify-center gap-2 py-4 rounded-full font-bold text-base tracking-wide transition-all duration-200 ${
                 isRedirecting
                   ? 'bg-black/60 text-white/80 cursor-wait'
-                  : 'bg-black text-white hover:bg-[#333] active:scale-[0.98]'
+                  : isPending
+                    ? 'bg-black/40 text-white/60 cursor-wait'
+                    : 'bg-black text-white hover:bg-[#333] active:scale-[0.98]'
               }`}
             >
-              {isRedirecting && (
+              {(isRedirecting || isPending) && (
                 <svg
                   className="animate-spin h-5 w-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +242,7 @@ export default function CartDrawer() {
                   />
                 </svg>
               )}
-              {isRedirecting ? 'Redirecting...' : 'Checkout'}
+              {isRedirecting ? 'Redirecting...' : isPending ? 'Updating...' : 'Checkout'}
             </button>
           </div>
         )}

@@ -39,6 +39,7 @@ export const UPDATE_CART_LINE = `
       cart {
         id
         totalQuantity
+        checkoutUrl
         lines(first: 50) { nodes { ...CartLineFragment } }
         cost { subtotalAmount { amount currencyCode } }
       }
@@ -54,6 +55,7 @@ export const REMOVE_FROM_CART = `
       cart {
         id
         totalQuantity
+        checkoutUrl
         lines(first: 50) { nodes { ...CartLineFragment } }
         cost { subtotalAmount { amount currencyCode } }
       }
@@ -62,3 +64,4 @@ export const REMOVE_FROM_CART = `
   }
   ${CART_LINE_FRAGMENT}
 `
+

@@ -1,10 +1,7 @@
 // components/product/ProductInfo.tsx
 import { formatPrice } from '@/lib/currency'
-import VariantSelector from './VariantSelector'
-import AddToCartButton from './AddToCartButton'
 import ProductBadge from './ProductBadge'
 import type { ShopifyProduct } from '@/lib/shopify/types'
-import Link from 'next/link'
 
 interface Props {
   product: ShopifyProduct
@@ -32,8 +29,6 @@ export default function ProductInfo({ product, locale }: Props) {
         </p>
       </div>
 
-      <VariantSelector product={product} locale={locale} />
-
       {/* Description Panel */}
       <div className="border-t border-outline/20 pt-8 mt-8">
         <h3 className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-6">Description</h3>
@@ -45,3 +40,4 @@ export default function ProductInfo({ product, locale }: Props) {
     </div>
   )
 }
+

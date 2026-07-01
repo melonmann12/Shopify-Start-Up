@@ -1,59 +1,112 @@
 // hooks/useCart.ts
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useCartStore } from '@/store/cart'
 import { addToCartAction, updateLineQuantityAction, removeLineAction, getCartAction } from '@/lib/actions/cart'
+import type { ShopifyCart } from '@/lib/shopify/types'
 
 export function useCart() {
   const { cartId, cart, isOpen, setCart, setCartId, openCart, closeCart } =
     useCartStore()
 
-  // Always use cart.id as authoritative — never the stale persisted cartId
+  // Track in-flight mutation count so CartDrawer can disable Checkout while busy
+  const pendingRef = useRef(0)
+  const [isPending, setIsPending] = useState(false)
+
+  function beginMutation() {
+    pendingRef.current += 1
+    setIsPending(true)
+  }
+  function endMutation() {
+    pendingRef.current = Math.max(0, pendingRef.current - 1)
+    if (pendingRef.current === 0) setIsPending(false)
+  }
+
+  // Derived for read-only display (do NOT use this inside async functions — it can be stale)
   const activeCartId = cart?.id ?? cartId
+
+  // Helper: read the freshest cartId at call time, bypassing any closure staleness.
+  // useCartStore.getState() reads directly from the Zustand store without waiting for a re-render.
+  function getCurrentCartId(): string | null {
+    const state = useCartStore.getState()
+    return state.cart?.id ?? state.cartId
+  }
+
+  // Defensive merge: if Shopify returns a cart without checkoutUrl (e.g. a mutation
+  // that omits the field), preserve the last known good URL from the current store
+  // rather than overwriting it with undefined.
+  function mergeCart(newCart: ShopifyCart) {
+    const currentCheckoutUrl = useCartStore.getState().cart?.checkoutUrl
+    setCart({
+      ...newCart,
+      checkoutUrl: newCart.checkoutUrl || currentCheckoutUrl || '',
+    })
+  }
 
   // Hydrate on mount if we have a persisted cartId but no cart object yet
   useEffect(() => {
     if (cartId && !cart) {
       getCartAction(cartId).then((fetchedCart) => {
         if (fetchedCart) {
-          setCart(fetchedCart)
-          // Sync persisted ID to the live cart ID to prevent future drift
+          mergeCart(fetchedCart)
+          // Always sync persisted cartId with whatever Shopify returned
           if (fetchedCart.id !== cartId) setCartId(fetchedCart.id)
         }
       }).catch(console.error)
     }
-  }, [cartId, cart, setCart, setCartId])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartId, cart, setCartId])
 
   async function addToCart(variantId: string, quantity = 1) {
+    // Read the live cart ID at call time — never use the closure-captured activeCartId
+    const liveCartId = getCurrentCartId()
+    beginMutation()
     try {
-      const newCart = await addToCartAction(activeCartId, variantId, quantity)
+      const newCart = await addToCartAction(liveCartId, variantId, quantity)
       if (newCart) {
-        setCart(newCart)
-        if (!cartId) setCartId(newCart.id)
+        mergeCart(newCart)
+        // ALWAYS sync cartId — Shopify may return a cart with a different ID
+        setCartId(newCart.id)
       }
     } catch (error) {
       console.error('Failed to add to cart:', error)
+    } finally {
+      endMutation()
     }
   }
 
   async function updateLineQuantity(lineId: string, quantity: number) {
-    if (!activeCartId) return
+    const liveCartId = getCurrentCartId()
+    if (!liveCartId) return
+    beginMutation()
     try {
-      const newCart = await updateLineQuantityAction(activeCartId, lineId, quantity)
-      if (newCart) setCart(newCart)
+      const newCart = await updateLineQuantityAction(liveCartId, lineId, quantity)
+      if (newCart) {
+        mergeCart(newCart)
+        if (newCart.id !== liveCartId) setCartId(newCart.id)
+      }
     } catch (error) {
       console.error('Failed to update cart line:', error)
+    } finally {
+      endMutation()
     }
   }
 
   async function removeLine(lineId: string) {
-    if (!activeCartId) return
+    const liveCartId = getCurrentCartId()
+    if (!liveCartId) return
+    beginMutation()
     try {
-      const newCart = await removeLineAction(activeCartId, lineId)
-      if (newCart) setCart(newCart)
+      const newCart = await removeLineAction(liveCartId, lineId)
+      if (newCart) {
+        mergeCart(newCart)
+        if (newCart.id !== liveCartId) setCartId(newCart.id)
+      }
     } catch (error) {
       console.error('Failed to remove cart line:', error)
+    } finally {
+      endMutation()
     }
   }
 
@@ -63,6 +116,7 @@ export function useCart() {
     cart,
     cartId: activeCartId,
     isOpen,
+    isPending,
     itemCount,
     openCart,
     closeCart,
@@ -71,3 +125,5 @@ export function useCart() {
     removeLine,
   }
 }
+
+

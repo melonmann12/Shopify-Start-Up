@@ -1,13 +1,16 @@
 'use client'
 // components/product/VariantSelector.tsx
 import { useState } from 'react'
-import { useProductVariant } from '@/hooks/useProductVariant'
 import AddToCartButton from './AddToCartButton'
-import type { ShopifyProduct } from '@/lib/shopify/types'
+import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
 interface Props {
   product: ShopifyProduct
   locale: string
+  // Controlled props from ProductClient (shared variant state)
+  selectedOptions: Record<string, string>
+  selectedVariant: ShopifyProductVariant | undefined
+  onSelectOption: (name: string, value: string) => void
 }
 
 const getColorHex = (colorName: string): string => {
@@ -29,8 +32,7 @@ const getColorHex = (colorName: string): string => {
   return map[name] ?? name
 }
 
-export default function VariantSelector({ product, locale }: Props) {
-  const { selectedOptions, selectedVariant, selectOption } = useProductVariant(product)
+export default function VariantSelector({ product, locale, selectedOptions, selectedVariant, onSelectOption }: Props) {
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false)
 
   return (
@@ -71,7 +73,7 @@ export default function VariantSelector({ product, locale }: Props) {
                   return (
                     <button
                       key={value}
-                      onClick={() => selectOption(option.name, value)}
+                      onClick={() => onSelectOption(option.name, value)}
                       disabled={!available}
                       title={value}
                       className={`w-12 h-8 transition-colors relative border duration-200 ${
@@ -90,7 +92,7 @@ export default function VariantSelector({ product, locale }: Props) {
                 return (
                   <button
                     key={value}
-                    onClick={() => selectOption(option.name, value)}
+                    onClick={() => onSelectOption(option.name, value)}
                     disabled={!available}
                     className={`py-3 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors border duration-200 ${
                       isSelected

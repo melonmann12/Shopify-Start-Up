@@ -7,7 +7,7 @@ import type { ShopifyCart } from '@/lib/shopify/types'
 import { revalidateTag } from 'next/cache'
 
 export async function getCartAction(cartId: string) {
-  const data: { cart: ShopifyCart } = await (shopifyFetch as any)(
+  const data = await shopifyFetch<{ cart: ShopifyCart }>(
     GET_CART,
     { cartId }
   )
@@ -18,39 +18,40 @@ export async function addToCartAction(cartId: string | null, variantId: string, 
   let cart: ShopifyCart
 
   if (cartId) {
-    const data: { cartLinesAdd: { cart: ShopifyCart } } = await (shopifyFetch as any)(
+    const data = await shopifyFetch<{ cartLinesAdd: { cart: ShopifyCart } }>(
       ADD_TO_CART,
       { cartId, lines: [{ merchandiseId: variantId, quantity }] }
     )
     cart = data.cartLinesAdd.cart
   } else {
-    const data: { cartCreate: { cart: ShopifyCart } } = await (shopifyFetch as any)(
+    const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(
       CREATE_CART,
       { input: { lines: [{ merchandiseId: variantId, quantity }] } }
     )
     cart = data.cartCreate.cart
   }
 
-  (revalidateTag as any)('cart')
+  revalidateTag('cart', 'max')
   return cart
 }
 
 export async function updateLineQuantityAction(cartId: string, lineId: string, quantity: number) {
   const safeQuantity = Math.max(1, Math.floor(quantity))
 
-  const data: { cartLinesUpdate: { cart: ShopifyCart } } = await (shopifyFetch as any)(
+  const data = await shopifyFetch<{ cartLinesUpdate: { cart: ShopifyCart } }>(
     UPDATE_CART_LINE,
     { cartId, lines: [{ id: lineId, quantity: safeQuantity }] }
   )
-  (revalidateTag as any)('cart')
+  revalidateTag('cart', 'max')
   return data.cartLinesUpdate.cart
 }
 
 export async function removeLineAction(cartId: string, lineId: string) {
-  const data: { cartLinesRemove: { cart: ShopifyCart } } = await (shopifyFetch as any)(
+  const data = await shopifyFetch<{ cartLinesRemove: { cart: ShopifyCart } }>(
     REMOVE_FROM_CART,
     { cartId, lineIds: [lineId] }
   )
-  (revalidateTag as any)('cart')
+  revalidateTag('cart', 'max')
   return data.cartLinesRemove.cart
 }
+
