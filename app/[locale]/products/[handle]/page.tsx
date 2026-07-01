@@ -25,7 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   if (!product) return {}
 
   return {
-    title: product.seo.title || `${product.title} | Storefront`,
+    title: product.seo.title || `${product.title} | tiaranails`,
     description: product.seo.description || product.description.slice(0, 160),
     openGraph: {
       title: product.title,

@@ -7,7 +7,7 @@ export default function Navbar() {
     <header className="fixed top-0 w-full z-50 bg-surface/80 border-b border-outline/20 backdrop-blur-md">
       <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-8 py-6 max-w-full mx-auto">
         <Link href="/" className="text-2xl font-normal tracking-tight text-on-background font-serif">
-          QLBusiness
+          tiaranails
         </Link>
 
         {/* Desktop nav links */}

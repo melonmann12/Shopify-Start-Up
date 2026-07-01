@@ -11,8 +11,8 @@ import CartDrawer from '@/components/cart/CartDrawer'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
-  title: { default: 'Storefront', template: '%s | Storefront' },
-  description: 'A high-end headless e-commerce storefront.',
+  title: { default: 'tiaranails', template: '%s | tiaranails' },
+  description: 'A high-end headless e-commerce storefront for tiaranails.',
 }
 
 interface Props {

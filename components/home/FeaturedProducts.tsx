@@ -53,7 +53,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
             >
               <div className="flex flex-col gap-4">
                 <span className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant uppercase">
-                  {product.vendor || 'QLBusiness'}
+                  {product.vendor || 'tiaranails'}
                 </span>
                 
                 <div className="w-full aspect-[4/3] bg-surface-container-low overflow-hidden relative border border-outline-variant/10">
@@ -71,7 +71,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
                   {/* Logo hover overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="bg-surface-bright/90 px-4 py-2 border border-outline-variant/30 backdrop-blur-sm shadow-sm">
-                      <span className="font-serif text-sm text-on-background">{product.vendor || 'QLBusiness'}</span>
+                      <span className="font-serif text-sm text-on-background">{product.vendor || 'tiaranails'}</span>
                     </div>
                   </div>
                 </div>
