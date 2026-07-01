@@ -15,7 +15,7 @@ export default function CategoryShowcase() {
                 unoptimized
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out saturate-50 contrast-[1.1] opacity-90 mix-blend-multiply" 
               />
-              <div className="absolute bottom-8 left-8 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 backdrop-blur-sm rounded-none shadow-sm">
+              <div className="absolute bottom-8 left-8 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 md:backdrop-blur-sm rounded-none shadow-sm">
                 <h3 className="font-serif text-3xl font-normal text-on-background mb-1">APPAREL</h3>
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Explore The Collection</span>
               </div>
@@ -34,7 +34,7 @@ export default function CategoryShowcase() {
                   unoptimized
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out saturate-50 contrast-[1.1] opacity-90 mix-blend-multiply" 
                 />
-                <div className="absolute bottom-6 left-6 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 backdrop-blur-sm rounded-none shadow-sm">
+                <div className="absolute bottom-6 left-6 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 md:backdrop-blur-sm rounded-none shadow-sm">
                   <h3 className="font-serif text-xl font-normal text-on-background mb-1">FOOTWEAR</h3>
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Shop Shoes</span>
                 </div>
@@ -51,7 +51,7 @@ export default function CategoryShowcase() {
                   unoptimized
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-1000 ease-out saturate-50 contrast-[1.1] opacity-90 mix-blend-multiply" 
                 />
-                <div className="absolute bottom-6 left-6 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 backdrop-blur-sm rounded-none shadow-sm">
+                <div className="absolute bottom-6 left-6 bg-surface-bright/90 px-6 py-4 border border-outline-variant/30 md:backdrop-blur-sm rounded-none shadow-sm">
                   <h3 className="font-serif text-xl font-normal text-on-background mb-1">OBJECTS</h3>
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Shop Accessories</span>
                 </div>

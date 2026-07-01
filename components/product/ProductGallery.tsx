@@ -77,7 +77,7 @@ export default function ProductGallery({ images, title }: Props) {
         </div>
 
         {/* Small Brand Badge */}
-        <div className="absolute bottom-6 right-6 bg-surface-container-lowest/90 px-4 py-1.5 border border-outline/30 backdrop-blur-sm">
+        <div className="absolute bottom-6 right-6 bg-surface-container-lowest/90 px-4 py-1.5 border border-outline/30 md:backdrop-blur-sm">
           <span className="font-serif text-lg text-on-background">{displayBadgeText}</span>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function ProductGallery({ images, title }: Props) {
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
         )}
-        <div className="absolute bottom-8 right-8 bg-surface-container-lowest/90 px-6 py-2 shadow-sm border border-outline/30 backdrop-blur-sm">
+        <div className="absolute bottom-8 right-8 bg-surface-container-lowest/90 px-6 py-2 shadow-sm border border-outline/30 md:backdrop-blur-sm">
           <span className="font-serif text-2xl text-on-background">{displayBadgeText}</span>
         </div>
       </div>
