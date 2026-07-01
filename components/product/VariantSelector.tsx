@@ -121,7 +121,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
           {/* Backdrop */}
           <div
             onClick={() => setIsSizeGuideOpen(false)}
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/40"
           />
 
           {/* Modal Panel */}

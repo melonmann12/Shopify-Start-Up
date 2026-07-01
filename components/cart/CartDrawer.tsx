@@ -168,7 +168,7 @@ export default function CartDrawer() {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-[100] bg-black/40 transition-opacity"
         onClick={closeCart}
         aria-hidden="true"
       />
