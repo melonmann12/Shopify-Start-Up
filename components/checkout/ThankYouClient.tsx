@@ -4,6 +4,16 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+const UI_TEXT = {
+  orderConfirmed: "ORDER CONFIRMED.",
+  thankYouWithOrder: "Thank you for shopping with us. Your order is being prepared with care.",
+  orderNumberPrefix: "Order Number: #",
+  summarySentTo: "We've sent a summary to ",
+  thankYouProcessing: "Thank you for your purchase! We are currently processing your order credentials.",
+  continueExploring: "CONTINUE EXPLORING",
+  needHelp: "Need help with your order?",
+}
+
 interface Props {
   locale: string
 }
@@ -23,7 +33,7 @@ export default function ThankYouClient({ locale }: Props) {
       {/* Subtle Visual Cue */}
       <div className="mb-12 flex justify-center">
         <span
-          className="material-symbols-outlined text-[4rem] text-primary"
+          className="material-symbols-outlined text-[4rem] text-on-background"
           style={{ fontVariationSettings: "'wght' 200, 'FILL' 1" }}
         >
           check_circle
@@ -31,32 +41,32 @@ export default function ThankYouClient({ locale }: Props) {
       </div>
 
       {/* Primary Heading */}
-      <h1 className="font-display text-[2.75rem] leading-tight font-extrabold tracking-[-0.02em] text-primary mb-6">
-        ORDER CONFIRMED.
+      <h1 className="font-serif text-[2.75rem] leading-tight font-normal text-on-background mb-6">
+        {UI_TEXT.orderConfirmed}
       </h1>
 
       {/* Appreciation & Dynamic Info */}
       <div className="space-y-4 mb-16 max-w-lg mx-auto w-full">
         {orderId ? (
           <>
-            <p className="font-body text-base text-on-surface-variant leading-[1.6]">
-              Thank you for shopping with us. Your order is being prepared with care.
+            <p className="font-sans font-light text-sm text-on-surface-variant leading-[1.6]">
+              {UI_TEXT.thankYouWithOrder}
             </p>
-            <div className="bg-surface-container-low py-6 px-8 rounded-lg mt-6">
-              <p className="font-label text-sm uppercase tracking-[0.05em] text-primary font-bold mb-2">
-                Order Number: #{orderId}
+            <div className="bg-surface-container-low py-6 px-8 rounded-lg mt-6 border border-outline/20">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-background mb-2">
+                {UI_TEXT.orderNumberPrefix}{orderId}
               </p>
               {email && (
-                <p className="font-body text-sm text-on-surface-variant leading-[1.6]">
-                  We&apos;ve sent a summary to <span className="font-medium text-primary">{email}</span>.
+                <p className="font-sans font-light text-sm text-on-surface-variant leading-[1.6]">
+                  {UI_TEXT.summarySentTo}<span className="font-medium text-on-background">{email}</span>.
                 </p>
               )}
             </div>
           </>
         ) : (
-          <div className="bg-surface-container-low py-6 px-8 rounded-lg mt-6">
-            <p className="font-body text-base text-on-surface-variant leading-[1.6]">
-              Thank you for your purchase! We are currently processing your order credentials.
+          <div className="bg-surface-container-low py-6 px-8 rounded-lg mt-6 border border-outline/20">
+            <p className="font-sans font-light text-sm text-on-surface-variant leading-[1.6]">
+              {UI_TEXT.thankYouProcessing}
             </p>
           </div>
         )}
@@ -65,18 +75,18 @@ export default function ThankYouClient({ locale }: Props) {
       {/* Actions */}
       <div className="flex flex-col items-center space-y-6 w-full max-w-sm mx-auto">
         <Link
-          href={`/${locale}/collections/all`}
-          className="w-full inline-flex justify-center items-center px-8 py-4 bg-primary text-on-primary rounded-full font-label text-sm uppercase tracking-[0.05em] font-semibold transition-colors duration-300 hover:bg-primary-fixed hover:text-on-primary-fixed"
+          href={`/${locale}/collections`}
+          className="w-full inline-flex justify-center items-center px-8 py-5 border border-on-background bg-on-background text-surface-container-lowest font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 hover:bg-transparent hover:text-on-background"
         >
-          CONTINUE EXPLORING
+          {UI_TEXT.continueExploring}
         </Link>
 
         <Link
           href={`/${locale}/contact`}
-          className="inline-flex items-center space-x-2 font-body text-sm text-on-surface-variant hover:text-primary transition-colors duration-200 group"
+          className="inline-flex items-center space-x-2 font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-background transition-colors duration-200 group"
         >
-          <span>Need help with your order?</span>
-          <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+          <span>{UI_TEXT.needHelp}</span>
+          <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
         </Link>
       </div>
 

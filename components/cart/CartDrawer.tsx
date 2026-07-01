@@ -5,6 +5,17 @@ import { useCart } from '@/hooks/useCart'
 import { useCartStore } from '@/store/cart'
 import Image from 'next/image'
 
+const UI_TEXT = {
+  title: "Your Bag",
+  empty: "Your bag is currently empty.",
+  subtotal: "Subtotal",
+  shippingNote: "Tax and shipping calculated at checkout.",
+  checkout: "Checkout",
+  updating: "Updating...",
+  redirecting: "Redirecting...",
+  remove: "Remove",
+}
+
 // ─── Cart Line Sub-component with local input state ───────────────────────────
 function CartLineItem({
   line,
@@ -115,7 +126,7 @@ function CartLineItem({
             className="text-xs text-[#707070] hover:text-black underline underline-offset-2 transition-colors"
             onClick={() => removeLine(line.id)}
           >
-            Remove
+            {UI_TEXT.remove}
           </button>
         </div>
       </div>
@@ -167,7 +178,7 @@ export default function CartDrawer() {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
           <h2 className="text-xl font-bold tracking-tight">
-            Your Bag
+            {UI_TEXT.title}
             {(cart?.totalQuantity ?? 0) > 0 && (
               <span className="ml-2 text-sm font-normal text-[#707070]">
                 ({cart!.totalQuantity} {cart!.totalQuantity === 1 ? 'item' : 'items'})
@@ -188,7 +199,7 @@ export default function CartDrawer() {
           {!cart || cart.lines.nodes.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-[#707070] gap-4">
               <span className="material-symbols-outlined text-5xl">shopping_bag</span>
-              <p className="text-sm">Your bag is currently empty.</p>
+              <p className="text-sm">{UI_TEXT.empty}</p>
             </div>
           ) : (
             <ul className="space-y-6">
@@ -208,13 +219,13 @@ export default function CartDrawer() {
         {cart && cart.lines.nodes.length > 0 && (
           <div className="px-6 py-6 border-t border-black/10">
             <div className="flex justify-between mb-1">
-              <span className="text-sm text-[#707070]">Subtotal</span>
+              <span className="text-sm text-[#707070]">{UI_TEXT.subtotal}</span>
               <span className="font-semibold">
                 {parseFloat(cart.cost.subtotalAmount.amount).toFixed(2)}{' '}
                 {cart.cost.subtotalAmount.currencyCode}
               </span>
             </div>
-            <p className="text-xs text-[#707070] mb-5">Tax and shipping calculated at checkout.</p>
+            <p className="text-xs text-[#707070] mb-5">{UI_TEXT.shippingNote}</p>
 
             <button
               onClick={handleCheckout}
@@ -242,7 +253,7 @@ export default function CartDrawer() {
                   />
                 </svg>
               )}
-              {isRedirecting ? 'Redirecting...' : isPending ? 'Updating...' : 'Checkout'}
+              {isRedirecting ? UI_TEXT.redirecting : isPending ? UI_TEXT.updating : UI_TEXT.checkout}
             </button>
           </div>
         )}

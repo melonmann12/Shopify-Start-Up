@@ -41,8 +41,10 @@ export async function shopifyFetch<T>(
 
   try {
     // Debug logging (remove in production)
-    console.log('[Shopify Debug] Starting Request to Domain:', domain)
-    console.log('[Shopify Debug] Token starts with:', token ? token.substring(0, 4) : 'undefined')
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Shopify Debug] Starting Request to Domain:', domain)
+      console.log('[Shopify Debug] Token starts with:', token ? token.substring(0, 4) : 'undefined')
+    }
 
     if (!domain || !token) {
       console.error('[Shopify Config Error] Missing ENV variables:', {

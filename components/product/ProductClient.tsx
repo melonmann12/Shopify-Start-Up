@@ -7,6 +7,10 @@ import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
+const UI_TEXT = {
+  description: "Description",
+}
+
 interface Props {
   product: ShopifyProduct
   locale: string
@@ -65,7 +69,7 @@ export default function ProductClient({ product, locale }: Props) {
                   fill
                   priority={i === 0}
                   className="w-full h-full object-cover saturate-50 contrast-[1.1]"
-                  sizes="100vw"
+                  sizes="(max-width: 768px) calc(100vw - 3rem), 55vw"
                 />
               </div>
             ))}
@@ -141,7 +145,7 @@ export default function ProductClient({ product, locale }: Props) {
         {/* Description Panel */}
         <div className="border-t border-outline/20 pt-8 mt-8">
           <h3 className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-6">
-            Description
+            {UI_TEXT.description}
           </h3>
           <div
             className="text-on-surface-variant leading-relaxed font-sans text-sm font-light [&_p]:mb-4 [&_ul]:mt-6 [&_ul]:space-y-3 [&_ul]:text-sm [&_li]:flex [&_li]:items-center [&_li]:gap-3 [&_li]:before:content-[''] [&_li]:before:w-1 [&_li]:before:h-1 [&_li]:before:bg-outline [&_li]:before:shrink-0"

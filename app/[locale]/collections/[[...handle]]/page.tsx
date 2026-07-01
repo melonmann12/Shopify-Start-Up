@@ -84,7 +84,7 @@ export default async function CollectionPage(props: Props) {
       <div className="grid-bg"></div>
       <div className="misty-bg"></div>
 
-      <main className="pt-[100px] px-8 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10">
+      <main className="pt-[100px] px-6 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10">
         {/* Header Section */}
         <header className="flex flex-col items-center justify-center mb-16 relative z-10 text-center py-12">
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-on-background mb-6 tracking-tight font-normal leading-tight">

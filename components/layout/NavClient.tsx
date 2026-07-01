@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
 import Link from 'next/link'
 
+const UI_TEXT = {
+  collections: "Collections",
+  newArrivals: "New Arrivals",
+  ourStory: "Our Story",
+  close: "Close Menu",
+}
+
 export default function NavClient() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { cart, openCart } = useCart()
@@ -50,39 +57,49 @@ export default function NavClient() {
 
       {/* Mobile Navigation Drawer Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-surface flex flex-col p-8 animate-fade-in md:hidden">
-          <div className="flex justify-between items-center mb-16">
-            <span className="text-xl font-normal tracking-tight text-on-background font-serif">tiaranails</span>
-            <button
-              aria-label="Close Menu"
-              onClick={() => setMenuOpen(false)}
-              className="p-2 text-on-surface-variant hover:text-on-background"
-            >
-              <span className="material-symbols-outlined text-[20px]">close</span>
-            </button>
-          </div>
-          <div className="flex flex-col gap-8 text-left">
-            <Link
-              href="/en/collections"
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
-            >
-              Collections
-            </Link>
-            <Link
-              href="/en/collections/new-arrivals"
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
-            >
-              New Arrivals
-            </Link>
-            <Link
-              href="/en/about"
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
-            >
-              Our Story
-            </Link>
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+          />
+          
+          {/* Drawer Panel */}
+          <div className="relative w-4/5 max-w-sm bg-surface h-full shadow-2xl flex flex-col p-8 animate-fade-in z-10">
+            <div className="flex justify-between items-center mb-16">
+              <span className="text-xl font-normal tracking-tight text-on-background font-serif">tiaranails</span>
+              <button
+                aria-label={UI_TEXT.close}
+                onClick={() => setMenuOpen(false)}
+                className="p-2 text-on-surface-variant hover:text-on-background"
+              >
+                <span className="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+            <div className="flex flex-col gap-8 text-left">
+              <Link
+                href="/en/collections"
+                onClick={() => setMenuOpen(false)}
+                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+              >
+                {UI_TEXT.collections}
+              </Link>
+              <Link
+                href="/en/collections/new-arrivals"
+                onClick={() => setMenuOpen(false)}
+                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+              >
+                {UI_TEXT.newArrivals}
+              </Link>
+              <Link
+                href="/en/about"
+                onClick={() => setMenuOpen(false)}
+                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+              >
+                {UI_TEXT.ourStory}
+              </Link>
+            </div>
           </div>
         </div>
       )}
