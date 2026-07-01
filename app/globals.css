@@ -71,7 +71,7 @@ body {
       linear-gradient(to bottom, rgba(44, 51, 51, 0.06) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 8.333vw 8.333vw, 8.333vw 8.333vw;
   background-position: center center, center center, center top, left top;
-  background-attachment: fixed;
+  /* background-attachment: fixed; REMOVED: causes severe scroll lag on mobile WebViews */
   color: var(--color-on-surface);
   font-family: var(--font-body);
 }
@@ -96,6 +96,9 @@ body {
   background-size: calc(100vw / 12) calc(100vw / 12);
   z-index: -2;
   pointer-events: none;
+  /* Force hardware acceleration to prevent scroll repaint lag */
+  transform: translateZ(0);
+  will-change: transform;
 }
 @media (max-width: 768px) {
   .grid-bg {
@@ -110,6 +113,9 @@ body {
                     radial-gradient(circle at 50% 50%, rgba(249, 249, 247, 0.7) 0%, transparent 70%);
   z-index: -1;
   pointer-events: none;
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
 }
 .glass-card {
   background: rgba(255, 255, 255, 0.5);
