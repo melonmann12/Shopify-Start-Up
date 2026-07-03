@@ -7,7 +7,7 @@ interface Props {
 
 export default function EditorialSection({ locale = 'en' }: Props) {
   return (
-    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-40 relative z-10">
+    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
         <div className="order-2 md:order-1 relative glass-card border border-outline-variant/20 p-4 aspect-[4/5] overflow-hidden group rounded-none">
           <div className="w-full h-full relative overflow-hidden bg-surface-container-low border border-outline-variant/10">
@@ -25,7 +25,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             QUALITY<br/>OVER<br/>QUANTITY
           </h2>
           <p className="font-serif italic text-lg leading-relaxed text-on-surface-variant mb-10 max-w-md">
-            We believe in objects that last. Our design philosophy is rooted in essentialism—removing the unnecessary to highlight the purity of form, material, and construction. Every piece is an investment in enduring style.
+            We believe in custom nails that endure. Our design philosophy is rooted in luxury essentialism—handcrafting reusable press-ons that elevate your everyday style without compromising your natural nail health. Every set is an investment in enduring elegance.
           </p>
           <Link 
             href={`/${locale}/about`} 

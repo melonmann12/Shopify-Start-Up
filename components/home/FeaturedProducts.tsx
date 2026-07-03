@@ -27,7 +27,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
   if (products.length === 0) return null
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-40 relative z-10">
+    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 relative z-10">
       <div className="flex justify-between items-end mb-16">
         <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal">{title}</h2>
         <Link
