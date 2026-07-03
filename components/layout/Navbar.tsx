@@ -11,15 +11,15 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Nailestial"
-            width={140}
-            height={36}
-            className="h-7 sm:h-9 w-auto object-contain"
+            width={160}
+            height={40}
+            className="h-8 sm:h-10 w-auto object-contain"
             priority
           />
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-12 font-mono text-[10px] uppercase tracking-[0.2em]">
+        <div className="hidden md:flex items-center gap-12 font-mono text-[11px] uppercase tracking-[0.2em]">
           <Link href="/en/collections" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
             Collections
           </Link>

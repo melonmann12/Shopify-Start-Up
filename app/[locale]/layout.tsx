@@ -11,8 +11,8 @@ import CartDrawer from '@/components/cart/CartDrawer'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
-  title: { default: 'nailestial', template: '%s | nailestial' },
-  description: 'A high-end headless e-commerce storefront for nailestial.',
+  title: { default: 'Nailestial | Luxury Press-On Nails', template: '%s | Nailestial' },
+  description: 'Shop premium, handcrafted reusable press-on nails. Experience salon-quality luxury manicures at home with Nailestial.',
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',

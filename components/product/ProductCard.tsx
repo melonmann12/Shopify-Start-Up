@@ -42,7 +42,7 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
         {/* Các dòng text thuộc tính (Subtitle & Description) */}
         <div className="flex flex-col gap-1">
           <p className="font-mono text-[9px] tracking-[0.15em] text-on-background uppercase font-bold">
-            {product.vendor || 'A THOUGHTFUL INTRODUCTION'}
+            {'nailestial'}
           </p>
           <p className="font-mono text-[9px] tracking-[0.1em] text-on-surface-variant uppercase line-clamp-2">
             {shortDesc}

@@ -3,6 +3,7 @@ import TrustBar from '@/components/home/TrustBar'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import EditorialSection from '@/components/home/EditorialSection'
 import CategoryShowcase from '@/components/home/CategoryShowcase'
+import EmailPopup from '@/components/home/EmailPopup'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -23,6 +24,7 @@ export default async function HomePage(props: Props) {
       <FeaturedProducts handle="new-arrivals" title="Curated Selection" locale={locale} />
       <EditorialSection locale={locale} />
       <CategoryShowcase />
+      <EmailPopup />
     </div>
   )
 }

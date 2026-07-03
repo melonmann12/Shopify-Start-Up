@@ -72,9 +72,9 @@ export default function NavClient() {
               <Image
                 src="/logo.png"
                 alt="Nailestial"
-                width={120}
-                height={32}
-                className="h-6 w-auto object-contain"
+                width={140}
+                height={36}
+                className="h-7 w-auto object-contain"
               />
               <button
                 aria-label={UI_TEXT.close}
@@ -88,21 +88,21 @@ export default function NavClient() {
               <Link
                 href="/en/collections"
                 onClick={() => setMenuOpen(false)}
-                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+                className="font-serif text-4xl text-on-background hover:text-on-surface-variant transition-colors"
               >
                 {UI_TEXT.collections}
               </Link>
               <Link
                 href="/en/collections/new-arrivals"
                 onClick={() => setMenuOpen(false)}
-                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+                className="font-serif text-4xl text-on-background hover:text-on-surface-variant transition-colors"
               >
                 {UI_TEXT.newArrivals}
               </Link>
               <Link
                 href="/en/about"
                 onClick={() => setMenuOpen(false)}
-                className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+                className="font-serif text-4xl text-on-background hover:text-on-surface-variant transition-colors"
               >
                 {UI_TEXT.ourStory}
               </Link>
