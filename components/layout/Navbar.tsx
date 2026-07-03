@@ -18,19 +18,6 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-12 font-mono text-[11px] uppercase tracking-[0.2em]">
-          <Link href="/en/collections" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
-            Collections
-          </Link>
-          <Link href="/en/collections/new-arrivals" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
-            New Arrivals
-          </Link>
-          <Link href="/en/about" className="text-on-surface-variant hover:text-on-background transition-colors duration-200">
-            Our Story
-          </Link>
-        </div>
-
         <NavClient />
       </nav>
     </header>
