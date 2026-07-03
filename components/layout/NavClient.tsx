@@ -6,6 +6,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
+interface CollectionItem {
+  id: string
+  title: string
+  handle: string
+}
+
+interface NavClientProps {
+  initialCollections?: CollectionItem[]
+}
+
 const UI_TEXT = {
   home: "Home",
   shop: "Shop",
@@ -39,14 +49,15 @@ const UI_TEXT = {
   
   // Column 4: Collections
   collections: "Collections",
-  scifiY2k: "Sci-Fi Y2K",
-  mistyForest: "Misty Forest",
-  cyberGlow: "Cyber Glow",
-  minimalistCore: "Minimalist Core",
-  holySanctuary: "Holy Sanctuary",
+  noCollections: "New arrivals coming soon.",
 }
 
-export default function NavClient() {
+// Grouping keywords map (for filtering Column 4 custom collections)
+const SHAPE_HANDLES = ['almond', 'coffin', 'stiletto', 'round', 'square', 'oval']
+const LENGTH_HANDLES = ['ultra-short', 'short', 'medium', 'long']
+const GENERAL_HANDLES = ['all', 'new-arrivals', 'best-sellers', 'sale', 'tools', 'prep-kits', 'all-nails']
+
+export default function NavClient({ initialCollections = [] }: NavClientProps) {
   const params = useParams()
   const locale = (params?.locale as string) || 'en'
 
@@ -69,6 +80,13 @@ export default function NavClient() {
   function toggleMobileSub(key: string) {
     setMobileActiveSub((prev) => ({ ...prev, [key]: !prev[key] }))
   }
+
+  // Column 4 dynamic filter: exclude standard tags so they don't overlap with static sections
+  const customCollections = initialCollections.filter(c => 
+    !SHAPE_HANDLES.includes(c.handle.toLowerCase()) &&
+    !LENGTH_HANDLES.includes(c.handle.toLowerCase()) &&
+    !GENERAL_HANDLES.includes(c.handle.toLowerCase())
+  )
 
   const totalQuantity = cart?.totalQuantity || 0
 
@@ -124,7 +142,7 @@ export default function NavClient() {
           {UI_TEXT.contact}
         </Link>
 
-        {/* Desktop Dropdown Mega Menu Panel */}
+        {/* Desktop Dropdown Mega Menu Panel (Grid matrix) */}
         {isShopOpen && (
           <div 
             className="absolute top-full left-1/2 -translate-x-1/2 w-screen bg-surface border-b border-outline-variant/15 shadow-ambient py-12 animate-fade-in z-50 text-left cursor-default"
@@ -133,13 +151,13 @@ export default function NavClient() {
           >
             <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-4 gap-8 lg:gap-12">
               
-              {/* Column 1: Press-on Nails */}
-              <div>
+              {/* Column 1: Press-on Nails (Static semantic URLs) */}
+              <div className="min-w-[180px]">
                 <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
                   {UI_TEXT.pressOnNails}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/products`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/all`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.allNails}
                   </Link>
                   <Link href={`/${locale}/collections/new-arrivals`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
@@ -148,7 +166,7 @@ export default function NavClient() {
                   <Link href={`/${locale}/collections/best-sellers`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.bestSellers}
                   </Link>
-                  <Link href={`/${locale}/collections/tools`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/prep-kits`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.prepKits}
                   </Link>
                   <Link href={`/${locale}/collections/sale`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
@@ -157,75 +175,75 @@ export default function NavClient() {
                 </div>
               </div>
 
-              {/* Column 2: Shop by Shape */}
-              <div>
+              {/* Column 2: Shop by Shape (Static semantic URLs) */}
+              <div className="min-w-[180px]">
                 <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
                   {UI_TEXT.shopByShape}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections?shape=almond`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/almond`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.almond}
                   </Link>
-                  <Link href={`/${locale}/collections?shape=coffin`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/coffin`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.coffin}
                   </Link>
-                  <Link href={`/${locale}/collections?shape=stiletto`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/stiletto`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.stiletto}
                   </Link>
-                  <Link href={`/${locale}/collections?shape=round`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/round`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.round}
                   </Link>
-                  <Link href={`/${locale}/collections?shape=square`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/square`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.square}
                   </Link>
-                  <Link href={`/${locale}/collections?shape=oval`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/oval`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.oval}
                   </Link>
                 </div>
               </div>
 
-              {/* Column 3: Shop by Length */}
-              <div>
+              {/* Column 3: Shop by Length (Static semantic URLs) */}
+              <div className="min-w-[180px]">
                 <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
                   {UI_TEXT.shopByLength}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections?length=ultra-short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/ultra-short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.ultraShort}
                   </Link>
-                  <Link href={`/${locale}/collections?length=short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.short}
                   </Link>
-                  <Link href={`/${locale}/collections?length=medium`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/medium`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.medium}
                   </Link>
-                  <Link href={`/${locale}/collections?length=long`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/long`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
                     {UI_TEXT.long}
                   </Link>
                 </div>
               </div>
 
-              {/* Column 4: Collections */}
-              <div>
+              {/* Column 4: Collections (Strictly Dynamic custom lists) */}
+              <div className="min-w-[180px]">
                 <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
                   {UI_TEXT.collections}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections/scifi-y2k`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.scifiY2k}
-                  </Link>
-                  <Link href={`/${locale}/collections/misty-forest`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.mistyForest}
-                  </Link>
-                  <Link href={`/${locale}/collections/cyber-glow`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.cyberGlow}
-                  </Link>
-                  <Link href={`/${locale}/collections/minimalist-core`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.minimalistCore}
-                  </Link>
-                  <Link href={`/${locale}/collections/holy-sanctuary`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.holySanctuary}
-                  </Link>
+                  {customCollections.length > 0 ? (
+                    customCollections.map((col) => (
+                      <Link 
+                        key={col.id} 
+                        href={`/${locale}/collections/${col.handle}`} 
+                        className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1 block"
+                      >
+                        {col.title}
+                      </Link>
+                    ))
+                  ) : (
+                    <span className="font-mono text-[10px] text-on-surface-variant/50 italic py-1 block">
+                      {UI_TEXT.noCollections}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -320,7 +338,7 @@ export default function NavClient() {
                   {mobileShopOpen && (
                     <div className="mt-4 pl-4 space-y-4 animate-fade-in">
                       
-                      {/* Sub-Accordion: Press-on Nails */}
+                      {/* Sub-Accordion: Press-on Nails (Static links) */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('nails')}
@@ -335,7 +353,7 @@ export default function NavClient() {
                         </button>
                         {mobileActiveSub.nails && (
                           <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/products`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/all`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.allNails}
                             </Link>
                             <Link href={`/${locale}/collections/new-arrivals`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
@@ -344,7 +362,7 @@ export default function NavClient() {
                             <Link href={`/${locale}/collections/best-sellers`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.bestSellers}
                             </Link>
-                            <Link href={`/${locale}/collections/tools`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/prep-kits`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.prepKits}
                             </Link>
                             <Link href={`/${locale}/collections/sale`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
@@ -354,7 +372,7 @@ export default function NavClient() {
                         )}
                       </div>
 
-                      {/* Sub-Accordion: Shop by Shape */}
+                      {/* Sub-Accordion: Shop by Shape (Static links) */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('shape')}
@@ -369,29 +387,29 @@ export default function NavClient() {
                         </button>
                         {mobileActiveSub.shape && (
                           <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/collections?shape=almond`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/almond`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.almond}
                             </Link>
-                            <Link href={`/${locale}/collections?shape=coffin`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/coffin`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.coffin}
                             </Link>
-                            <Link href={`/${locale}/collections?shape=stiletto`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/stiletto`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.stiletto}
                             </Link>
-                            <Link href={`/${locale}/collections?shape=round`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/round`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.round}
                             </Link>
-                            <Link href={`/${locale}/collections?shape=square`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/square`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.square}
                             </Link>
-                            <Link href={`/${locale}/collections?shape=oval`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/oval`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.oval}
                             </Link>
                           </div>
                         )}
                       </div>
 
-                      {/* Sub-Accordion: Shop by Length */}
+                      {/* Sub-Accordion: Shop by Length (Static links) */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('length')}
@@ -406,23 +424,23 @@ export default function NavClient() {
                         </button>
                         {mobileActiveSub.length && (
                           <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/collections?length=ultra-short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/ultra-short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.ultraShort}
                             </Link>
-                            <Link href={`/${locale}/collections?length=short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.short}
                             </Link>
-                            <Link href={`/${locale}/collections?length=medium`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/medium`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.medium}
                             </Link>
-                            <Link href={`/${locale}/collections?length=long`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/long`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.long}
                             </Link>
                           </div>
                         )}
                       </div>
 
-                      {/* Sub-Accordion: Collections */}
+                      {/* Sub-Accordion: Collections (Dynamic links) */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('collections')}
@@ -437,21 +455,22 @@ export default function NavClient() {
                         </button>
                         {mobileActiveSub.collections && (
                           <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/collections/scifi-y2k`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.scifiY2k}
-                            </Link>
-                            <Link href={`/${locale}/collections/misty-forest`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.mistyForest}
-                            </Link>
-                            <Link href={`/${locale}/collections/cyber-glow`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.cyberGlow}
-                            </Link>
-                            <Link href={`/${locale}/collections/minimalist-core`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.minimalistCore}
-                            </Link>
-                            <Link href={`/${locale}/collections/holy-sanctuary`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.holySanctuary}
-                            </Link>
+                            {customCollections.length > 0 ? (
+                              customCollections.map((col) => (
+                                <Link 
+                                  key={col.id} 
+                                  href={`/${locale}/collections/${col.handle}`} 
+                                  onClick={() => setMenuOpen(false)} 
+                                  className="font-sans text-xs text-on-surface-variant"
+                                >
+                                  {col.title}
+                                </Link>
+                              ))
+                            ) : (
+                              <span className="font-mono text-[10px] text-on-surface-variant/50 italic py-1 block">
+                                {UI_TEXT.noCollections}
+                              </span>
+                            )}
                           </div>
                         )}
                       </div>

@@ -47,7 +47,7 @@ export default async function LocaleLayout(props: Props) {
         </div>
         <NextIntlClientProvider messages={messages}>
           <AnnouncementBar />
-          <Navbar />
+          <Navbar locale={locale} />
           <CartDrawer />
           <main className="flex-grow">{children}</main>
           <Footer />

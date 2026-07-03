@@ -2,12 +2,45 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import NavClient from './NavClient'
+import { shopifyFetch } from '@/lib/shopify/client'
+import { GET_COLLECTIONS } from '@/lib/shopify/queries/collection'
 
-export default function Navbar() {
+interface CollectionsResponse {
+  collections: {
+    nodes: {
+      id: string
+      title: string
+      handle: string
+    }[]
+  }
+}
+
+interface Props {
+  locale?: string
+}
+
+export default async function Navbar({ locale = 'en' }: Props) {
+  let collections: { id: string; title: string; handle: string }[] = []
+
+  try {
+    const country = locale === 'vi' ? 'VN' : 'US'
+    const language = locale.toUpperCase() === 'VI' ? 'VI' : 'EN'
+
+    const data = await shopifyFetch<CollectionsResponse>(GET_COLLECTIONS, {
+      first: 100,
+      country,
+      language,
+    })
+
+    collections = data?.collections?.nodes || []
+  } catch (error) {
+    console.error('[Navbar collections fetch error]:', error)
+  }
+
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/80 border-b border-outline/20 md:backdrop-blur-md">
       <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-4 sm:px-8 py-4 sm:py-6 max-w-full mx-auto">
-        <Link href="/" className="flex items-center">
+        <Link href={`/${locale}`} className="flex items-center">
           <Image
             src="/logo.png"
             alt="Nailestial"
@@ -18,7 +51,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <NavClient />
+        <NavClient initialCollections={collections} />
       </nav>
     </header>
   )
