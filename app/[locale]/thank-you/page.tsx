@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import ThankYouClient from '@/components/checkout/ThankYouClient'
 
 export const metadata: Metadata = {
-  title: 'Order Confirmed | tiaranails',
+  title: 'Order Confirmed | nailestial',
   description: 'Thank you for your purchase. We are processing your order credentials.',
 }
 

@@ -123,7 +123,7 @@ export default function ProductClient({ product, locale }: Props) {
         {/* Static product details */}
         <div className="mb-8 md:mb-12">
           <p className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-4">
-            {product.vendor || 'tiaranails'}
+            {product.vendor || 'nailestial'}
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
             {product.title}

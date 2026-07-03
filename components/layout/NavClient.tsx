@@ -68,7 +68,7 @@ export default function NavClient() {
           {/* Drawer Panel */}
           <div className="relative w-4/5 max-w-sm bg-surface h-full shadow-2xl flex flex-col p-8 animate-fade-in z-10">
             <div className="flex justify-between items-center mb-16">
-              <span className="text-xl font-normal tracking-tight text-on-background font-serif">tiaranails</span>
+              <span className="text-xl font-normal tracking-tight text-on-background font-serif">nailestial</span>
               <button
                 aria-label={UI_TEXT.close}
                 onClick={() => setMenuOpen(false)}

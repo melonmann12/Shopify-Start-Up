@@ -45,7 +45,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         from: 'Support Engine <onboarding@resend.dev>', // Keep placeholder sender for unverified accounts
         reply_to: email, // This allows you to just hit 'Reply' seamlessly in your inbox!
         to: CONTACT_RECIPIENT_EMAIL,
-        subject: `[tiaranails Support] New Message from ${name}`,
+        subject: `[nailestial Support] New Message from ${name}`,
         html: emailTemplate,
       }),
     })

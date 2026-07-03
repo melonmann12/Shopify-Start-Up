@@ -19,7 +19,7 @@ export default function ProductInfo({ product, locale }: Props) {
     <div className="flex w-full flex-col">
       <div className="mb-12">
         <p className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-4">
-          {product.vendor || "tiaranails"}
+          {product.vendor || "nailestial"}
         </p>
         <h1 className="text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
           {product.title}
