@@ -1,13 +1,21 @@
 // components/layout/Navbar.tsx
 import Link from 'next/link'
+import Image from 'next/image'
 import NavClient from './NavClient'
 
 export default function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/80 border-b border-outline/20 md:backdrop-blur-md">
       <nav aria-label="Top Navigation" className="flex justify-between items-center w-full px-4 sm:px-8 py-4 sm:py-6 max-w-full mx-auto">
-        <Link href="/" className="text-2xl font-normal tracking-tight text-on-background font-serif">
-          nailestial
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Nailestial"
+            width={140}
+            height={36}
+            className="h-7 sm:h-9 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav links */}

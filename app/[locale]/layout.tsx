@@ -13,6 +13,11 @@ import '@/app/globals.css'
 export const metadata: Metadata = {
   title: { default: 'nailestial', template: '%s | nailestial' },
   description: 'A high-end headless e-commerce storefront for nailestial.',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 }
 
 interface Props {
