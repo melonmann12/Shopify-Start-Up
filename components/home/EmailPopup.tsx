@@ -6,18 +6,29 @@ export default function EmailPopup() {
   const [isOpen, setIsOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(true) // Initialized to true to guard against Next.js SSR hydration mismatches
 
   useEffect(() => {
-    // 1. Guard against SSR: localStorage is only available on client-side
-    const hasDismissed = localStorage.getItem('nailestial-email-popup-dismissed')
-    if (hasDismissed) return
+    // 1. Guard against SSR: localStorage is only accessed on client-side mount
+    const hasDismissed = localStorage.getItem('nailestial_newsletter_dismissed')
+    if (hasDismissed) {
+      setIsDismissed(true)
+      return
+    }
+    
+    // Set state to false to trigger the reactive timer and listener registration
+    setIsDismissed(false)
+  }, [])
+
+  useEffect(() => {
+    if (isDismissed) return
 
     // 2. Trigger modal after a 5-second delay
     const timer = setTimeout(() => {
       setIsOpen(true)
     }, 5000)
 
-    // 3. Optional: Exit-intent trigger
+    // 3. Exit-intent trigger
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY < 50) { // User moving cursor towards tab bar
         setIsOpen(true)
@@ -30,11 +41,12 @@ export default function EmailPopup() {
       clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [])
+  }, [isDismissed])
 
   const handleClose = () => {
     setIsOpen(false)
-    localStorage.setItem('nailestial-email-popup-dismissed', 'true')
+    localStorage.setItem('nailestial_newsletter_dismissed', 'true')
+    setIsDismissed(true)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -47,7 +59,8 @@ export default function EmailPopup() {
     // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
 
     setIsSubmitted(true)
-    localStorage.setItem('nailestial-email-popup-dismissed', 'true')
+    localStorage.setItem('nailestial_newsletter_dismissed', 'true')
+    setIsDismissed(true)
     
     // Auto close after 2 seconds on success
     setTimeout(() => {
