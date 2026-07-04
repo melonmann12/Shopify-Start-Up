@@ -3,13 +3,14 @@ export function cn(...inputs: any[]) {
   return inputs.flat().filter(Boolean).join(' ')
 }
 
-/** Format a Shopify money object into a display string */
+/** Format a Shopify money object into a display string (always en-US / USD style).
+ *  NOTE: prefer importing formatPrice from '@/lib/currency' instead of here. */
 export function formatPrice(amount: string, currencyCode: string): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: currencyCode,
-    minimumFractionDigits: currencyCode === 'VND' ? 0 : 2,
-    maximumFractionDigits: currencyCode === 'VND' ? 0 : 2,
+    currency: currencyCode ?? 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(parseFloat(amount))
 }
 

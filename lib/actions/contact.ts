@@ -17,7 +17,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY
-    const CONTACT_RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'hongquanvjp@gmail.com'
+    const CONTACT_RECIPIENT_EMAIL = process.env.CONTACT_RECIPIENT_EMAIL || 'support@nailestial.com'
 
     if (!RESEND_API_KEY) {
       console.error('Missing RESEND_API_KEY environment variable.')

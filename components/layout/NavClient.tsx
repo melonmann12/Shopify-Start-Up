@@ -295,7 +295,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
               <div className="flex justify-between items-center mb-10 shrink-0">
                 <Image
                   src="/logo.png"
-                  alt="tiaranails"
+                  alt="nailestial"
                   width={140}
                   height={36}
                   className="h-7 w-auto object-contain"

@@ -1,3 +1,4 @@
+// components/home/SocialProof.tsx
 import Link from 'next/link'
 
 interface Props {
@@ -7,41 +8,43 @@ interface Props {
 export default function SocialProof({ locale = 'en' }: Props) {
   return (
     <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start pt-16 border-t border-outline-variant/20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch pt-16 border-t border-outline-variant/20">
         
         {/* Left Side: Press/Media Logos Placeholder */}
-        <div className="flex flex-col h-full">
-          <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
-            Press & Media
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-6 leading-tight">
-            As Featured In
-          </h3>
-          
-          {/* Logo Strip Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
-            {/* 
-              TODO: Once press features are secured, replace these dashed placeholder cards 
-              with real media logo SVGs or high-resolution PNGs (e.g. Vogue, Elle, Harper's Bazaar).
-            */}
-            <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-              <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
-            </div>
-            <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-              <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
-            </div>
-            <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-              <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+        <div className="flex flex-col justify-between h-full border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm p-6 md:p-8">
+          <div>
+            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+              Press & Media
+            </span>
+            <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-6 leading-tight">
+              As Featured In
+            </h3>
+            
+            {/* Logo Strip Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
+              {/* 
+                TODO: Once press features are secured, replace these dashed placeholder cards 
+                with real media logo SVGs or high-resolution PNGs (e.g. Vogue, Elle, Harper's Bazaar).
+              */}
+              <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
+                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+              </div>
+              <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
+                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+              </div>
+              <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
+                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+              </div>
             </div>
           </div>
           
-          <p className="font-mono text-[11px] italic text-on-surface-variant/60 mt-4">
+          <p className="font-mono text-[11px] italic text-on-surface-variant/60 mt-6">
             Press mentions coming soon.
           </p>
         </div>
 
         {/* Right Side: Customer Review/Testimonial Teaser */}
-        <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col justify-between h-full border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm p-6 md:p-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant">
@@ -82,7 +85,7 @@ export default function SocialProof({ locale = 'en' }: Props) {
           */}
           <Link 
             href={`/${locale}/about`}
-            className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group self-start transition-colors"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group self-start transition-colors mt-6"
           >
             {/* TODO: Update this link to /reviews when created */}
             Read Client Reviews

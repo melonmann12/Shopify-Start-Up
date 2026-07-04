@@ -55,10 +55,10 @@
   --color-surface-container-highest: #e2e2e3;
 
   --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Space Mono", monospace;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-mono: "Space Mono", monospace;
   --font-headline: "Cormorant Garamond", serif;
-  --font-body: "Space Mono", monospace;
+  --font-body: "Plus Jakarta Sans", sans-serif;
   --font-label: "Space Mono", monospace;
 }
 
@@ -127,4 +127,24 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
+}
+
+/* Explicit font-family overrides to ensure theme CSS variables are used */
+.font-mono {
+  font-family: var(--font-mono);
+}
+.font-label {
+  font-family: var(--font-label);
+}
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-headline {
+  font-family: var(--font-headline);
+}
+.font-sans {
+  font-family: var(--font-sans);
+}
+.font-body {
+  font-family: var(--font-body);
 }

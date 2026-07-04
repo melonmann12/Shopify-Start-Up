@@ -210,7 +210,7 @@ export default function ProductClient({ product, locale }: Props) {
                 }`}
               >
                 <p className="font-sans text-xs text-on-surface-variant leading-relaxed font-light">
-                  Every <span className="font-semibold text-on-background">tiaranails</span> set comes with a complete prep kit: 1x Nail Glue, 1x Adhesive Tabs, 1x Mini File, 1x Cuticle Stick, and 1x Alcohol Prep Pad.
+                  Every <span className="font-semibold text-on-background">Nailestial</span> set comes with a complete prep kit: 1x Nail Glue, 1x Adhesive Tabs, 1x Mini File, 1x Cuticle Stick, and 1x Alcohol Prep Pad.
                 </p>
               </div>
             </div>
@@ -296,7 +296,7 @@ export default function ProductClient({ product, locale }: Props) {
             Craftsmanship Breakdown
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal">
-            Why Choose tiaranails
+            Why Choose Nailestial
           </h2>
         </div>
 
@@ -307,7 +307,7 @@ export default function ProductClient({ product, locale }: Props) {
             Feature Comparison
           </div>
           <div className="py-6 px-6 text-center font-mono text-xs font-bold bg-black/5 border-l border-b border-outline/10 flex flex-col justify-center items-center">
-            <span className="text-on-background">tiaranails</span>
+            <span className="text-on-background">Nailestial</span>
             <span className="text-[9px] text-on-surface-variant/80 font-normal mt-1 lowercase">(3d press-ons)</span>
           </div>
           <div className="py-6 px-6 text-center font-mono text-xs border-l border-b border-outline/10 flex flex-col justify-center items-center opacity-70">
@@ -389,10 +389,10 @@ export default function ProductClient({ product, locale }: Props) {
 
         {/* Mobile Layout: Stacked Cards (Clean blocks, no blur, high fps) */}
         <div className="grid grid-cols-1 gap-6 md:hidden">
-          {/* tiaranails card */}
+          {/* Nailestial card */}
           <div className="border border-primary bg-white p-6 shadow-sm">
             <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline/10">
-              <span className="font-mono text-sm font-bold text-on-background">tiaranails</span>
+              <span className="font-mono text-sm font-bold text-on-background">Nailestial</span>
               <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">(3d press-ons)</span>
             </div>
             <ul className="space-y-3.5">

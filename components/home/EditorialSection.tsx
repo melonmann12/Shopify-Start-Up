@@ -19,7 +19,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
               Salon-Grade<br />Gel Artistry
             </h3>
-            <p className="font-mono text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
+            <p className="font-sans text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
               Each set is meticulously handcrafted with multiple layers of premium salon gel. Get the flawless, high-shine finish and durability of a professional manicure from the comfort of home.
             </p>
             {/* 
@@ -45,7 +45,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
               Flawless in<br />Under 15 Minutes
             </h3>
-            <p className="font-mono text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
+            <p className="font-sans text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
               Skip the hours at the salon. Apply your set in minutes using our gentle, dual-application adhesive system for a secure, custom fit that lasts up to two weeks.
             </p>
             {/* 
@@ -72,7 +72,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
               Designed for<br />Lifetime Wear
             </h3>
-            <p className="font-mono text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
+            <p className="font-sans text-xs text-on-surface-variant leading-relaxed mb-8 max-w-sm">
               Wear them for a weekend or weeks. Our durable, non-damaging press-on sets can be easily removed, preserved, and reapplied again and again without losing their shape.
             </p>
             {/* 

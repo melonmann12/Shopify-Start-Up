@@ -37,7 +37,10 @@ export default async function HomePage(props: Props) {
       {/* Secondary inline email capture block */}
       <InlineEmailCapture />
       
-      <CategoryShowcase />
+      {/* 
+        TODO: Re-enable once real Nailestial product photography is available for Press-On Sets / Nail Care / Accessories categories.
+        <CategoryShowcase />
+      */}
       
       <EmailPopup />
     </div>

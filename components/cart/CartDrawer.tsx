@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { useCartStore } from '@/store/cart'
 import Image from 'next/image'
+import { formatPrice } from '@/lib/currency'
 
 const UI_TEXT = {
   title: "Your Bag",
@@ -69,7 +70,7 @@ function CartLineItem({
           <div className="flex justify-between gap-2">
             <h3 className="font-semibold text-sm leading-snug">{merchandise.product?.title}</h3>
             <p className="font-medium text-sm whitespace-nowrap">
-              {merchandise.price?.amount} {merchandise.price?.currencyCode}
+              {merchandise.price ? formatPrice(merchandise.price.amount, merchandise.price.currencyCode) : ''}
             </p>
           </div>
           <p className="text-xs text-[#707070] mt-1">
@@ -221,8 +222,7 @@ export default function CartDrawer() {
             <div className="flex justify-between mb-1">
               <span className="text-sm text-[#707070]">{UI_TEXT.subtotal}</span>
               <span className="font-semibold">
-                {parseFloat(cart.cost.subtotalAmount.amount).toFixed(2)}{' '}
-                {cart.cost.subtotalAmount.currencyCode}
+                {formatPrice(cart.cost.subtotalAmount.amount, cart.cost.subtotalAmount.currencyCode)}
               </span>
             </div>
             <p className="text-xs text-[#707070] mb-5">{UI_TEXT.shippingNote}</p>
