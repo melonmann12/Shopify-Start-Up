@@ -72,7 +72,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
         return (
           <div key={option.id}>
             <div className="mb-4 flex items-end justify-between">
-              <span className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em]">
+              <span className="text-on-surface-variant text-label">
                 Select {option.name}
               </span>
               {isSize && (
@@ -107,10 +107,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                       onClick={() => onSelectOption(option.name, value)}
                       disabled={!available}
                       title={value}
-                      className={`w-12 h-8 transition-colors relative border duration-200 ${isSelected
-                          ? 'border-2 border-on-background'
-                          : 'border-outline/40 hover:border-on-background'
-                        } ${!available ? 'opacity-30 cursor-not-allowed' : ''}`}
+                      className={`w-12 h-8 transition-colors relative border duration-200 ${isSelected ? 'border-2 border-on-background' : 'border-outline/40 hover:border-on-background' } ${!available ? 'opacity-30 cursor-not-allowed' : ''}`}
                       style={{ backgroundColor: getColorHex(value) }}
                     >
                       <span className="sr-only">{value}</span>
@@ -130,12 +127,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                       }
                     }}
                     disabled={!available}
-                    className={`py-3 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors border duration-200 ${isSelected
-                        ? 'border-2 border-on-background bg-surface-container-lowest text-on-background font-bold'
-                        : available
-                          ? 'border border-outline/40 bg-transparent text-on-surface-variant hover:border-on-background hover:text-on-background'
-                          : 'border border-outline/20 bg-transparent text-on-surface-variant/40 cursor-not-allowed'
-                      }`}
+                    className={`py-3 transition-colors border duration-200 ${isSelected ? 'border-2 border-on-background bg-surface-container-lowest text-on-background font-bold' : available ? 'border border-outline/40 bg-transparent text-on-surface-variant hover:border-on-background hover:text-on-background' : 'border border-outline/20 bg-transparent text-on-surface-variant/40 cursor-not-allowed' } text-label`}
                   >
                     {value}
                   </button>
@@ -145,12 +137,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
 
             {/* Custom Size Note Input — revealed smoothly when "Custom" is selected */}
             <div
-              className={`grid transition-all duration-300 ease-in-out ${isSize
-                  ? isCustomSize
-                    ? 'grid-rows-[1fr] opacity-100 mt-5'
-                    : 'grid-rows-[0fr] opacity-0 pointer-events-none mt-0'
-                  : 'hidden'
-                }`}
+              className={`grid transition-all duration-300 ease-in-out ${isSize ? isCustomSize ? 'grid-rows-[1fr] opacity-100 mt-5' : 'grid-rows-[0fr] opacity-0 pointer-events-none mt-0' : 'hidden' }`}
             >
               <div className="overflow-hidden">
                 <div className="border border-outline/20 bg-[#f5f5f3] p-5 space-y-4">
@@ -168,15 +155,12 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                     }}
                     placeholder="e.g. Thumb: 14mm, Index: 12mm, Middle: 13mm, Ring: 12mm, Pinky: 10mm"
                     rows={3}
-                    className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError
-                        ? 'border-red-500 focus:border-red-500'
-                        : 'border-outline/40 focus:border-on-background'
-                      }`}
+                    className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError ? 'border-red-500 focus:border-red-500' : 'border-outline/40 focus:border-on-background' }`}
                   />
                   {customSizeError && (
                     <p className="font-sans text-xs text-red-500 font-medium">{customSizeError}</p>
                   )}
-                  {/* <p className="font-sans text-[11px] text-on-surface-variant leading-relaxed">
+                  {/* <p className="font-sans text-on-surface-variant leading-relaxed">
                     Measure the widest part of each nail bed in millimeters. This note will be attached to your order so we can craft your perfect fit.
                   </p> */}
                 </div>
@@ -213,24 +197,24 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
           <div className="bg-surface border border-outline/30 p-6 sm:p-8 max-w-md w-full relative z-10 shadow-2xl flex flex-col">
             <button
               onClick={() => setIsSizeGuideOpen(false)}
-              className="absolute top-6 right-6 font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-background transition-colors"
+              className="absolute top-6 right-6 text-on-surface-variant hover:text-on-background transition-colors text-label"
             >
               Close
             </button>
 
             <h3 className="font-serif text-3xl font-normal text-on-background mb-2">Size Chart</h3>
-            <p className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mb-6">
+            <p className="text-on-surface-variant mb-6 text-label">
               Standard Footwear Sizing
             </p>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left font-mono text-[11px] border-collapse border border-outline/20">
+              <table className="w-full text-left border-collapse border border-outline/20 text-caption">
                 <thead>
                   <tr className="border-b border-outline/25 bg-surface-container-low">
-                    <th className="p-3 uppercase tracking-wider font-bold">US</th>
-                    <th className="p-3 uppercase tracking-wider font-bold">EU</th>
-                    <th className="p-3 uppercase tracking-wider font-bold">UK</th>
-                    <th className="p-3 uppercase tracking-wider font-bold">CM</th>
+                    <th className="p-3 font-bold uppercase">US</th>
+                    <th className="p-3 font-bold uppercase">EU</th>
+                    <th className="p-3 font-bold uppercase">UK</th>
+                    <th className="p-3 font-bold uppercase">CM</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-outline/10 text-on-surface-variant">

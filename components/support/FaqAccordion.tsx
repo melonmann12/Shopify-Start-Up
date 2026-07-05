@@ -39,7 +39,7 @@ export default function FaqAccordion() {
                 className={`flex justify-between items-center cursor-pointer group ${isOpen ? 'mb-6' : ''}`} 
                 onClick={() => toggleOpen(index)}
               >
-                <h3 className={`font-headline font-bold text-xl tracking-tight transition-colors ${isOpen ? 'text-primary' : 'text-primary group-hover:text-tertiary-fixed'}`}>
+                <h3 className={`font-headline font-bold text-xl transition-colors ${isOpen ? 'text-primary' : 'text-primary group-hover:text-tertiary-fixed'}`}>
                   {faq.question}
                 </h3>
                 <span className={`material-symbols-outlined transition-transform duration-300 transform ${isOpen ? 'rotate-45 text-primary' : 'text-primary group-hover:text-tertiary-fixed'}`}>

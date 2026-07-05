@@ -5,6 +5,7 @@ import { useCart } from '@/hooks/useCart'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
+import HomeLink from './HomeLink'
 
 interface CollectionItem {
   id: string
@@ -103,15 +104,15 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     <>
       {/* ── DESKTOP NAVIGATION LINKS (Center-Aligned) ───────────────────────── */}
       <div 
-        className="hidden md:flex items-center gap-10 lg:gap-12 font-mono text-[11px] uppercase tracking-[0.2em] absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40"
+        className="hidden md:flex items-center gap-10 lg:gap-12 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label"
         onMouseLeave={() => setIsShopOpen(false)}
       >
-        <Link 
+        <HomeLink 
           href={`/${locale}`} 
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.home}
-        </Link>
+        </HomeLink>
         
         <div 
           className="h-full flex items-center"
@@ -122,7 +123,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
             className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1 cursor-pointer"
           >
             {UI_TEXT.shop}
-            <span className="material-symbols-outlined text-[12px] font-bold select-none">
+            <span className="material-symbols-outlined font-bold select-none">
               expand_more
             </span>
           </Link>
@@ -153,7 +154,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
               
               {/* Column 1: Press-on Nails (Static semantic URLs) */}
               <div className="min-w-[180px]">
-                <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
+                <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.pressOnNails}
                 </span>
                 <div className="flex flex-col gap-2.5">
@@ -177,7 +178,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
               {/* Column 2: Shop by Shape (Static semantic URLs) */}
               <div className="min-w-[180px]">
-                <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
+                <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.shopByShape}
                 </span>
                 <div className="flex flex-col gap-2.5">
@@ -204,7 +205,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
               {/* Column 3: Shop by Length (Static semantic URLs) */}
               <div className="min-w-[180px]">
-                <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
+                <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.shopByLength}
                 </span>
                 <div className="flex flex-col gap-2.5">
@@ -225,7 +226,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
               {/* Column 4: Collections (Strictly Dynamic custom lists) */}
               <div className="min-w-[180px]">
-                <span className="font-mono text-[10px] tracking-widest text-on-background font-bold mb-5 block uppercase">
+                <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.collections}
                 </span>
                 <div className="flex flex-col gap-2.5">
@@ -240,7 +241,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                       </Link>
                     ))
                   ) : (
-                    <span className="font-mono text-[10px] text-on-surface-variant/50 italic py-1 block">
+                    <span className="text-on-surface-variant/50 italic py-1 block text-caption">
                       {UI_TEXT.noCollections}
                     </span>
                   )}
@@ -266,7 +267,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         >
           <span className="material-symbols-outlined text-[20px] transition-colors">shopping_bag</span>
           {totalQuantity > 0 && (
-            <span className={`absolute -right-2.5 -top-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-white transition-transform duration-300 ${isBouncing ? 'scale-125' : 'scale-100'}`}>
+            <span className={`absolute -right-2.5 -top-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 font-bold text-white transition-transform duration-300 ${isBouncing ? 'scale-125' : 'scale-100'}`}>
               {totalQuantity}
             </span>
           )}
@@ -313,13 +314,13 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
               <div className="flex flex-col gap-6 text-left">
                 
                 {/* 1. HOME */}
-                <Link
+                <HomeLink
                   href={`/${locale}`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
                 >
                   {UI_TEXT.home}
-                </Link>
+                </HomeLink>
 
                 {/* 2. SHOP (Accordion) */}
                 <div className="border-b border-outline-variant/10 pb-4">
@@ -344,7 +345,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                           onClick={() => toggleMobileSub('nails')}
                           className="w-full py-2 flex justify-between items-center text-left"
                         >
-                          <span className="font-mono text-xs tracking-wider text-on-surface font-semibold uppercase">
+                          <span className="text-xs text-on-surface font-semibold text-label">
                             {UI_TEXT.pressOnNails}
                           </span>
                           <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
@@ -378,7 +379,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                           onClick={() => toggleMobileSub('shape')}
                           className="w-full py-2 flex justify-between items-center text-left"
                         >
-                          <span className="font-mono text-xs tracking-wider text-on-surface font-semibold uppercase">
+                          <span className="text-xs text-on-surface font-semibold text-label">
                             {UI_TEXT.shopByShape}
                           </span>
                           <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
@@ -415,7 +416,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                           onClick={() => toggleMobileSub('length')}
                           className="w-full py-2 flex justify-between items-center text-left"
                         >
-                          <span className="font-mono text-xs tracking-wider text-on-surface font-semibold uppercase">
+                          <span className="text-xs text-on-surface font-semibold text-label">
                             {UI_TEXT.shopByLength}
                           </span>
                           <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
@@ -446,7 +447,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                           onClick={() => toggleMobileSub('collections')}
                           className="w-full py-2 flex justify-between items-center text-left"
                         >
-                          <span className="font-mono text-xs tracking-wider text-on-surface font-semibold uppercase">
+                          <span className="text-xs text-on-surface font-semibold text-label">
                             {UI_TEXT.collections}
                           </span>
                           <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
@@ -467,7 +468,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                                 </Link>
                               ))
                             ) : (
-                              <span className="font-mono text-[10px] text-on-surface-variant/50 italic py-1 block">
+                              <span className="text-on-surface-variant/50 italic py-1 block text-caption">
                                 {UI_TEXT.noCollections}
                               </span>
                             )}

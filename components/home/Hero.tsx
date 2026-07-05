@@ -32,14 +32,14 @@ export default function Hero({ locale }: Props) {
 
       {/* Floating Text Layer */}
       <div className="relative z-10 text-center px-4 md:px-0 py-24 flex flex-col items-center pointer-events-auto">
-        <h1 className="font-serif text-[46px] md:text-[80px] text-primary max-w-4xl mx-auto leading-tight mb-8 font-normal tracking-tight">
+        <h1 className="font-serif text-[46px] md:text-[80px] text-primary max-w-4xl mx-auto leading-tight mb-8 font-normal">
           Handcrafted<br />
           Luxury Press-On<br />
           <span className="italic">Nails</span>
         </h1>
         <Link
           href={`/${locale}/collections`}
-          className="inline-block border border-primary px-8 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-white transition-colors duration-200"
+          className="inline-block border border-primary px-8 py-3 text-primary hover:bg-primary hover:text-white transition-colors duration-200 text-label"
         >
           VIEW ITEMS
         </Link>

@@ -155,9 +155,7 @@ export default function ProductClient({ product, locale }: Props) {
             {allImages.map((img, i) => (
               <div
                 key={img.url + '-desk'}
-                className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                  i === displayIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${ i === displayIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none' }`}
               >
                 <Image
                   src={img.url}
@@ -203,9 +201,7 @@ export default function ProductClient({ product, locale }: Props) {
               <button
                 key={img.url}
                 onClick={() => setDisplayIndex(i)}
-                className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${
-                  i === displayIndex ? 'border-on-background border-2' : 'border-outline/30'
-                }`}
+                className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${ i === displayIndex ? 'border-on-background border-2' : 'border-outline/30' }`}
               >
                 <Image
                   src={img.url}
@@ -223,7 +219,7 @@ export default function ProductClient({ product, locale }: Props) {
         <div className="w-full lg:w-[45%] flex flex-col pt-0 lg:pt-8">
           {/* Static product details */}
           <div className="mb-8">
-            <p className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-4">
+            <p className="text-on-surface-variant mb-4 text-label">
               {'nailestial'}
             </p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
@@ -252,7 +248,7 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('included')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface">
+                <span className="text-on-surface text-label">
                   What's Included
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
@@ -260,9 +256,7 @@ export default function ProductClient({ product, locale }: Props) {
                 </span>
               </button>
               <div 
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  activeAccordion.included ? 'max-h-[200px] pb-4' : 'max-h-0'
-                }`}
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.included ? 'max-h-[200px] pb-4' : 'max-h-0' }`}
               >
                 <p className="font-sans text-xs text-on-surface-variant leading-relaxed font-light">
                   Every <span className="font-semibold text-on-background">Nailestial</span> set comes with a complete prep kit: 1x Nail Glue, 1x Adhesive Tabs, 1x Mini File, 1x Cuticle Stick, and 1x Alcohol Prep Pad.
@@ -276,7 +270,7 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('sizing')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface">
+                <span className="text-on-surface text-label">
                   Sizing Guide
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
@@ -284,9 +278,7 @@ export default function ProductClient({ product, locale }: Props) {
                 </span>
               </button>
               <div 
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  activeAccordion.sizing ? 'max-h-[200px] pb-4' : 'max-h-0'
-                }`}
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.sizing ? 'max-h-[200px] pb-4' : 'max-h-0' }`}
               >
                 <p className="font-sans text-xs text-on-surface-variant leading-relaxed font-light">
                   Measure the widest part of your nail bed in millimeters or select from XS, S, M, L standard sizes. Refer to our Size Chart for seamless fitting.
@@ -300,7 +292,7 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('application')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface">
+                <span className="text-on-surface text-label">
                   Application & Removal
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
@@ -308,19 +300,17 @@ export default function ProductClient({ product, locale }: Props) {
                 </span>
               </button>
               <div 
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  activeAccordion.application ? 'max-h-[300px] pb-4' : 'max-h-0'
-                }`}
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.application ? 'max-h-[300px] pb-4' : 'max-h-0' }`}
               >
                 <div className="font-sans text-xs text-on-surface-variant leading-relaxed font-light space-y-3">
                   <div>
-                    <strong className="font-mono text-[9px] uppercase tracking-wider block text-on-background mb-0.5">
+                    <strong className="block text-on-background mb-0.5 text-label">
                       Application:
                     </strong>
                     Prep your natural nails, apply the adhesive tabs or glue, align the press-on at a 45° angle, and press down firmly for 15 seconds.
                   </div>
                   <div>
-                    <strong className="font-mono text-[9px] uppercase tracking-wider block text-on-background mb-0.5">
+                    <strong className="block text-on-background mb-0.5 text-label">
                       Removal:
                     </strong>
                     Soak your hands in warm water mixed with soap and oil for 10-15 minutes, then gently lift the edges with the cuticle stick.
@@ -332,7 +322,7 @@ export default function ProductClient({ product, locale }: Props) {
 
           {/* Description Panel */}
           <div className="border-t border-outline/10 pt-8 mt-8">
-            <h3 className="text-[10px] font-mono text-on-surface-variant uppercase tracking-[0.2em] mb-6">
+            <h3 className="text-on-surface-variant mb-6 text-label">
               {UI_TEXT.description}
             </h3>
             <div
@@ -347,7 +337,7 @@ export default function ProductClient({ product, locale }: Props) {
       {/* ── 3. High-End vs. Competitor Comparison Table (Full Width Block) ─────── */}
       <div className="border-t border-outline/10 pt-16 md:pt-24 mt-8 w-full">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-3 block">
+          <span className="text-on-surface-variant mb-3 block text-label">
             Craftsmanship Breakdown
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal">
@@ -358,87 +348,87 @@ export default function ProductClient({ product, locale }: Props) {
         {/* Desktop Layout: HTML Table / CSS Grid */}
         <div className="hidden md:grid grid-cols-4 gap-0 border border-outline/10 bg-[#000000]/5">
           {/* Header row */}
-          <div className="py-6 px-6 font-mono text-[9px] uppercase tracking-wider text-on-surface-variant flex items-center border-b border-outline/10">
+          <div className="py-6 px-6 text-on-surface-variant flex items-center border-b border-outline/10 text-label">
             Feature Comparison
           </div>
-          <div className="py-6 px-6 text-center font-mono text-xs font-bold bg-black/5 border-l border-b border-outline/10 flex flex-col justify-center items-center">
+          <div className="py-6 px-6 text-center text-xs font-bold bg-black/5 border-l border-b border-outline/10 flex flex-col justify-center items-center text-caption">
             <span className="text-on-background">Nailestial</span>
-            <span className="text-[9px] text-on-surface-variant/80 font-normal mt-1 lowercase">(3d press-ons)</span>
+            <span className="text-on-surface-variant/80 font-normal mt-1 lowercase">(3d press-ons)</span>
           </div>
-          <div className="py-6 px-6 text-center font-mono text-xs border-l border-b border-outline/10 flex flex-col justify-center items-center opacity-70">
+          <div className="py-6 px-6 text-center text-xs border-l border-b border-outline/10 flex flex-col justify-center items-center opacity-70 text-caption">
             <span>Mass-Produced Nails</span>
           </div>
-          <div className="py-6 px-6 text-center font-mono text-xs border-l border-b border-outline/10 flex flex-col justify-center items-center opacity-70">
+          <div className="py-6 px-6 text-center text-xs border-l border-b border-outline/10 flex flex-col justify-center items-center opacity-70 text-caption">
             <span>Traditional Salon Gel</span>
           </div>
 
           {/* Row 1: Material */}
-          <div className="py-6 px-6 font-mono text-xs text-on-surface border-b border-outline/10 flex items-center">
+          <div className="py-6 px-6 text-xs text-on-surface border-b border-outline/10 flex items-center text-caption">
             Material
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 bg-black/5 flex items-center justify-center gap-2">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+              <span className="material-symbols-outlined font-bold">check</span>
             </div>
-            <span className="font-mono text-xs text-on-background font-semibold">Handmade Salon Gel</span>
+            <span className="text-xs text-on-background font-semibold text-caption">Handmade Salon Gel</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+              <span className="material-symbols-outlined font-bold">close</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">Thin Plastic</span>
+            <span className="text-xs text-on-surface-variant text-caption">Thin Plastic</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+              <span className="material-symbols-outlined font-bold">check</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">Acrylic</span>
+            <span className="text-xs text-on-surface-variant text-caption">Acrylic</span>
           </div>
 
           {/* Row 2: Reusability */}
-          <div className="py-6 px-6 font-mono text-xs text-on-surface border-b border-outline/10 flex items-center">
+          <div className="py-6 px-6 text-xs text-on-surface border-b border-outline/10 flex items-center text-caption">
             Reusability
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 bg-black/5 flex items-center justify-center gap-2">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+              <span className="material-symbols-outlined font-bold">check</span>
             </div>
-            <span className="font-mono text-xs text-on-background font-semibold">Reusable for life</span>
+            <span className="text-xs text-on-background font-semibold text-caption">Reusable for life</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+              <span className="material-symbols-outlined font-bold">close</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">Single-use</span>
+            <span className="text-xs text-on-surface-variant text-caption">Single-use</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-b border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+              <span className="material-symbols-outlined font-bold">close</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">Non-reusable</span>
+            <span className="text-xs text-on-surface-variant text-caption">Non-reusable</span>
           </div>
 
           {/* Row 3: Application Time */}
-          <div className="py-6 px-6 font-mono text-xs text-on-surface flex items-center">
+          <div className="py-6 px-6 text-xs text-on-surface flex items-center text-caption">
             Application Time
           </div>
           <div className="py-6 px-6 text-center border-l border-outline/10 bg-black/5 flex items-center justify-center gap-2">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+              <span className="material-symbols-outlined font-bold">check</span>
             </div>
-            <span className="font-mono text-xs text-on-background font-semibold">&lt;15 mins</span>
+            <span className="text-xs text-on-background font-semibold text-caption">&lt;15 mins</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+              <span className="material-symbols-outlined font-bold">close</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">Cheap look</span>
+            <span className="text-xs text-on-surface-variant text-caption">Cheap look</span>
           </div>
           <div className="py-6 px-6 text-center border-l border-outline/10 flex items-center justify-center gap-2 opacity-80">
             <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none">
-              <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+              <span className="material-symbols-outlined font-bold">close</span>
             </div>
-            <span className="font-mono text-xs text-on-surface-variant">2+ Hours intensive</span>
+            <span className="text-xs text-on-surface-variant text-caption">2+ Hours intensive</span>
           </div>
         </div>
 
@@ -447,35 +437,35 @@ export default function ProductClient({ product, locale }: Props) {
           {/* Nailestial card */}
           <div className="border border-primary bg-white p-6 shadow-sm">
             <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline/10">
-              <span className="font-mono text-sm font-bold text-on-background">Nailestial</span>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">(3d press-ons)</span>
+              <span className="text-sm font-bold text-on-background text-caption">Nailestial</span>
+              <span className="text-on-surface-variant/60 text-label">(3d press-ons)</span>
             </div>
             <ul className="space-y-3.5">
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-on-surface/5 text-on-surface select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">check</span>
+                  <span className="material-symbols-outlined font-bold">check</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Material</span>
-                  <span className="font-mono text-xs text-on-background font-semibold mt-0.5">Handmade Salon Gel</span>
+                  <span className="text-on-surface-variant/60 text-label">Material</span>
+                  <span className="text-xs text-on-background font-semibold mt-0.5 text-caption">Handmade Salon Gel</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-on-surface/5 text-on-surface select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">check</span>
+                  <span className="material-symbols-outlined font-bold">check</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Reusability</span>
-                  <span className="font-mono text-xs text-on-background font-semibold mt-0.5">Reusable for life</span>
+                  <span className="text-on-surface-variant/60 text-label">Reusability</span>
+                  <span className="text-xs text-on-background font-semibold mt-0.5 text-caption">Reusable for life</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-on-surface/5 text-on-surface select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">check</span>
+                  <span className="material-symbols-outlined font-bold">check</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Application Time</span>
-                  <span className="font-mono text-xs text-on-background font-semibold mt-0.5">&lt;15 mins</span>
+                  <span className="text-on-surface-variant/60 text-label">Application Time</span>
+                  <span className="text-xs text-on-background font-semibold mt-0.5 text-caption">&lt;15 mins</span>
                 </div>
               </li>
             </ul>
@@ -484,34 +474,34 @@ export default function ProductClient({ product, locale }: Props) {
           {/* Mass-Produced card */}
           <div className="border border-outline/10 bg-[#000000]/5 p-6 opacity-80">
             <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline/10">
-              <span className="font-mono text-sm text-on-surface-variant">Mass-Produced Nails</span>
+              <span className="text-sm text-on-surface-variant text-caption">Mass-Produced Nails</span>
             </div>
             <ul className="space-y-3.5">
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">close</span>
+                  <span className="material-symbols-outlined font-bold">close</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Material</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">Thin Plastic</span>
+                  <span className="text-on-surface-variant/60 text-label">Material</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">Thin Plastic</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">close</span>
+                  <span className="material-symbols-outlined font-bold">close</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Reusability</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">Single-use</span>
+                  <span className="text-on-surface-variant/60 text-label">Reusability</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">Single-use</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">close</span>
+                  <span className="material-symbols-outlined font-bold">close</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Application Time</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">Cheap look</span>
+                  <span className="text-on-surface-variant/60 text-label">Application Time</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">Cheap look</span>
                 </div>
               </li>
             </ul>
@@ -520,34 +510,34 @@ export default function ProductClient({ product, locale }: Props) {
           {/* Salon card */}
           <div className="border border-outline/10 bg-[#000000]/5 p-6 opacity-80">
             <div className="flex justify-between items-center mb-4 pb-3 border-b border-outline/10">
-              <span className="font-mono text-sm text-on-surface-variant">Traditional Salon Gel</span>
+              <span className="text-sm text-on-surface-variant text-caption">Traditional Salon Gel</span>
             </div>
             <ul className="space-y-3.5">
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-on-surface/5 text-on-surface select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">check</span>
+                  <span className="material-symbols-outlined font-bold">check</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Material</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">Acrylic</span>
+                  <span className="text-on-surface-variant/60 text-label">Material</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">Acrylic</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">close</span>
+                  <span className="material-symbols-outlined font-bold">close</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Reusability</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">Non-reusable</span>
+                  <span className="text-on-surface-variant/60 text-label">Reusability</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">Non-reusable</span>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <div className="inline-flex items-center justify-center w-4.5 h-4.5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5 shrink-0">
-                  <span className="material-symbols-outlined text-[10px] font-bold">close</span>
+                  <span className="material-symbols-outlined font-bold">close</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">Application Time</span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-0.5">2+ Hours intensive</span>
+                  <span className="text-on-surface-variant/60 text-label">Application Time</span>
+                  <span className="text-xs text-on-surface-variant mt-0.5 text-caption">2+ Hours intensive</span>
                 </div>
               </li>
             </ul>

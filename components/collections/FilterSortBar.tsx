@@ -17,17 +17,17 @@ export default function FilterSortBar() {
 
   return (
     <div className="max-w-[1920px] mx-auto py-6 flex flex-row justify-between items-center border-b border-outline-variant/30 gap-4 mb-12 relative z-10">
-      <button className="flex items-center gap-2 text-on-background font-mono text-[11px] uppercase tracking-[0.2em] hover:text-on-surface-variant transition-colors duration-200">
+      <button className="flex items-center gap-2 text-on-background hover:text-on-surface-variant transition-colors duration-200 text-label">
         <span className="material-symbols-outlined text-[16px]">tune</span>
         Filter
       </button>
 
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-on-background">
+      <div className="flex items-center gap-2 text-on-background text-label">
         <span className="opacity-70">Sort by:</span>
         <select 
           value={currentSort}
           onChange={handleSortChange}
-          className="bg-transparent border-none text-on-background font-mono text-[11px] uppercase tracking-[0.1em] focus:ring-0 cursor-pointer pr-6 py-1 outline-none"
+          className="bg-transparent border-none text-on-background focus:ring-0 cursor-pointer pr-6 py-1 outline-none text-label"
         >
           <option value="newest" className="bg-surface text-on-background">Newest</option>
           <option value="price-asc" className="bg-surface text-on-background">Price: Low to High</option>

@@ -21,7 +21,7 @@ export default function StoryCta({ locale }: Props) {
       </div>
       <Link 
         href={`/${locale}/collections`}
-        className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-primary text-on-primary font-label text-sm uppercase tracking-[0.05em] font-semibold hover:bg-primary-fixed transition-colors duration-300"
+        className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-primary text-on-primary text-sm font-semibold hover:bg-primary-fixed transition-colors duration-300 text-label"
       >
         SHOP THE COLLECTION
       </Link>

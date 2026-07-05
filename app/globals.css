@@ -55,11 +55,9 @@
   --color-surface-container-highest: #e8e8e9;
 
   --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  --font-sans: "Nunito Sans", sans-serif;
   --font-headline: "Cormorant Garamond", serif;
-  --font-body: "Plus Jakarta Sans", sans-serif;
-  --font-label: "Space Mono", monospace;
+  --font-body: "Nunito Sans", sans-serif;
 }
 
 body {
@@ -98,22 +96,27 @@ body {
   }
 }
 
-/* Explicit font-family overrides to ensure theme CSS variables are used */
-.font-mono {
-  font-family: var(--font-mono);
-}
-.font-label {
-  font-family: var(--font-label);
-}
-.font-serif {
-  font-family: var(--font-serif);
-}
-.font-headline {
+/* Semantic Typography Utilities */
+@utility text-editorial-heading {
   font-family: var(--font-headline);
+  font-weight: 500;
+  letter-spacing: normal;
 }
-.font-sans {
-  font-family: var(--font-sans);
-}
-.font-body {
+@utility text-body {
   font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: normal;
+}
+@utility text-label {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+@utility text-caption {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.875rem;
+  letter-spacing: normal;
 }

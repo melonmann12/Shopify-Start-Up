@@ -33,7 +33,7 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
         {/* Ô Tag (Boxed) */}
         {badge && (
           <div className="border border-outline-variant/40 px-2 py-1 self-start">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-on-background">
+            <span className="text-on-background text-label">
               {badge}
             </span>
           </div>
@@ -41,10 +41,10 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
 
         {/* Các dòng text thuộc tính (Subtitle & Description) */}
         <div className="flex flex-col gap-1">
-          <p className="font-mono text-[9px] tracking-[0.15em] text-on-background uppercase font-bold">
+          <p className="text-on-background font-bold text-label">
             {'nailestial'}
           </p>
-          <p className="font-mono text-[9px] tracking-[0.1em] text-on-surface-variant uppercase line-clamp-2">
+          <p className="text-on-surface-variant line-clamp-2 text-label">
             {shortDesc}
           </p>
         </div>
@@ -73,12 +73,12 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
             {product.title}
           </h3>
           {/* Vẫn giữ giá trị cốt lõi là hiện giá tiền */}
-          <p className="font-mono text-[11px] tracking-[0.15em] text-on-surface-variant uppercase">
+          <p className="text-on-surface-variant text-label">
             {formatPrice(price.amount, price.currencyCode, locale)}
           </p>
         </div>
 
-        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-on-background group-hover:opacity-50 transition-opacity duration-300 mt-2">
+        <div className="text-on-background group-hover:opacity-50 transition-opacity duration-300 mt-2 text-label">
           Purchase
         </div>
       </div>

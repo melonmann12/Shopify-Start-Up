@@ -61,7 +61,7 @@ export default async function ProductDetailPage(props: Props) {
   return (
     <main className="flex-grow w-full max-w-[1600px] mx-auto px-6 md:px-[8.333vw] py-12 md:py-20 flex flex-col relative z-10">
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="flex text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-mono mb-10">
+      <nav aria-label="Breadcrumb" className="flex text-on-surface-variant mb-10 text-label">
         <ol className="flex items-center space-x-3">
           <li><Link className="hover:text-on-background transition-colors" href={`/${locale}`}>Home</Link></li>
           <li><span className="text-on-surface-variant/50">/</span></li>

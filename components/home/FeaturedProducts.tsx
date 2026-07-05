@@ -32,7 +32,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
         <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal">{title}</h2>
         <Link
           href={`/${locale}/collections`}
-          className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-0.5 border-b border-primary group"
+          className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-0.5 border-b border-primary group text-label"
         >
           VIEW ALL <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
         </Link>
@@ -52,7 +52,7 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
               className="glass-card border border-outline-variant/20 p-6 flex flex-col justify-between group h-full hover:bg-surface-bright/40 transition-all duration-500 rounded-none relative block"
             >
               <div className="flex flex-col gap-4">
-                <span className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant uppercase">
+                <span className="text-on-surface-variant text-label">
                   {'nailestial'}
                 </span>
                 
@@ -82,12 +82,12 @@ export default async function FeaturedProducts({ handle, title, locale = 'en' }:
                   <h3 className="font-serif text-xl font-normal text-on-background leading-tight">
                     {product.title}
                   </h3>
-                  <p className="font-mono text-[11px] tracking-[0.15em] text-on-surface-variant uppercase">
+                  <p className="text-on-surface-variant text-label">
                     {formattedPrice}
                   </p>
                 </div>
 
-                <div className="border border-on-background self-start px-6 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-on-background group-hover:bg-on-background group-hover:text-surface-bright transition-colors duration-300 rounded-none">
+                <div className="border border-on-background self-start px-6 py-2 text-on-background group-hover:bg-on-background group-hover:text-surface-bright transition-colors duration-300 rounded-none text-label">
                   Purchase
                 </div>
               </div>

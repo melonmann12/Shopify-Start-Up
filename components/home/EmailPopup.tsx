@@ -92,7 +92,7 @@ export default function EmailPopup() {
 
         {!isSubmitted ? (
           <form onSubmit={handleSubmit} className="flex flex-col text-left">
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+            <span className="text-on-surface-variant mb-4 block text-label">
               Mailing List
             </span>
             <h3 className="font-serif text-3xl md:text-4xl font-normal text-on-background leading-tight mb-4">
@@ -113,7 +113,7 @@ export default function EmailPopup() {
               />
               <button
                 type="submit"
-                className="w-full bg-black text-white font-mono text-[10px] uppercase tracking-[0.2em] py-4 hover:bg-black/80 transition-colors duration-300 rounded-none mt-2"
+                className="w-full bg-black text-white py-4 hover:bg-black/80 transition-colors duration-300 rounded-none mt-2 text-label"
               >
                 Subscribe
               </button>
@@ -123,7 +123,7 @@ export default function EmailPopup() {
           <div className="flex flex-col items-center py-8 text-center">
             <span className="material-symbols-outlined text-4xl text-on-surface-variant mb-4">check_circle</span>
             <h3 className="font-serif text-2xl font-normal text-on-background mb-2">Thank You</h3>
-            <p className="font-mono text-[10px] uppercase tracking-wider text-on-surface-variant">
+            <p className="text-on-surface-variant text-label">
               Your 15% code is on its way.
             </p>
           </div>

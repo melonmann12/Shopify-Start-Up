@@ -16,7 +16,7 @@ export default function VisionSection() {
           />
         </div>
         <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center pr-0 md:pr-16">
-          <h2 className="font-headline text-3xl md:text-5xl font-bold tracking-tight text-primary mb-8 leading-tight">
+          <h2 className="font-headline text-3xl md:text-5xl font-bold text-primary mb-8 leading-tight">
             Simplicity is the ultimate sophistication.
           </h2>
           <div className="space-y-6 font-body text-base text-on-surface-variant leading-[1.8]">

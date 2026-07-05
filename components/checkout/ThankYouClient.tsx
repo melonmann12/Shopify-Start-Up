@@ -53,7 +53,7 @@ export default function ThankYouClient({ locale }: Props) {
               {UI_TEXT.thankYouWithOrder}
             </p>
             <div className="bg-surface-container-low py-6 px-8 rounded-lg mt-6 border border-outline/20">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-background mb-2">
+              <p className="text-on-background mb-2 text-label">
                 {UI_TEXT.orderNumberPrefix}{orderId}
               </p>
               {email && (
@@ -76,14 +76,14 @@ export default function ThankYouClient({ locale }: Props) {
       <div className="flex flex-col items-center space-y-6 w-full max-w-sm mx-auto">
         <Link
           href={`/${locale}/collections`}
-          className="w-full inline-flex justify-center items-center px-8 py-5 border border-on-background bg-on-background text-surface-container-lowest font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 hover:bg-transparent hover:text-on-background"
+          className="w-full inline-flex justify-center items-center px-8 py-5 border border-on-background bg-on-background text-surface-container-lowest transition-colors duration-300 hover:bg-transparent hover:text-on-background text-label"
         >
           {UI_TEXT.continueExploring}
         </Link>
 
         <Link
           href={`/${locale}/contact`}
-          className="inline-flex items-center space-x-2 font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant hover:text-on-background transition-colors duration-200 group"
+          className="inline-flex items-center space-x-2 text-on-surface-variant hover:text-on-background transition-colors duration-200 group text-label"
         >
           <span>{UI_TEXT.needHelp}</span>
           <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>

@@ -69,9 +69,7 @@ export default function ProductGallery({ images, title }: Props) {
               key={i}
               onClick={() => scrollToImage(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className={`h-[2px] transition-all duration-300 ${
-                i === activeIndex ? 'w-8 bg-on-background' : 'w-4 bg-on-background/20'
-              }`}
+              className={`h-[2px] transition-all duration-300 ${ i === activeIndex ? 'w-8 bg-on-background' : 'w-4 bg-on-background/20' }`}
             />
           ))}
         </div>
@@ -105,9 +103,7 @@ export default function ProductGallery({ images, title }: Props) {
           <button
             key={img.url}
             onClick={() => scrollToImage(i)}
-            className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${
-              i === activeIndex ? 'border-on-background border-2' : 'border-outline/30'
-            }`}
+            className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${ i === activeIndex ? 'border-on-background border-2' : 'border-outline/30' }`}
           >
             <Image
               src={img.url}

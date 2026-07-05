@@ -10,7 +10,7 @@ export default function ProductGrid({ products, locale }: Props) {
   if (products.length === 0) {
     return (
       <section className="max-w-[1920px] mx-auto px-8 md:px-16 py-32 flex flex-col items-center justify-center text-center h-[512px]">
-        <h2 className="font-headline text-3xl md:text-4xl font-semibold text-on-surface mb-8 tracking-tight">Our objects are coming soon.</h2>
+        <h2 className="font-headline text-3xl md:text-4xl font-semibold text-on-surface mb-8">Our objects are coming soon.</h2>
       </section>
     )
   }

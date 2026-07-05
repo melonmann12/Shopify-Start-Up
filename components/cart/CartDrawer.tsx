@@ -78,7 +78,7 @@ function CartLineItem({
           </p>
           {/* Display line item properties (e.g. Custom Size Note) */}
           {line.attributes?.filter((a: { key: string }) => !a.key.startsWith('_')).map((attr: { key: string; value: string }) => (
-            <p key={attr.key} className="text-[11px] text-[#707070] mt-1.5 leading-snug">
+            <p key={attr.key} className="text-[#707070] mt-1.5 leading-snug">
               <span className="font-medium text-[#505050]">{attr.key}:</span>{' '}
               {attr.value}
             </p>
@@ -185,7 +185,7 @@ export default function CartDrawer() {
       <div className="fixed inset-y-0 right-0 z-[101] w-full sm:max-w-md bg-white shadow-2xl flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-black/10">
-          <h2 className="text-xl font-bold tracking-tight">
+          <h2 className="text-xl font-bold">
             {UI_TEXT.title}
             {(cart?.totalQuantity ?? 0) > 0 && (
               <span className="ml-2 text-sm font-normal text-[#707070]">
@@ -237,13 +237,7 @@ export default function CartDrawer() {
             <button
               onClick={handleCheckout}
               disabled={isRedirecting || isPending || !cart.checkoutUrl}
-              className={`flex w-full items-center justify-center gap-2 py-4 rounded-full font-bold text-base tracking-wide transition-all duration-200 ${
-                isRedirecting
-                  ? 'bg-black/60 text-white/80 cursor-wait'
-                  : isPending
-                    ? 'bg-black/40 text-white/60 cursor-wait'
-                    : 'bg-black text-white hover:bg-[#333] active:scale-[0.98]'
-              }`}
+              className={`flex w-full items-center justify-center gap-2 py-4 rounded-full font-bold text-base tracking-wide transition-all duration-200 ${ isRedirecting ? 'bg-black/60 text-white/80 cursor-wait' : isPending ? 'bg-black/40 text-white/60 cursor-wait' : 'bg-black text-white hover:bg-[#333] active:scale-[0.98]' }`}
             >
               {(isRedirecting || isPending) && (
                 <svg

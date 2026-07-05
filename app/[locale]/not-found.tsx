@@ -5,10 +5,10 @@ export default function NotFound() {
   return (
     <div className="flex-grow flex items-center justify-center relative overflow-hidden px-8 py-20 md:py-32 h-[75vh]">
       <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
-        <h1 className="font-headline font-black text-[10rem] md:text-[14rem] leading-none tracking-tighter text-surface-container-high mb-6 md:mb-8 select-none">
+        <h1 className="font-headline font-black text-[10rem] md:text-[14rem] leading-none text-surface-container-high mb-6 md:mb-8 select-none">
           404
         </h1>
-        <h2 className="font-headline font-bold text-3xl md:text-5xl tracking-tight text-primary mb-6 uppercase">
+        <h2 className="font-headline font-bold text-3xl md:text-5xl text-primary mb-6 uppercase">
           LOST IN MINIMALISM.
         </h2>
         <p className="font-body text-on-surface-variant text-base md:text-lg leading-relaxed max-w-md mx-auto mb-12">
@@ -16,7 +16,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-full bg-primary text-on-primary px-10 py-4 font-label uppercase tracking-[0.05em] text-sm hover:bg-primary-fixed transition-colors duration-300 font-semibold"
+          className="inline-flex items-center justify-center rounded-full bg-primary text-on-primary px-10 py-4 text-sm hover:bg-primary-fixed transition-colors duration-300 font-semibold text-label"
         >
           BACK TO HOME
         </Link>

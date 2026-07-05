@@ -38,7 +38,7 @@ export default function ComparisonTable() {
       
       {/* Title block */}
       <div className="text-center mb-16 md:mb-20">
-        <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-3 block">
+        <span className="text-on-surface-variant mb-3 block text-label">
           Compare the Difference
         </span>
         <h2 className="font-serif text-3xl md:text-5xl font-normal text-on-background tracking-normal">
@@ -57,7 +57,7 @@ export default function ComparisonTable() {
           {comparisonRows.map((row, index) => (
             <div 
               key={index} 
-              className="h-20 flex items-center text-left font-mono text-[10px] uppercase tracking-[0.15em] text-on-surface-variant/80 border-t border-outline-variant/10"
+              className="h-20 flex items-center text-left text-on-surface-variant/80 border-t border-outline-variant/10 text-label"
             >
               {row.metric}
             </div>
@@ -67,17 +67,17 @@ export default function ComparisonTable() {
         {/* Column 2: Nailestial (Hero Card) */}
         <div className="w-[28%] bg-white border border-primary shadow-ambient py-8 flex flex-col relative z-20 -mt-6 mb-2 rounded-none">
           {/* Standing Top Badge */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-white font-mono text-[9px] uppercase tracking-[0.25em] px-3.5 py-1 whitespace-nowrap">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black text-white px-3.5 py-1 whitespace-nowrap text-label">
             THE STANDARD
           </div>
           
           {/* Card Header */}
           <div className="h-[110px] flex flex-col items-center justify-center pb-6 text-center">
-            <span className="font-serif text-2xl font-normal text-on-background tracking-wider">
+            <span className="font-serif text-2xl font-normal text-on-background">
               NAILESTIAL
             </span>
             <div className="mt-3">
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] px-3 py-1 border border-primary/20 rounded-full text-on-surface font-semibold bg-on-surface/5">
+              <span className="px-3 py-1 border border-primary/20 rounded-full text-on-surface font-semibold bg-on-surface/5 text-label">
                 $$
               </span>
             </div>
@@ -92,7 +92,7 @@ export default function ComparisonTable() {
               <div className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-full bg-on-surface/5 text-on-surface mb-1.5 select-none">
                 <span className="material-symbols-outlined text-[13px] font-bold">check</span>
               </div>
-              <span className="font-mono text-[11px] text-on-background font-semibold leading-snug">
+              <span className="text-on-background font-semibold leading-snug text-caption">
                 {row.nailestial.text}
               </span>
             </div>
@@ -108,7 +108,7 @@ export default function ComparisonTable() {
               Drugstore Press-Ons
             </span>
             <div className="mt-3">
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] px-3 py-1 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40">
+              <span className="px-3 py-1 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40 text-label">
                 $
               </span>
             </div>
@@ -129,7 +129,7 @@ export default function ComparisonTable() {
                   <span className="material-symbols-outlined text-[13px] font-bold">close</span>
                 </div>
               )}
-              <span className="font-mono text-[11px] text-on-surface-variant leading-snug">
+              <span className="text-on-surface-variant leading-snug text-caption">
                 {row.drugstore.text}
               </span>
             </div>
@@ -145,7 +145,7 @@ export default function ComparisonTable() {
               Salon Manicure
             </span>
             <div className="mt-3">
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] px-3 py-1 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40">
+              <span className="px-3 py-1 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40 text-label">
                 $$$
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function ComparisonTable() {
                   <span className="material-symbols-outlined text-[13px] font-bold">close</span>
                 </div>
               )}
-              <span className="font-mono text-[11px] text-on-surface-variant leading-snug">
+              <span className="text-on-surface-variant leading-snug text-caption">
                 {row.salon.text}
               </span>
             </div>
@@ -181,15 +181,15 @@ export default function ComparisonTable() {
         {/* Nailestial Card */}
         <div className="border border-primary bg-white p-6 shadow-ambient relative rounded-none pt-10">
           {/* Top Badge */}
-          <div className="absolute -top-3 left-6 bg-black text-white font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1">
+          <div className="absolute -top-3 left-6 bg-black text-white px-3 py-1 text-label">
             THE STANDARD
           </div>
           
           <div className="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/10">
-            <span className="font-serif text-xl font-normal text-on-background tracking-wider">
+            <span className="font-serif text-xl font-normal text-on-background">
               NAILESTIAL
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 border border-outline-variant/30 rounded-full text-on-surface font-semibold bg-on-surface/5">
+            <span className="px-2 py-0.5 border border-outline-variant/30 rounded-full text-on-surface font-semibold bg-on-surface/5 text-label">
               $$
             </span>
           </div>
@@ -198,13 +198,13 @@ export default function ComparisonTable() {
             {comparisonRows.map((row, index) => (
               <li key={index} className="flex items-start gap-3">
                 <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface select-none mt-0.5">
-                  <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+                  <span className="material-symbols-outlined font-bold">check</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">
+                  <span className="text-on-surface-variant/60 text-label">
                     {row.metric}
                   </span>
-                  <span className="font-mono text-xs text-on-background font-semibold mt-1">
+                  <span className="text-xs text-on-background font-semibold mt-1 text-caption">
                     {row.nailestial.text}
                   </span>
                 </div>
@@ -219,7 +219,7 @@ export default function ComparisonTable() {
             <span className="font-serif text-lg font-normal text-on-surface-variant tracking-wide">
               Drugstore Press-Ons
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40">
+            <span className="px-2 py-0.5 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40 text-label">
               $
             </span>
           </div>
@@ -229,18 +229,18 @@ export default function ComparisonTable() {
               <li key={index} className="flex items-start gap-3">
                 {row.drugstore.isPositive ? (
                   <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface/80 select-none mt-0.5">
-                    <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+                    <span className="material-symbols-outlined font-bold">check</span>
                   </div>
                 ) : (
                   <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5">
-                    <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+                    <span className="material-symbols-outlined font-bold">close</span>
                   </div>
                 )}
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">
+                  <span className="text-on-surface-variant/60 text-label">
                     {row.metric}
                   </span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-1">
+                  <span className="text-xs text-on-surface-variant mt-1 text-caption">
                     {row.drugstore.text}
                   </span>
                 </div>
@@ -255,7 +255,7 @@ export default function ComparisonTable() {
             <span className="font-serif text-lg font-normal text-on-surface-variant tracking-wide">
               Salon Manicure
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40">
+            <span className="px-2 py-0.5 border border-outline-variant/20 rounded-full text-on-surface-variant/70 bg-surface-container-low/40 text-label">
               $$$
             </span>
           </div>
@@ -265,18 +265,18 @@ export default function ComparisonTable() {
               <li key={index} className="flex items-start gap-3">
                 {row.salon.isPositive ? (
                   <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-on-surface/5 text-on-surface/80 select-none mt-0.5">
-                    <span className="material-symbols-outlined text-[12px] font-bold">check</span>
+                    <span className="material-symbols-outlined font-bold">check</span>
                   </div>
                 ) : (
                   <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-outline-variant/10 text-on-surface-variant/30 select-none mt-0.5">
-                    <span className="material-symbols-outlined text-[12px] font-bold">close</span>
+                    <span className="material-symbols-outlined font-bold">close</span>
                   </div>
                 )}
                 <div className="flex flex-col">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-on-surface-variant/60">
+                  <span className="text-on-surface-variant/60 text-label">
                     {row.metric}
                   </span>
-                  <span className="font-mono text-xs text-on-surface-variant mt-1">
+                  <span className="text-xs text-on-surface-variant mt-1 text-caption">
                     {row.salon.text}
                   </span>
                 </div>

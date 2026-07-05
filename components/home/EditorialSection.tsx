@@ -13,7 +13,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
           
           {/* Column 1: Craftsmanship/Quality */}
           <div className="flex flex-col items-start h-full">
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+            <span className="text-on-surface-variant mb-4 block text-label">
               01 / Craftsmanship
             </span>
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
@@ -28,7 +28,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             */}
             <Link 
               href={`/${locale}/about`}
-              className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors"
+              className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors text-label"
             >
               Our Process
               <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">
@@ -39,7 +39,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
 
           {/* Column 2: Speed/Ease of Application */}
           <div className="flex flex-col items-start h-full">
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+            <span className="text-on-surface-variant mb-4 block text-label">
               02 / Simplicity
             </span>
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
@@ -54,7 +54,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             */}
             <Link 
               href={`/${locale}/about`}
-              className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors"
+              className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors text-label"
             >
               {/* TODO: If a dedicated application page is created, point link there (e.g., /support/application) */}
               Application Guide
@@ -66,7 +66,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
 
           {/* Column 3: Reusability/Value */}
           <div className="flex flex-col items-start h-full">
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+            <span className="text-on-surface-variant mb-4 block text-label">
               03 / Reusability
             </span>
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-4 leading-[1.2]">
@@ -81,7 +81,7 @@ export default function EditorialSection({ locale = 'en' }: Props) {
             */}
             <Link 
               href={`/${locale}/about`}
-              className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors"
+              className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group mt-auto transition-colors text-label"
             >
               {/* TODO: If a dedicated care guide page is created, point link there (e.g., /support/care) */}
               Care Guide

@@ -19,14 +19,14 @@ export default function Footer({ locale = 'en' }: Props) {
             className="h-7 w-auto object-contain brightness-95"
           />
         </div>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 font-mono text-[11px] tracking-[0.2em] uppercase text-on-surface-variant mb-6 md:mb-0 text-center">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-on-surface-variant mb-6 md:mb-0 text-center text-label">
           <Link className="hover:text-on-background transition-colors" href={`/${locale}/policies/privacy-policy`}>Privacy Policy</Link>
           <Link className="hover:text-on-background transition-colors" href={`/${locale}/policies/terms-of-service`}>Terms of Service</Link>
           <Link className="hover:text-on-background transition-colors" href={`/${locale}/policies/refund-policy`}>Refund Policy</Link>
           <Link className="hover:text-on-background transition-colors" href={`/${locale}/policies/shipping-policy`}>Shipping Policy</Link>
           <Link className="hover:text-on-background transition-colors" href={`/${locale}/contact`}>Contact & Support</Link>
         </div>
-        <div className="text-on-surface-variant font-mono text-[11px] uppercase tracking-[0.1em]">
+        <div className="text-on-surface-variant text-label">
           © {new Date().getFullYear()} nailestial
         </div>
       </div>

@@ -5,7 +5,7 @@ export default function ProcessGrid() {
     <section className="py-32 px-8 md:px-16 bg-surface-container-low mt-16">
       <div className="max-w-screen-2xl mx-auto">
         <div className="text-center mb-24">
-          <h3 className="font-headline text-3xl font-bold tracking-tight text-primary">THE PROCESS</h3>
+          <h3 className="font-headline text-3xl font-bold text-primary">THE PROCESS</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Design */}
@@ -20,7 +20,7 @@ export default function ProcessGrid() {
                 unoptimized
               />
             </div>
-            <div className="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant font-semibold">01. Design</div>
+            <div className="text-xs text-on-surface-variant font-semibold text-label">01. Design</div>
           </div>
           {/* Material */}
           <div className="flex flex-col md:mt-24">
@@ -34,7 +34,7 @@ export default function ProcessGrid() {
                 unoptimized
               />
             </div>
-            <div className="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant font-semibold">02. Material</div>
+            <div className="text-xs text-on-surface-variant font-semibold text-label">02. Material</div>
           </div>
           {/* Craft */}
           <div className="flex flex-col md:mt-12">
@@ -48,7 +48,7 @@ export default function ProcessGrid() {
                 unoptimized
               />
             </div>
-            <div className="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant font-semibold">03. Craft</div>
+            <div className="text-xs text-on-surface-variant font-semibold text-label">03. Craft</div>
           </div>
         </div>
       </div>

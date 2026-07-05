@@ -26,10 +26,10 @@ export default async function AboutPage(props: Props) {
         {/* Hero Section */}
         <section className="px-6 md:px-12 mb-24 grid grid-cols-12 gap-6">
           <div className="col-span-12 md:col-span-8 md:col-start-3 text-center mb-12">
-            <h1 className="font-serif text-[42px] md:text-[80px] text-on-background mb-6 tracking-tight font-normal leading-tight">
+            <h1 className="font-serif text-[42px] md:text-[80px] text-on-background mb-6 font-normal leading-tight">
               The Art of Handcrafted Luxury
             </h1>
-            <p className="font-mono text-xs text-on-surface-variant max-w-2xl mx-auto uppercase tracking-[0.2em] opacity-80 leading-relaxed">
+            <p className="text-xs text-on-surface-variant max-w-2xl mx-auto opacity-80 leading-relaxed text-label">
               Elevating the everyday through meticulous design and unparalleled craftsmanship.
             </p>
           </div>
@@ -52,17 +52,17 @@ export default async function AboutPage(props: Props) {
               Our Philosophy
             </h2>
             <div className="w-8 h-[1px] bg-primary/20 mb-8"></div>
-            <p className="font-mono text-xs text-on-surface-variant leading-[1.8] mb-6">
+            <p className="text-xs text-on-surface-variant leading-[1.8] mb-6 text-caption">
               We believe that true beauty lies in the details. Nailé was born from a desire to bridge the gap between high-fashion editorial aesthetics and accessible daily luxury. Every set is conceived as a miniature canvas.
             </p>
-            <p className="font-mono text-xs text-on-surface-variant leading-[1.8]">
+            <p className="text-xs text-on-surface-variant leading-[1.8] text-caption">
               Our studio operates on the principles of slow beauty—taking the time to perfect every curve, every shade, and every finish. We reject mass production in favor of mindful creation.
             </p>
           </div>
 
           <div className="col-span-12 md:col-span-7 grid grid-cols-2 gap-6">
             <div className="col-span-2 md:col-span-1 glass-card p-8 border border-outline-variant/20 flex flex-col justify-between aspect-square">
-              <span className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] opacity-65">
+              <span className="text-on-surface-variant opacity-65 text-label">
                 Est. 2024
               </span>
               <h3 className="font-serif text-2xl font-normal text-on-background mt-auto leading-tight">
@@ -91,7 +91,7 @@ export default async function AboutPage(props: Props) {
         {/* Process Highlights */}
         <section className="px-6 md:px-12 mb-24 grid grid-cols-12 gap-6">
           <div className="col-span-12 mb-12 text-center">
-            <h2 className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.25em] mb-4">
+            <h2 className="text-on-surface-variant mb-4 text-label">
               The Process
             </h2>
             <div className="w-[1px] h-12 bg-primary/20 mx-auto"></div>
@@ -99,13 +99,13 @@ export default async function AboutPage(props: Props) {
 
           <div className="col-span-12 md:col-span-4 glass-card p-8 border border-outline-variant/20 flex flex-col justify-between group hover:bg-white/30 transition-colors duration-500 min-h-[320px]">
             <div>
-              <span className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-6 block opacity-50">
+              <span className="text-on-surface-variant mb-6 block opacity-50 text-label">
                 01
               </span>
               <h3 className="font-serif text-2xl font-normal text-on-background mb-4">
                 Design
               </h3>
-              <p className="font-mono text-xs text-on-surface-variant leading-[1.8]">
+              <p className="text-xs text-on-surface-variant leading-[1.8] text-caption">
                 Conceptualizing ethereal patterns inspired by natural elements and architectural forms.
               </p>
             </div>
@@ -114,13 +114,13 @@ export default async function AboutPage(props: Props) {
 
           <div className="col-span-12 md:col-span-4 glass-card p-8 border border-outline-variant/20 flex flex-col justify-between group hover:bg-white/30 transition-colors duration-500 min-h-[320px]">
             <div>
-              <span className="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-6 block opacity-50">
+              <span className="text-on-surface-variant mb-6 block opacity-50 text-label">
                 02
               </span>
               <h3 className="font-serif text-2xl font-normal text-on-background mb-4">
                 Paint
               </h3>
-              <p className="font-mono text-xs text-on-surface-variant leading-[1.8]">
+              <p className="text-xs text-on-surface-variant leading-[1.8] text-caption">
                 Hand-painted with meticulous precision, utilizing custom-blended pigments for unparalleled depth.
               </p>
             </div>
@@ -136,7 +136,7 @@ export default async function AboutPage(props: Props) {
               sizes="(max-width: 768px) 100vw, 30vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-surface-bright/90 via-surface-bright/40 to-transparent flex flex-col justify-end p-8 z-10 pointer-events-none">
-              <span className="font-mono text-[10px] text-on-surface-variant mb-2 opacity-70 uppercase tracking-widest">
+              <span className="text-on-surface-variant mb-2 opacity-70 text-label">
                 03
               </span>
               <h3 className="font-serif text-2xl font-normal text-on-background leading-tight">
@@ -150,7 +150,7 @@ export default async function AboutPage(props: Props) {
         <section className="flex justify-center items-center py-12 relative z-10">
           <Link
             href={`/${locale}/collections`}
-            className="border border-on-background px-10 py-4 font-mono text-[11px] uppercase tracking-[0.2em] text-on-background hover:bg-on-background hover:text-surface-bright transition-colors duration-300 rounded-none"
+            className="border border-on-background px-10 py-4 text-on-background hover:bg-on-background hover:text-surface-bright transition-colors duration-300 rounded-none text-label"
           >
             SHOP THE COLLECTION
           </Link>

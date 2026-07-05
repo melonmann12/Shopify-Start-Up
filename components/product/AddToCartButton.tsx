@@ -28,10 +28,7 @@ export default function AddToCartButton({ variant, attributes, onValidate }: Pro
           }
         }}
         disabled={!variant || !isAvailable}
-        className={`w-full py-5 border font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${!variant || !isAvailable
-          ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40'
-          : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest'
-          }`}
+        className={`w-full py-5 border transition-colors duration-300 ${!variant || !isAvailable ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40' : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest' } text-label`}
       >
         {!variant
           ? 'SELECT SIZE'
@@ -40,7 +37,7 @@ export default function AddToCartButton({ variant, attributes, onValidate }: Pro
             : 'ADD TO BAG'}
       </button>
 
-      <button className="w-full py-5 border border-outline/40 bg-transparent text-on-surface-variant font-mono text-[11px] uppercase tracking-[0.2em] hover:border-on-background hover:text-on-background transition-colors duration-300">
+      <button className="w-full py-5 border border-outline/40 bg-transparent text-on-surface-variant hover:border-on-background hover:text-on-background transition-colors duration-300 text-label">
         FAVOURITE
       </button>
     </div>

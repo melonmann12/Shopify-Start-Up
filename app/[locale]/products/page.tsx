@@ -31,10 +31,10 @@ export default async function ProductListingPage(props: Props) {
       <main className="pt-[100px] px-8 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10">
         {/* Header Section */}
         <header className="flex flex-col items-center justify-center mb-16 relative z-10 text-center py-12">
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-on-background mb-6 tracking-tight font-normal leading-tight">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-on-background mb-6 font-normal leading-tight">
             All Products
           </h1>
-          <p className="font-mono text-[10px] text-on-surface-variant max-w-2xl mx-auto uppercase tracking-[0.25em] opacity-85 leading-relaxed">
+          <p className="text-on-surface-variant max-w-2xl mx-auto opacity-85 leading-relaxed text-label">
             Curated essentials for a refined aesthetic. Tailored treatments and elevated experiences.
           </p>
         </header>

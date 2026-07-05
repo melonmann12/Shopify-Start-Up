@@ -13,7 +13,7 @@ export default function SocialProof({ locale = 'en' }: Props) {
         {/* Left Side: Press/Media Logos Placeholder */}
         <div className="flex flex-col justify-between h-full border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm p-6 md:p-8">
           <div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant mb-4 block">
+            <span className="text-on-surface-variant mb-4 block text-label">
               Press & Media
             </span>
             <h3 className="font-serif text-2xl md:text-3xl font-normal text-on-background mb-6 leading-tight">
@@ -27,18 +27,18 @@ export default function SocialProof({ locale = 'en' }: Props) {
                 with real media logo SVGs or high-resolution PNGs (e.g. Vogue, Elle, Harper's Bazaar).
               */}
               <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+                <span className="text-on-surface-variant/40 text-caption">Logo Placeholder</span>
               </div>
               <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+                <span className="text-on-surface-variant/40 text-caption">Logo Placeholder</span>
               </div>
               <div className="border border-dashed border-outline-variant/30 h-16 flex items-center justify-center bg-surface-container-low/10">
-                <span className="font-mono text-[10px] text-on-surface-variant/40 tracking-wider">Logo Placeholder</span>
+                <span className="text-on-surface-variant/40 text-caption">Logo Placeholder</span>
               </div>
             </div>
           </div>
           
-          <p className="font-mono text-[11px] italic text-on-surface-variant/60 mt-6">
+          <p className="italic text-on-surface-variant/60 mt-6 text-caption">
             Press mentions coming soon.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default function SocialProof({ locale = 'en' }: Props) {
         <div className="flex flex-col justify-between h-full border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm p-6 md:p-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-on-surface-variant">
+              <span className="text-on-surface-variant text-label">
                 Customer Voices
               </span>
               <div className="flex items-center gap-0.5 ml-2">
@@ -69,10 +69,10 @@ export default function SocialProof({ locale = 'en' }: Props) {
                 "Reviews coming soon. Customer stories and ratings will automatically appear here once clients start sharing their experience with the initial collection."
               </p>
               <div className="mt-4 flex items-center justify-between">
-                <span className="font-mono text-[10px] text-on-surface-variant font-semibold tracking-wider">
+                <span className="text-on-surface-variant font-semibold text-caption">
                   — Verified Collector
                 </span>
-                <span className="font-mono text-[9px] text-outline/80">
+                <span className="text-outline/80 text-caption">
                   Initial Drop
                 </span>
               </div>
@@ -85,7 +85,7 @@ export default function SocialProof({ locale = 'en' }: Props) {
           */}
           <Link 
             href={`/${locale}/about`}
-            className="font-mono text-xs uppercase tracking-[0.2em] text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group self-start transition-colors mt-6"
+            className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-1.5 pb-0.5 border-b border-primary/45 hover:border-primary group self-start transition-colors mt-6 text-label"
           >
             {/* TODO: Update this link to /reviews when created */}
             Read Client Reviews
