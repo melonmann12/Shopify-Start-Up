@@ -85,7 +85,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               )}
             </div>
 
-            <div className={isSize ? "grid grid-cols-4 sm:grid-cols-5 gap-3" : "flex gap-3 flex-wrap"}>
+            <div className={isSize ? "grid grid-cols-4 sm:grid-cols-5 gap-3" : "grid grid-cols-2 sm:grid-cols-3 gap-2.5"}>
               {values.map((value, idx) => {
                 const isSelected = selectedOptions[option.name] === value
                 const isCustomOption = value === CUSTOM_SIZE_VALUE
@@ -115,7 +115,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                   )
                 }
 
-                // Size Selector / Text Swatches: Minimalist Outline Buttons
+                // Text Swatch Buttons (Size grid or Shape grid)
                 return (
                   <button
                     key={`${option.id}-${idx}-${value}`}
@@ -127,7 +127,13 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                       }
                     }}
                     disabled={!available}
-                    className={`py-3 transition-colors border duration-200 ${isSelected ? 'border-2 border-on-background bg-surface-container-lowest text-on-background font-bold' : available ? 'border border-outline/40 bg-transparent text-on-surface-variant hover:border-on-background hover:text-on-background' : 'border border-outline/20 bg-transparent text-on-surface-variant/40 cursor-not-allowed' } text-label`}
+                    className={`py-2.5 px-3 transition-colors border duration-200 text-[11px] leading-snug text-center
+                      ${isSelected
+                        ? 'border-2 border-on-background bg-surface-container-lowest text-on-background font-bold'
+                        : available
+                          ? 'border border-outline/40 bg-transparent text-on-surface-variant hover:border-on-background hover:text-on-background'
+                          : 'border border-outline/20 bg-transparent text-on-surface-variant/40 cursor-not-allowed'
+                      } ${isSize ? 'text-label' : 'uppercase tracking-[0.04em]'}`}
                   >
                     {value}
                   </button>
