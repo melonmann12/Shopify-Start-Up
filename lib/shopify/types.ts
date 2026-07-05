@@ -22,7 +22,7 @@ export interface ShopifyProductVariant {
   id: string
   title: string
   availableForSale: boolean
-  quantityAvailable: number
+  quantityAvailable?: number
   selectedOptions: { name: string; value: string }[]
   price: Money
   compareAtPrice: Money | null

@@ -17,20 +17,30 @@ interface Props {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const locale = params.locale as Locale
-  const data = await shopifyFetch<{ product: ShopifyProduct | null }>(
-    GET_PRODUCT_BY_HANDLE,
-    { handle: params.handle, country: countryMap[locale] ?? 'US', language: locale.toUpperCase() }
-  )
-  const product = data.product
-  if (!product) return {}
+  let data: { product: ShopifyProduct | null } | null = null
+  try {
+    data = await shopifyFetch<{ product: ShopifyProduct | null }>(
+      GET_PRODUCT_BY_HANDLE,
+      { handle: params.handle, country: countryMap[locale] ?? 'US', language: locale.toUpperCase() }
+    )
+  } catch {
+    return { title: 'Product | Nailestial' }
+  }
+
+  const product = data?.product
+  if (!product) return { title: 'Product | Nailestial' }
+
+  const title = product.seo?.title || `${product.title} | Nailestial`
+  const description = product.seo?.description || product.description?.slice(0, 160) || ''
+  const imageUrl = product.images?.nodes?.[0]?.url
 
   return {
-    title: product.seo.title || `${product.title} | nailestial`,
-    description: product.seo.description || product.description.slice(0, 160),
+    title,
+    description,
     openGraph: {
       title: product.title,
-      description: product.description,
-      images: [{ url: product.images.nodes[0]?.url, width: 1200, height: 630 }],
+      description,
+      ...(imageUrl ? { images: [{ url: imageUrl, width: 1200, height: 630 }] } : {}),
       type: 'website',
     },
     alternates: {

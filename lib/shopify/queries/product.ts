@@ -43,7 +43,6 @@ export const GET_PRODUCT_BY_HANDLE = `
           id
           title
           availableForSale
-          quantityAvailable
           selectedOptions { name value }
           price { amount currencyCode }
           compareAtPrice { amount currencyCode }

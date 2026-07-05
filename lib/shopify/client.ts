@@ -61,9 +61,37 @@ export async function shopifyFetch<T>(
       })
     }
 
-    const data = await client.request<T>(query, variables)
+    // Use rawRequest so we can access both data AND errors simultaneously.
+    // graphql-request's default client.request() throws whenever errors[] is
+    // present, even when response.data is fully populated (Shopify partial errors
+    // for fields like quantityAvailable or non-existent metafields). rawRequest
+    // lets us decide: if we got valid data, use it; only throw if data is absent.
+    const { data, errors, status } = await client.rawRequest<T>(query, variables)
+
+    if (errors && errors.length > 0) {
+      if (status === 401) {
+        // Real authorization failure — always throw.
+        throw new Error('[Shopify API] Unauthorized (401). Check your Storefront Access Token.')
+      }
+      // Partial errors: log them for visibility but don't discard valid data.
+      console.warn(
+        '[Shopify API Partial Errors] GraphQL returned errors alongside data.',
+        errors.map((e: { message: string; locations?: unknown; path?: unknown }) => ({
+          message: e.message,
+          path: e.path,
+        }))
+      )
+    }
+
+    if (!data) {
+      throw new Error('[Shopify API] Response contained no data.')
+    }
+
     return data
   } catch (error: any) {
+    // Re-throw errors we intentionally threw above.
+    if (error?.message?.startsWith('[Shopify API]')) throw error
+
     console.error('[Shopify API Error Full Log]', JSON.stringify(error, null, 2))
 
     if (error instanceof ClientError) {
@@ -72,7 +100,6 @@ export async function shopifyFetch<T>(
         variables,
         errors: error.response?.errors,
         status: error.response?.status,
-        headers: error.response?.headers,
       })
     } else {
       console.error('[Shopify API Error (Non-ClientError)]', error?.message || error)
