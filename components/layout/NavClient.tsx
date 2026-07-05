@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import HomeLink from './HomeLink'
 
 interface CollectionItem {
@@ -78,8 +78,22 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     collections: false,
   })
 
+  // Search Toggle State
+  const [showSearchInput, setShowSearchInput] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
+
   function toggleMobileSub(key: string) {
     setMobileActiveSub((prev) => ({ ...prev, [key]: !prev[key] }))
+  }
+
+  function handleSearchSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/${locale}/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setShowSearchInput(false)
+      setSearchQuery('')
+    }
   }
 
   // Column 4 dynamic filter: exclude standard tags so they don't overlap with static sections
@@ -255,9 +269,32 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
       {/* ── STANDARD NAVIGATION ACTIONS (Search, Cart, Mobile Menu) ────────── */}
       <div className="flex items-center gap-6 text-on-surface-variant">
-        <button aria-label="search" className="hover:text-on-background transition-all duration-200 flex items-center justify-center">
-          <span className="material-symbols-outlined text-[20px]">search</span>
-        </button>
+        {showSearchInput ? (
+          <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 border-b border-outline/35 py-1">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-transparent border-none text-on-background focus:ring-0 outline-none text-xs w-28 sm:w-40"
+              autoFocus
+            />
+            <button type="submit" aria-label="Submit Search" className="hover:text-on-background transition-colors flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">search</span>
+            </button>
+            <button type="button" onClick={() => setShowSearchInput(false)} aria-label="Close Search" className="hover:text-on-background transition-colors flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </form>
+        ) : (
+          <button
+            onClick={() => setShowSearchInput(true)}
+            aria-label="search"
+            className="hover:text-on-background transition-all duration-200 flex items-center justify-center"
+          >
+            <span className="material-symbols-outlined text-[20px]">search</span>
+          </button>
+        )}
 
         <button
           id="cart-icon-btn"
