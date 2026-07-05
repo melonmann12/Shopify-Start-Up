@@ -53,6 +53,30 @@ export default function ProductClient({ product, locale }: Props) {
     }
   }, [selectedVariant, allImages])
 
+  const mobileCarouselRef = useRef<HTMLDivElement>(null)
+
+  function scrollToImage(index: number) {
+    setDisplayIndex(index)
+    if (mobileCarouselRef.current) {
+      const container = mobileCarouselRef.current
+      const width = container.clientWidth
+      container.scrollTo({
+        left: width * index,
+        behavior: 'smooth',
+      })
+    }
+  }
+
+  function handleMobileScroll(e: React.UIEvent<HTMLDivElement>) {
+    const container = e.currentTarget
+    const scrollLeft = container.scrollLeft
+    const width = container.clientWidth
+    const index = Math.round(scrollLeft / width)
+    if (index !== displayIndex && index >= 0 && index < allImages.length) {
+      setDisplayIndex(index)
+    }
+  }
+
   // ── Accordion State ───────────────────────────────────────────────────────────
   const [activeAccordion, setActiveAccordion] = useState<Record<string, boolean>>({
     included: false,
@@ -79,34 +103,97 @@ export default function ProductClient({ product, locale }: Props) {
         {/* ── LEFT: Image Gallery ─────────────────────────────────────────────── */}
         <div className="w-full lg:w-[55%] flex flex-col gap-4">
           {/* Mobile Swipe Slider */}
-          <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-outline/30 overflow-hidden">
-            <div className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-none">
+          <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-outline/30 overflow-hidden group">
+            <div
+              ref={mobileCarouselRef}
+              onScroll={handleMobileScroll}
+              className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-none"
+            >
               {allImages.map((img, i) => (
                 <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-square">
                   <Image
                     src={img.url}
                     alt={img.altText ?? product.title}
                     fill
-                    priority={i === 0}
+                    priority={true}
                     className="w-full h-full object-cover"
                     sizes="(max-width: 768px) calc(100vw - 3rem), 55vw"
                   />
                 </div>
               ))}
             </div>
+
+            {/* Mobile Navigation Arrows */}
+            {allImages.length > 1 && (
+              <>
+                <button
+                  onClick={() => {
+                    const prevIdx = displayIndex === 0 ? allImages.length - 1 : displayIndex - 1
+                    scrollToImage(prevIdx)
+                  }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 border border-outline/10 flex items-center justify-center text-on-background hover:bg-white active:scale-95 transition-all focus:outline-none z-20"
+                  aria-label="Previous image"
+                >
+                  <span className="material-symbols-outlined text-base select-none">chevron_left</span>
+                </button>
+                <button
+                  onClick={() => {
+                    const nextIdx = displayIndex === allImages.length - 1 ? 0 : displayIndex + 1
+                    scrollToImage(nextIdx)
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 border border-outline/10 flex items-center justify-center text-on-background hover:bg-white active:scale-95 transition-all focus:outline-none z-20"
+                  aria-label="Next image"
+                >
+                  <span className="material-symbols-outlined text-base select-none">chevron_right</span>
+                </button>
+              </>
+            )}
           </div>
 
           {/* Desktop Main Image */}
-          <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-square relative">
-            {allImages[displayIndex] && (
-              <Image
-                src={allImages[displayIndex].url}
-                alt={allImages[displayIndex].altText ?? product.title}
-                fill
-                priority
-                className="w-full h-full object-cover"
-                sizes="(max-width: 1024px) 100vw, 55vw"
-              />
+          <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-square relative group">
+            {allImages.map((img, i) => (
+              <div
+                key={img.url + '-desk'}
+                className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  i === displayIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                }`}
+              >
+                <Image
+                  src={img.url}
+                  alt={img.altText ?? product.title}
+                  fill
+                  priority={true}
+                  className="w-full h-full object-cover"
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                />
+              </div>
+            ))}
+
+            {/* Desktop Navigation Arrows */}
+            {allImages.length > 1 && (
+              <>
+                <button
+                  onClick={() => {
+                    const prevIdx = displayIndex === 0 ? allImages.length - 1 : displayIndex - 1
+                    scrollToImage(prevIdx)
+                  }}
+                  className="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/70 backdrop-blur-sm border border-outline/10 flex items-center justify-center text-on-background hover:bg-white hover:border-outline-variant/30 active:scale-95 transition-all focus:outline-none z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  aria-label="Previous image"
+                >
+                  <span className="material-symbols-outlined text-base select-none">chevron_left</span>
+                </button>
+                <button
+                  onClick={() => {
+                    const nextIdx = displayIndex === allImages.length - 1 ? 0 : displayIndex + 1
+                    scrollToImage(nextIdx)
+                  }}
+                  className="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/70 backdrop-blur-sm border border-outline/10 flex items-center justify-center text-on-background hover:bg-white hover:border-outline-variant/30 active:scale-95 transition-all focus:outline-none z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  aria-label="Next image"
+                >
+                  <span className="material-symbols-outlined text-base select-none">chevron_right</span>
+                </button>
+              </>
             )}
           </div>
 

@@ -108,7 +108,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
       >
         <Link 
           href={`/${locale}`} 
-          className="hover:text-on-background transition-colors duration-200 py-6"
+          className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.home}
         </Link>
@@ -119,7 +119,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         >
           <Link 
             href={`/${locale}/collections`} 
-            className="hover:text-on-background transition-colors duration-200 py-6 flex items-center gap-1 cursor-pointer"
+            className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1 cursor-pointer"
           >
             {UI_TEXT.shop}
             <span className="material-symbols-outlined text-[12px] font-bold select-none">
@@ -130,14 +130,14 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
         <Link 
           href={`/${locale}/about`} 
-          className="hover:text-on-background transition-colors duration-200 py-6"
+          className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.ourStory}
         </Link>
 
         <Link 
           href={`/${locale}/contact`} 
-          className="hover:text-on-background transition-colors duration-200 py-6"
+          className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.contact}
         </Link>
