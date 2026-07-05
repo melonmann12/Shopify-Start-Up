@@ -1,6 +1,6 @@
 'use client'
 // components/product/VariantSelector.tsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AddToCartButton from './AddToCartButton'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
@@ -35,9 +35,24 @@ const getColorHex = (colorName: string): string => {
 }
 
 export default function VariantSelector({ product, locale, selectedOptions, selectedVariant, onSelectOption }: Props) {
-  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false)
+  const [isShapeGuideOpen, setIsShapeGuideOpen] = useState(false)
   const [customSizeNote, setCustomSizeNote] = useState('')
   const [customSizeError, setCustomSizeError] = useState('')
+
+  // Close shape guide modal on escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsShapeGuideOpen(false)
+      }
+    }
+    if (isShapeGuideOpen) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isShapeGuideOpen])
 
   // Find the actual option name for "Size" from Shopify product data (handles any casing)
   const sizeOptionName = product.options.find(o => o.name.toLowerCase() === 'size')?.name
@@ -62,6 +77,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
     <div className="flex flex-col gap-10">
       {product.options.map((option) => {
         const isSize = option.name.toLowerCase() === 'size'
+        const isShape = option.name.toLowerCase() === 'shape'
         const isColor = option.name.toLowerCase() === 'color' || option.name.toLowerCase() === 'colour'
 
         // For the size option, append "Custom" only if not already in the source data
@@ -75,12 +91,13 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               <span className="text-on-surface-variant text-label">
                 Select {option.name}
               </span>
-              {isSize && (
+              {isShape && (
                 <button
-                  onClick={() => setIsSizeGuideOpen(true)}
-                  className="font-serif italic text-xs text-on-surface-variant hover:text-on-background underline decoration-outline-variant/30 hover:decoration-on-background underline-offset-4 transition-colors"
+                  type="button"
+                  onClick={() => setIsShapeGuideOpen(true)}
+                  className="font-serif italic text-[13px] text-on-surface-variant hover:text-on-background underline decoration-outline-variant/30 hover:decoration-on-background underline-offset-4 transition-colors"
                 >
-                  Find your size
+                  Find your shape
                 </button>
               )}
             </div>
@@ -190,77 +207,34 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
         />
       </div>
 
-      {/* Premium Minimalist Size Guide Modal */}
-      {isSizeGuideOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      {/* Premium Minimalist Shape Guide Modal */}
+      {isShapeGuideOpen && (
+        <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto p-4 pt-[104px] sm:pt-[128px] pb-8">
           {/* Backdrop */}
           <div
-            onClick={() => setIsSizeGuideOpen(false)}
-            className="absolute inset-0 bg-black/40"
+            onClick={() => setIsShapeGuideOpen(false)}
+            className="fixed inset-0 bg-black/40"
           />
 
           {/* Modal Panel */}
-          <div className="bg-surface border border-outline/30 p-6 sm:p-8 max-w-md w-full relative z-10 shadow-2xl flex flex-col">
+          <div className="bg-surface border border-outline/30 p-6 sm:p-8 max-w-2xl w-full max-h-[calc(100vh-160px)] overflow-y-auto relative z-10 shadow-2xl flex flex-col items-center">
             <button
-              onClick={() => setIsSizeGuideOpen(false)}
+              type="button"
+              onClick={() => setIsShapeGuideOpen(false)}
               className="absolute top-6 right-6 text-on-surface-variant hover:text-on-background transition-colors text-label"
             >
               Close
             </button>
 
-            <h3 className="font-serif text-3xl font-normal text-on-background mb-2">Size Chart</h3>
-            <p className="text-on-surface-variant mb-6 text-label">
-              Standard Footwear Sizing
-            </p>
+            <h3 className="font-serif text-3xl font-normal text-on-background mb-6">Nail Shapes Guide</h3>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse border border-outline/20 text-caption">
-                <thead>
-                  <tr className="border-b border-outline/25 bg-surface-container-low">
-                    <th className="p-3 font-bold uppercase">US</th>
-                    <th className="p-3 font-bold uppercase">EU</th>
-                    <th className="p-3 font-bold uppercase">UK</th>
-                    <th className="p-3 font-bold uppercase">CM</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-outline/10 text-on-surface-variant">
-                  <tr>
-                    <td className="p-3">7.0</td>
-                    <td className="p-3">40</td>
-                    <td className="p-3">6.5</td>
-                    <td className="p-3">25.0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">8.0</td>
-                    <td className="p-3">41</td>
-                    <td className="p-3">7.5</td>
-                    <td className="p-3">26.0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">9.0</td>
-                    <td className="p-3">42</td>
-                    <td className="p-3">8.5</td>
-                    <td className="p-3">27.0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">10.0</td>
-                    <td className="p-3">43</td>
-                    <td className="p-3">9.5</td>
-                    <td className="p-3">28.0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">11.0</td>
-                    <td className="p-3">44</td>
-                    <td className="p-3">10.5</td>
-                    <td className="p-3">29.0</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="w-full relative bg-transparent flex justify-center items-center py-2">
+              <img
+                src="/Shape.png"
+                alt="Nailestial Nail Shapes Guide"
+                className="w-[75%] max-w-full h-auto object-contain max-h-[calc(100vh-280px)]"
+              />
             </div>
-
-            <p className="font-serif italic text-xs text-on-surface-variant mt-6 leading-relaxed">
-              * Fit recommendation: If you are between sizes, we suggest taking the next size up for optimal comfort.
-            </p>
           </div>
         </div>
       )}
