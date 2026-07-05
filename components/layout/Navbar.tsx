@@ -31,7 +31,14 @@ export default async function Navbar({ locale = 'en' }: Props) {
       language,
     })
 
-    collections = data?.collections?.nodes || []
+    const raw = data?.collections?.nodes || []
+    // Strip out Shopify internal defaults — NavClient also filters, this is a server-side safety net
+    collections = raw.filter(
+      (c) =>
+        c.handle !== 'frontpage' &&
+        c.title !== 'Home page' &&
+        c.title !== 'Homepage'
+    )
   } catch (error) {
     console.error('[Navbar collections fetch error]:', error)
   }

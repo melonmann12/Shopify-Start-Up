@@ -17,46 +17,48 @@ interface NavClientProps {
   initialCollections?: CollectionItem[]
 }
 
+// ─── UI strings ─────────────────────────────────────────────────────────────
 const UI_TEXT = {
-  home: "Home",
-  shop: "Shop",
-  ourStory: "Our Story",
-  contact: "Contact",
-  close: "Close Menu",
-  
+  home: 'Home',
+  shop: 'Shop',
+  ourStory: 'Our Story',
+  contact: 'Contact',
+  closeMenu: 'Close Menu',
+
   // Column 1: Press-on Nails
-  pressOnNails: "Press-on Nails",
-  allNails: "All Nails",
-  newArrivals: "New Arrivals",
-  bestSellers: "Best Sellers",
-  prepKits: "Prep Kits & Tools",
-  onSale: "On Sale",
-  
-  // Column 2: Shop by Shape
-  shopByShape: "Shop by Shape",
-  almond: "Almond",
-  coffin: "Coffin",
-  stiletto: "Stiletto",
-  round: "Round",
-  square: "Square",
-  oval: "Oval",
-  
-  // Column 3: Shop by Length
-  shopByLength: "Shop by Length",
-  ultraShort: "Ultra-Short",
-  short: "Short",
-  medium: "Medium",
-  long: "Long",
-  
-  // Column 4: Collections
-  collections: "Collections",
-  noCollections: "New arrivals coming soon.",
+  // These are intentionally static: they map to semantic Shopify collection handles
+  // that the store team creates once and keeps stable. Make dynamic when Shopify
+  // navigation menus / metaobjects are configured for this storefront.
+  pressOnNails: 'Press-on Nails',
+  allNails: 'All Nails',
+  newArrivals: 'New Arrivals',
+  bestSellers: 'Best Sellers',
+  onSale: 'On Sale',
+
+  // Column 2: Collections (rendered dynamically from Shopify)
+  collections: 'Collections',
+  noCollections: 'Collections coming soon.',
+
+  // Column 3: Order Tracking (placeholder — backend not yet implemented)
+  orderTracking: 'Order Tracking',
+  trackOrder: 'Track your order',
+  shippingPolicy: 'Shipping policy',
+  returnsExchanges: 'Returns & exchanges',
 }
 
-// Grouping keywords map (for filtering Column 4 custom collections)
-const SHAPE_HANDLES = ['almond', 'coffin', 'stiletto', 'round', 'square', 'oval']
-const LENGTH_HANDLES = ['ultra-short', 'short', 'medium', 'long']
-const GENERAL_HANDLES = ['all', 'new-arrivals', 'best-sellers', 'sale', 'tools', 'prep-kits', 'all-nails']
+// Handles to exclude from the dynamic Collections column so they don't clash
+// with the curated Press-on Nails links above or Shopify's internal defaults.
+const EXCLUDED_HANDLES = new Set([
+  'frontpage',
+  'all',
+  'new-arrivals',
+  'best-sellers',
+  'sale',
+  'tools',
+  'prep-kits',
+  'all-nails',
+])
+const EXCLUDED_TITLES = new Set(['Home page', 'Homepage', 'home page'])
 
 export default function NavClient({ initialCollections = [] }: NavClientProps) {
   const params = useParams()
@@ -66,19 +68,18 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
   const { cart, openCart } = useCart()
   const [isBouncing, setIsBouncing] = useState(false)
 
-  // Desktop Hover Menu State
+  // Desktop hover mega menu
   const [isShopOpen, setIsShopOpen] = useState(false)
 
-  // Mobile Drawer Accordion State
+  // Mobile drawer accordion
   const [mobileShopOpen, setMobileShopOpen] = useState(false)
   const [mobileActiveSub, setMobileActiveSub] = useState<Record<string, boolean>>({
     nails: false,
-    shape: false,
-    length: false,
     collections: false,
+    tracking: false,
   })
 
-  // Search Toggle State
+  // Search
   const [showSearchInput, setShowSearchInput] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const router = useRouter()
@@ -96,16 +97,15 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     }
   }
 
-  // Column 4 dynamic filter: exclude standard tags so they don't overlap with static sections
-  const customCollections = initialCollections.filter(c => 
-    !SHAPE_HANDLES.includes(c.handle.toLowerCase()) &&
-    !LENGTH_HANDLES.includes(c.handle.toLowerCase()) &&
-    !GENERAL_HANDLES.includes(c.handle.toLowerCase())
+  // Filter out internal/default Shopify collections from the dynamic column
+  const displayCollections = initialCollections.filter(
+    (c) =>
+      !EXCLUDED_HANDLES.has(c.handle.toLowerCase()) &&
+      !EXCLUDED_TITLES.has(c.title)
   )
 
   const totalQuantity = cart?.totalQuantity || 0
 
-  // Trigger a brief animation when totalQuantity increases
   useEffect(() => {
     if (totalQuantity > 0) {
       setIsBouncing(true)
@@ -114,26 +114,30 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     }
   }, [totalQuantity])
 
+  // Shared link classes
+  const menuLinkCls =
+    'font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1'
+
   return (
     <>
-      {/* ── DESKTOP NAVIGATION LINKS (Center-Aligned) ───────────────────────── */}
-      <div 
+      {/* ── DESKTOP NAVIGATION LINKS ──────────────────────────────────────── */}
+      <div
         className="hidden md:flex items-center gap-10 lg:gap-12 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label"
         onMouseLeave={() => setIsShopOpen(false)}
       >
-        <HomeLink 
-          href={`/${locale}`} 
+        <HomeLink
+          href={`/${locale}`}
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.home}
         </HomeLink>
-        
-        <div 
+
+        <div
           className="h-full flex items-center"
           onMouseEnter={() => setIsShopOpen(true)}
         >
-          <Link 
-            href={`/${locale}/collections`} 
+          <Link
+            href={`/${locale}/collections`}
             className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1 cursor-pointer"
           >
             {UI_TEXT.shop}
@@ -143,113 +147,65 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
           </Link>
         </div>
 
-        <Link 
-          href={`/${locale}/about`} 
+        <Link
+          href={`/${locale}/about`}
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.ourStory}
         </Link>
 
-        <Link 
-          href={`/${locale}/contact`} 
+        <Link
+          href={`/${locale}/contact`}
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.contact}
         </Link>
 
-        {/* Desktop Dropdown Mega Menu Panel (Grid matrix) */}
+        {/* ── DESKTOP MEGA MENU PANEL (3 columns) ─────────────────────────── */}
         {isShopOpen && (
-          <div 
+          <div
             className="absolute top-full left-1/2 -translate-x-1/2 w-screen bg-surface border-b border-outline-variant/15 shadow-ambient py-12 animate-fade-in z-50 text-left cursor-default"
             onMouseEnter={() => setIsShopOpen(true)}
             onMouseLeave={() => setIsShopOpen(false)}
           >
-            <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-4 gap-8 lg:gap-12">
-              
-              {/* Column 1: Press-on Nails (Static semantic URLs) */}
-              <div className="min-w-[180px]">
+            <div className="max-w-screen-2xl mx-auto px-6 md:px-12 grid grid-cols-3 gap-8 lg:gap-16">
+
+              {/* ── Column 1: Press-on Nails ─────────────────────────────── */}
+              {/* Intentionally static: these map to stable Shopify collection handles.
+                  To make fully dynamic, configure a Shopify navigation menu or metaobject
+                  with handle "press-on-nails-menu" and fetch it via the Storefront API. */}
+              <div>
                 <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.pressOnNails}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections/all`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/all`} className={menuLinkCls}>
                     {UI_TEXT.allNails}
                   </Link>
-                  <Link href={`/${locale}/collections/new-arrivals`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/new-arrivals`} className={menuLinkCls}>
                     {UI_TEXT.newArrivals}
                   </Link>
-                  <Link href={`/${locale}/collections/best-sellers`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/best-sellers`} className={menuLinkCls}>
                     {UI_TEXT.bestSellers}
                   </Link>
-                  <Link href={`/${locale}/collections/prep-kits`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.prepKits}
-                  </Link>
-                  <Link href={`/${locale}/collections/sale`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
+                  <Link href={`/${locale}/collections/sale`} className={menuLinkCls}>
                     {UI_TEXT.onSale}
                   </Link>
                 </div>
               </div>
 
-              {/* Column 2: Shop by Shape (Static semantic URLs) */}
-              <div className="min-w-[180px]">
-                <span className="text-on-background font-bold mb-5 block text-label">
-                  {UI_TEXT.shopByShape}
-                </span>
-                <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections/almond`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.almond}
-                  </Link>
-                  <Link href={`/${locale}/collections/coffin`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.coffin}
-                  </Link>
-                  <Link href={`/${locale}/collections/stiletto`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.stiletto}
-                  </Link>
-                  <Link href={`/${locale}/collections/round`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.round}
-                  </Link>
-                  <Link href={`/${locale}/collections/square`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.square}
-                  </Link>
-                  <Link href={`/${locale}/collections/oval`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.oval}
-                  </Link>
-                </div>
-              </div>
-
-              {/* Column 3: Shop by Length (Static semantic URLs) */}
-              <div className="min-w-[180px]">
-                <span className="text-on-background font-bold mb-5 block text-label">
-                  {UI_TEXT.shopByLength}
-                </span>
-                <div className="flex flex-col gap-2.5">
-                  <Link href={`/${locale}/collections/ultra-short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.ultraShort}
-                  </Link>
-                  <Link href={`/${locale}/collections/short`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.short}
-                  </Link>
-                  <Link href={`/${locale}/collections/medium`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.medium}
-                  </Link>
-                  <Link href={`/${locale}/collections/long`} className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1">
-                    {UI_TEXT.long}
-                  </Link>
-                </div>
-              </div>
-
-              {/* Column 4: Collections (Strictly Dynamic custom lists) */}
-              <div className="min-w-[180px]">
+              {/* ── Column 2: Collections (dynamic from Shopify) ─────────── */}
+              <div>
                 <span className="text-on-background font-bold mb-5 block text-label">
                   {UI_TEXT.collections}
                 </span>
                 <div className="flex flex-col gap-2.5">
-                  {customCollections.length > 0 ? (
-                    customCollections.map((col) => (
-                      <Link 
-                        key={col.id} 
-                        href={`/${locale}/collections/${col.handle}`} 
-                        className="font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors py-1 block"
+                  {displayCollections.length > 0 ? (
+                    displayCollections.map((col) => (
+                      <Link
+                        key={col.id}
+                        href={`/${locale}/collections/${col.handle}`}
+                        className={menuLinkCls}
                       >
                         {col.title}
                       </Link>
@@ -262,12 +218,40 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                 </div>
               </div>
 
+              {/* ── Column 3: Order Tracking (placeholder) ───────────────── */}
+              {/* Backend order tracking is not yet implemented.
+                  Link /track-order to a placeholder page or Shopify's order status URL
+                  once the integration is ready. Policy links route to /policies/[handle]. */}
+              <div>
+                <span className="text-on-background font-bold mb-5 block text-label">
+                  {UI_TEXT.orderTracking}
+                </span>
+                <div className="flex flex-col gap-2.5">
+                  <Link
+                    href={`/${locale}/contact`}
+                    className={menuLinkCls}
+                    title="Order tracking coming soon — contact us for updates"
+                  >
+                    {UI_TEXT.trackOrder}
+                    <span className="ml-1.5 text-[10px] text-on-surface-variant/40 italic">
+                      (coming soon)
+                    </span>
+                  </Link>
+                  <Link href={`/${locale}/policies/shipping-policy`} className={menuLinkCls}>
+                    {UI_TEXT.shippingPolicy}
+                  </Link>
+                  <Link href={`/${locale}/policies/refund-policy`} className={menuLinkCls}>
+                    {UI_TEXT.returnsExchanges}
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         )}
       </div>
 
-      {/* ── STANDARD NAVIGATION ACTIONS (Search, Cart, Mobile Menu) ────────── */}
+      {/* ── STANDARD ACTIONS (Search, Cart, Mobile Menu) ─────────────────── */}
       <div className="flex items-center gap-6 text-on-surface-variant">
         {showSearchInput ? (
           <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 border-b border-outline/35 py-1">
@@ -304,7 +288,11 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         >
           <span className="material-symbols-outlined text-[20px] transition-colors">shopping_bag</span>
           {totalQuantity > 0 && (
-            <span className={`absolute -right-2.5 -top-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 font-bold text-white transition-transform duration-300 ${isBouncing ? 'scale-125' : 'scale-100'}`}>
+            <span
+              className={`absolute -right-2.5 -top-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-black px-1 font-bold text-white transition-transform duration-300 ${
+                isBouncing ? 'scale-125' : 'scale-100'
+              }`}
+            >
               {totalQuantity}
             </span>
           )}
@@ -318,16 +306,16 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
           <span className="material-symbols-outlined text-[20px]">{menuOpen ? 'close' : 'menu'}</span>
         </button>
 
-        {/* ── MOBILE NAVIGATION DRAWER (No Backdrop Blur, Solid Performance) ── */}
+        {/* ── MOBILE NAVIGATION DRAWER ─────────────────────────────────────── */}
         {menuOpen && (
           <div className="fixed inset-0 z-50 flex md:hidden">
             {/* Backdrop */}
-            <div 
+            <div
               className="absolute inset-0 bg-black/40 transition-opacity"
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
-            
+
             {/* Drawer Panel */}
             <div className="relative w-4/5 max-w-sm bg-surface h-full shadow-2xl flex flex-col p-8 z-10 overflow-y-auto">
               <div className="flex justify-between items-center mb-10 shrink-0">
@@ -339,7 +327,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   className="h-7 w-auto object-contain"
                 />
                 <button
-                  aria-label={UI_TEXT.close}
+                  aria-label={UI_TEXT.closeMenu}
                   onClick={() => setMenuOpen(false)}
                   className="p-2 text-on-surface-variant hover:text-on-background"
                 >
@@ -347,10 +335,9 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                 </button>
               </div>
 
-              {/* Mobile Menu Options */}
               <div className="flex flex-col gap-6 text-left">
-                
-                {/* 1. HOME */}
+
+                {/* HOME */}
                 <HomeLink
                   href={`/${locale}`}
                   onClick={() => setMenuOpen(false)}
@@ -359,7 +346,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   {UI_TEXT.home}
                 </HomeLink>
 
-                {/* 2. SHOP (Accordion) */}
+                {/* SHOP (accordion) */}
                 <div className="border-b border-outline-variant/10 pb-4">
                   <button
                     onClick={() => setMobileShopOpen((v) => !v)}
@@ -375,8 +362,8 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
                   {mobileShopOpen && (
                     <div className="mt-4 pl-4 space-y-4 animate-fade-in">
-                      
-                      {/* Sub-Accordion: Press-on Nails (Static links) */}
+
+                      {/* Sub-accordion: Press-on Nails */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('nails')}
@@ -400,9 +387,6 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                             <Link href={`/${locale}/collections/best-sellers`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.bestSellers}
                             </Link>
-                            <Link href={`/${locale}/collections/prep-kits`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.prepKits}
-                            </Link>
                             <Link href={`/${locale}/collections/sale`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.onSale}
                             </Link>
@@ -410,75 +394,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                         )}
                       </div>
 
-                      {/* Sub-Accordion: Shop by Shape (Static links) */}
-                      <div>
-                        <button
-                          onClick={() => toggleMobileSub('shape')}
-                          className="w-full py-2 flex justify-between items-center text-left"
-                        >
-                          <span className="text-xs text-on-surface font-semibold text-label">
-                            {UI_TEXT.shopByShape}
-                          </span>
-                          <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
-                            {mobileActiveSub.shape ? 'remove' : 'add'}
-                          </span>
-                        </button>
-                        {mobileActiveSub.shape && (
-                          <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/collections/almond`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.almond}
-                            </Link>
-                            <Link href={`/${locale}/collections/coffin`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.coffin}
-                            </Link>
-                            <Link href={`/${locale}/collections/stiletto`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.stiletto}
-                            </Link>
-                            <Link href={`/${locale}/collections/round`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.round}
-                            </Link>
-                            <Link href={`/${locale}/collections/square`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.square}
-                            </Link>
-                            <Link href={`/${locale}/collections/oval`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.oval}
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Sub-Accordion: Shop by Length (Static links) */}
-                      <div>
-                        <button
-                          onClick={() => toggleMobileSub('length')}
-                          className="w-full py-2 flex justify-between items-center text-left"
-                        >
-                          <span className="text-xs text-on-surface font-semibold text-label">
-                            {UI_TEXT.shopByLength}
-                          </span>
-                          <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
-                            {mobileActiveSub.length ? 'remove' : 'add'}
-                          </span>
-                        </button>
-                        {mobileActiveSub.length && (
-                          <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            <Link href={`/${locale}/collections/ultra-short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.ultraShort}
-                            </Link>
-                            <Link href={`/${locale}/collections/short`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.short}
-                            </Link>
-                            <Link href={`/${locale}/collections/medium`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.medium}
-                            </Link>
-                            <Link href={`/${locale}/collections/long`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
-                              {UI_TEXT.long}
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Sub-Accordion: Collections (Dynamic links) */}
+                      {/* Sub-accordion: Collections (dynamic) */}
                       <div>
                         <button
                           onClick={() => toggleMobileSub('collections')}
@@ -493,22 +409,63 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                         </button>
                         {mobileActiveSub.collections && (
                           <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
-                            {customCollections.length > 0 ? (
-                              customCollections.map((col) => (
-                                <Link 
-                                  key={col.id} 
-                                  href={`/${locale}/collections/${col.handle}`} 
-                                  onClick={() => setMenuOpen(false)} 
+                            {displayCollections.length > 0 ? (
+                              displayCollections.map((col) => (
+                                <Link
+                                  key={col.id}
+                                  href={`/${locale}/collections/${col.handle}`}
+                                  onClick={() => setMenuOpen(false)}
                                   className="font-sans text-xs text-on-surface-variant"
                                 >
                                   {col.title}
                                 </Link>
                               ))
                             ) : (
-                              <span className="text-on-surface-variant/50 italic py-1 block text-caption">
+                              <span className="text-on-surface-variant/50 italic text-caption">
                                 {UI_TEXT.noCollections}
                               </span>
                             )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Sub-accordion: Order Tracking (placeholder) */}
+                      <div>
+                        <button
+                          onClick={() => toggleMobileSub('tracking')}
+                          className="w-full py-2 flex justify-between items-center text-left"
+                        >
+                          <span className="text-xs text-on-surface font-semibold text-label">
+                            {UI_TEXT.orderTracking}
+                          </span>
+                          <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 select-none">
+                            {mobileActiveSub.tracking ? 'remove' : 'add'}
+                          </span>
+                        </button>
+                        {mobileActiveSub.tracking && (
+                          <div className="pl-3 py-2 flex flex-col gap-3 border-l border-outline-variant/15 animate-fade-in">
+                            <Link
+                              href={`/${locale}/contact`}
+                              onClick={() => setMenuOpen(false)}
+                              className="font-sans text-xs text-on-surface-variant"
+                            >
+                              {UI_TEXT.trackOrder}{' '}
+                              <span className="text-[10px] italic text-on-surface-variant/40">(coming soon)</span>
+                            </Link>
+                            <Link
+                              href={`/${locale}/policies/shipping-policy`}
+                              onClick={() => setMenuOpen(false)}
+                              className="font-sans text-xs text-on-surface-variant"
+                            >
+                              {UI_TEXT.shippingPolicy}
+                            </Link>
+                            <Link
+                              href={`/${locale}/policies/refund-policy`}
+                              onClick={() => setMenuOpen(false)}
+                              className="font-sans text-xs text-on-surface-variant"
+                            >
+                              {UI_TEXT.returnsExchanges}
+                            </Link>
                           </div>
                         )}
                       </div>
@@ -517,7 +474,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   )}
                 </div>
 
-                {/* 3. OUR STORY */}
+                {/* OUR STORY */}
                 <Link
                   href={`/${locale}/about`}
                   onClick={() => setMenuOpen(false)}
@@ -526,7 +483,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   {UI_TEXT.ourStory}
                 </Link>
 
-                {/* 4. CONTACT */}
+                {/* CONTACT */}
                 <Link
                   href={`/${locale}/contact`}
                   onClick={() => setMenuOpen(false)}
