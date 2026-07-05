@@ -5,9 +5,12 @@ import type { ShopifyProductVariant } from '@/lib/shopify/types'
 
 interface Props {
   variant?: ShopifyProductVariant
+  attributes?: { key: string; value: string }[]
+  /** Return an error string to block add-to-cart, or null to allow */
+  onValidate?: () => string | null
 }
 
-export default function AddToCartButton({ variant }: Props) {
+export default function AddToCartButton({ variant, attributes, onValidate }: Props) {
   const { addToCart } = useCart()
 
   const isAvailable = variant?.availableForSale
@@ -16,8 +19,12 @@ export default function AddToCartButton({ variant }: Props) {
     <div className="flex flex-col gap-4 mb-16 mt-4">
       <button
         onClick={() => {
+          if (onValidate) {
+            const error = onValidate()
+            if (error) return // validation failed — parent handles the message
+          }
           if (variant) {
-            addToCart(variant.id, 1)
+            addToCart(variant.id, 1, attributes)
           }
         }}
         disabled={!variant || !isAvailable}

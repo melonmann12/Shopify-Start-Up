@@ -4,6 +4,7 @@ export const CART_LINE_FRAGMENT = `
   fragment CartLineFragment on CartLine {
     id
     quantity
+    attributes { key value }
     merchandise {
       ... on ProductVariant {
         id

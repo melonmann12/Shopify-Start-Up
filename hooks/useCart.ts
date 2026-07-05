@@ -58,12 +58,12 @@ export function useCart() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartId, cart, setCartId])
 
-  async function addToCart(variantId: string, quantity = 1) {
+  async function addToCart(variantId: string, quantity = 1, attributes?: { key: string; value: string }[]) {
     // Read the live cart ID at call time — never use the closure-captured activeCartId
     const liveCartId = getCurrentCartId()
     beginMutation()
     try {
-      const newCart = await addToCartAction(liveCartId, variantId, quantity)
+      const newCart = await addToCartAction(liveCartId, variantId, quantity, attributes)
       if (newCart) {
         mergeCart(newCart)
         // ALWAYS sync cartId — Shopify may return a cart with a different ID

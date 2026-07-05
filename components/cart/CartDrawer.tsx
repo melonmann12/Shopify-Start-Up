@@ -76,6 +76,13 @@ function CartLineItem({
           <p className="text-xs text-[#707070] mt-1">
             {merchandise.title !== 'Default Title' ? merchandise.title : ''}
           </p>
+          {/* Display line item properties (e.g. Custom Size Note) */}
+          {line.attributes?.filter((a: { key: string }) => !a.key.startsWith('_')).map((attr: { key: string; value: string }) => (
+            <p key={attr.key} className="text-[11px] text-[#707070] mt-1.5 leading-snug">
+              <span className="font-medium text-[#505050]">{attr.key}:</span>{' '}
+              {attr.value}
+            </p>
+          ))}
         </div>
 
         <div className="flex items-center justify-between mt-4">

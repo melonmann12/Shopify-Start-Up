@@ -42,20 +42,20 @@ export default function ProductGallery({ images, title }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Mobile Swipe Slider/Carousel */}
-      <div className="md:hidden relative w-full aspect-[4/5] bg-surface-container-lowest border border-outline/30 overflow-hidden">
+      <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-outline/30 overflow-hidden">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
           className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-none"
         >
           {images.map((img, i) => (
-            <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-[4/5]">
+            <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-square">
               <Image
                 src={img.url}
                 alt={img.altText ?? title}
                 fill
                 priority={i === 0}
-                className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+                className="w-full h-full object-cover"
                 sizes="100vw"
               />
             </div>
@@ -83,14 +83,14 @@ export default function ProductGallery({ images, title }: Props) {
       </div>
 
       {/* Desktop Main Image */}
-      <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-[4/5] relative">
+      <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-square relative">
         {images[activeIndex] && (
           <Image
             src={images[activeIndex].url}
             alt={images[activeIndex].altText ?? title}
             fill
             priority
-            className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+            className="w-full h-full object-cover"
             sizes="(max-width: 1024px) 100vw, 60vw"
           />
         )}
@@ -113,7 +113,7 @@ export default function ProductGallery({ images, title }: Props) {
               src={img.url}
               alt={img.altText ?? title}
               fill
-              className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+              className="w-full h-full object-cover"
               sizes="120px"
             />
           </button>

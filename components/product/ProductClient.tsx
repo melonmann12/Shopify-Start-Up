@@ -1,7 +1,7 @@
 'use client'
 // components/product/ProductClient.tsx
 // Owns shared variant state and renders the full two-column PDP layout.
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
@@ -17,10 +17,6 @@ interface Props {
 }
 
 export default function ProductClient({ product, locale }: Props) {
-  // ── Dynamic Tags Parser ───────────────────────────────────────────────────────
-  const shape = product.tags?.find(t => t.toLowerCase().startsWith('shape:'))?.split(':')[1] || 'Coffin'
-  const length = product.tags?.find(t => t.toLowerCase().startsWith('length:'))?.split(':')[1] || 'Medium'
-  const finish = product.tags?.find(t => t.toLowerCase().startsWith('finish:'))?.split(':')[1] || '3D Salon Gel'
 
   // ── Variant State ────────────────────────────────────────────────────────────
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
@@ -42,15 +38,20 @@ export default function ProductClient({ product, locale }: Props) {
   )
 
   // ── Gallery State ─────────────────────────────────────────────────────────────
-  const [manualIndex, setManualIndex] = useState(0)
+  const [displayIndex, setDisplayIndex] = useState(0)
   const allImages = product.images.nodes
+  const lastVariantImageUrl = useRef<string | undefined>(undefined)
 
-  // Auto-jump to variant image when selection changes
-  const variantImageUrl = selectedVariant?.image?.url
-  const variantImageIndex = variantImageUrl
-    ? allImages.findIndex((img) => img.url === variantImageUrl)
-    : -1
-  const displayIndex = variantImageIndex >= 0 ? variantImageIndex : manualIndex
+  useEffect(() => {
+    const variantImageUrl = selectedVariant?.image?.url
+    if (variantImageUrl && variantImageUrl !== lastVariantImageUrl.current) {
+      lastVariantImageUrl.current = variantImageUrl
+      const idx = allImages.findIndex((img) => img.url === variantImageUrl)
+      if (idx >= 0) {
+        setDisplayIndex(idx)
+      }
+    }
+  }, [selectedVariant, allImages])
 
   // ── Accordion State ───────────────────────────────────────────────────────────
   const [activeAccordion, setActiveAccordion] = useState<Record<string, boolean>>({
@@ -78,41 +79,35 @@ export default function ProductClient({ product, locale }: Props) {
         {/* ── LEFT: Image Gallery ─────────────────────────────────────────────── */}
         <div className="w-full lg:w-[55%] flex flex-col gap-4">
           {/* Mobile Swipe Slider */}
-          <div className="md:hidden relative w-full aspect-[4/5] bg-surface-container-lowest border border-outline/30 overflow-hidden">
+          <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-outline/30 overflow-hidden">
             <div className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-none">
               {allImages.map((img, i) => (
-                <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-[4/5]">
+                <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-square">
                   <Image
                     src={img.url}
                     alt={img.altText ?? product.title}
                     fill
                     priority={i === 0}
-                    className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+                    className="w-full h-full object-cover"
                     sizes="(max-width: 768px) calc(100vw - 3rem), 55vw"
                   />
                 </div>
               ))}
             </div>
-            <div className="absolute bottom-6 right-6 bg-surface-container-lowest/90 px-4 py-1.5 border border-outline/30 md:backdrop-blur-sm">
-              <span className="font-serif text-lg text-on-background">{displayBadgeText}</span>
-            </div>
           </div>
 
           {/* Desktop Main Image */}
-          <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-[4/5] relative">
+          <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-square relative">
             {allImages[displayIndex] && (
               <Image
                 src={allImages[displayIndex].url}
                 alt={allImages[displayIndex].altText ?? product.title}
                 fill
                 priority
-                className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+                className="w-full h-full object-cover"
                 sizes="(max-width: 1024px) 100vw, 55vw"
               />
             )}
-            <div className="absolute bottom-8 right-8 bg-surface-container-lowest/90 px-6 py-2 shadow-sm border border-outline/30 md:backdrop-blur-sm">
-              <span className="font-serif text-2xl text-on-background">{displayBadgeText}</span>
-            </div>
           </div>
 
           {/* Desktop Thumbnail Strip */}
@@ -120,7 +115,7 @@ export default function ProductClient({ product, locale }: Props) {
             {allImages.map((img, i) => (
               <button
                 key={img.url}
-                onClick={() => setManualIndex(i)}
+                onClick={() => setDisplayIndex(i)}
                 className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${
                   i === displayIndex ? 'border-on-background border-2' : 'border-outline/30'
                 }`}
@@ -129,7 +124,7 @@ export default function ProductClient({ product, locale }: Props) {
                   src={img.url}
                   alt={img.altText ?? product.title}
                   fill
-                  className="w-full h-full object-cover saturate-50 contrast-[1.1]"
+                  className="w-full h-full object-cover"
                   sizes="120px"
                 />
               </button>
@@ -152,33 +147,6 @@ export default function ProductClient({ product, locale }: Props) {
             </p>
           </div>
 
-          {/* 1. Product Specification Badges */}
-          <div className="grid grid-cols-3 gap-4 border-t border-b border-outline/10 py-4 mb-8">
-            <div className="flex flex-col">
-              <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-on-surface-variant/80">
-                Shape
-              </span>
-              <span className="font-mono text-xs text-on-background font-semibold mt-1 uppercase">
-                {shape}
-              </span>
-            </div>
-            <div className="flex flex-col border-l border-outline/10 pl-4">
-              <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-on-surface-variant/80">
-                Length
-              </span>
-              <span className="font-mono text-xs text-on-background font-semibold mt-1 uppercase">
-                {length}
-              </span>
-            </div>
-            <div className="flex flex-col border-l border-outline/10 pl-4">
-              <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-on-surface-variant/80">
-                Finish
-              </span>
-              <span className="font-mono text-xs text-on-background font-semibold mt-1 uppercase">
-                {finish}
-              </span>
-            </div>
-          </div>
 
           {/* Controlled variant selector (shares state with gallery above) */}
           <VariantSelector

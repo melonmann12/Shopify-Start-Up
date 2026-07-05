@@ -14,19 +14,29 @@ export async function getCartAction(cartId: string) {
   return data.cart
 }
 
-export async function addToCartAction(cartId: string | null, variantId: string, quantity: number) {
+export async function addToCartAction(
+  cartId: string | null,
+  variantId: string,
+  quantity: number,
+  attributes?: { key: string; value: string }[]
+) {
   let cart: ShopifyCart
+
+  const lineInput: Record<string, unknown> = { merchandiseId: variantId, quantity }
+  if (attributes && attributes.length > 0) {
+    lineInput.attributes = attributes
+  }
 
   if (cartId) {
     const data = await shopifyFetch<{ cartLinesAdd: { cart: ShopifyCart } }>(
       ADD_TO_CART,
-      { cartId, lines: [{ merchandiseId: variantId, quantity }] }
+      { cartId, lines: [lineInput] }
     )
     cart = data.cartLinesAdd.cart
   } else {
     const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(
       CREATE_CART,
-      { input: { lines: [{ merchandiseId: variantId, quantity }] } }
+      { input: { lines: [lineInput] } }
     )
     cart = data.cartCreate.cart
   }

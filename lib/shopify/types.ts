@@ -46,6 +46,7 @@ export interface ShopifyCart {
 export interface ShopifyCartLine {
   id: string
   quantity: number
+  attributes: { key: string; value: string }[]
   merchandise: ShopifyProductVariant & {
     product: Pick<ShopifyProduct, 'title' | 'handle' | 'images'>
   }
