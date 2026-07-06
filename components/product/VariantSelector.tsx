@@ -124,7 +124,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                       onClick={() => onSelectOption(option.name, value)}
                       disabled={!available}
                       title={value}
-                      className={`w-12 h-8 transition-colors relative border duration-200 ${isSelected ? 'border-2 border-on-background' : 'border-outline/40 hover:border-on-background' } ${!available ? 'opacity-30 cursor-not-allowed' : ''}`}
+                      className={`w-12 h-8 transition-colors relative border duration-200 ${isSelected ? 'border-2 border-on-background' : 'border-outline/40 hover:border-on-background'} ${!available ? 'opacity-30 cursor-not-allowed' : ''}`}
                       style={{ backgroundColor: getColorHex(value) }}
                     >
                       <span className="sr-only">{value}</span>
@@ -160,7 +160,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
 
             {/* Custom Size Note Input — revealed smoothly when "Custom" is selected */}
             <div
-              className={`grid transition-all duration-300 ease-in-out ${isSize ? isCustomSize ? 'grid-rows-[1fr] opacity-100 mt-5' : 'grid-rows-[0fr] opacity-0 pointer-events-none mt-0' : 'hidden' }`}
+              className={`grid transition-all duration-300 ease-in-out ${isSize ? isCustomSize ? 'grid-rows-[1fr] opacity-100 mt-5' : 'grid-rows-[0fr] opacity-0 pointer-events-none mt-0' : 'hidden'}`}
             >
               <div className="overflow-hidden">
                 <div className="border border-outline/20 bg-[#f5f5f3] p-5 space-y-4">
@@ -178,7 +178,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                     }}
                     placeholder="e.g. Thumb: 14mm, Index: 12mm, Middle: 13mm, Ring: 12mm, Pinky: 10mm"
                     rows={3}
-                    className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError ? 'border-red-500 focus:border-red-500' : 'border-outline/40 focus:border-on-background' }`}
+                    className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError ? 'border-red-500 focus:border-red-500' : 'border-outline/40 focus:border-on-background'}`}
                   />
                   {customSizeError && (
                     <p className="font-sans text-xs text-red-500 font-medium">{customSizeError}</p>
@@ -217,24 +217,21 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
           />
 
           {/* Modal Panel */}
-          <div className="bg-surface border border-outline/30 p-6 sm:p-8 max-w-2xl w-full max-h-[calc(100vh-160px)] overflow-y-auto relative z-10 shadow-2xl flex flex-col items-center">
+          {/* Image Only */}
+          <div className="relative z-10 flex items-center justify-center max-w-3xl w-full">
             <button
               type="button"
               onClick={() => setIsShapeGuideOpen(false)}
-              className="absolute top-6 right-6 text-on-surface-variant hover:text-on-background transition-colors text-label"
+              className="absolute -top-10 right-0 text-white/80 hover:text-white transition-colors text-label"
             >
               Close
             </button>
 
-            <h3 className="font-serif text-3xl font-normal text-on-background mb-6">Nail Shapes Guide</h3>
-
-            <div className="w-full relative bg-transparent flex justify-center items-center py-2">
-              <img
-                src="/Shape.png"
-                alt="Nailestial Nail Shapes Guide"
-                className="w-[75%] max-w-full h-auto object-contain max-h-[calc(100vh-280px)]"
-              />
-            </div>
+            <img
+              src="/Shape.png"
+              alt="Nailestial Nail Shapes Guide"
+              className="w-full max-w-full h-auto object-contain max-h-[calc(100vh-180px)]"
+            />
           </div>
         </div>
       )}
