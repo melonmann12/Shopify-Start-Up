@@ -43,7 +43,7 @@ export default function SupportHero() {
                 STUDIO ADDRESS
               </h3>
               <p className="font-sans text-base text-primary font-light">
-                Ha Dong, Hanoi, Vietnam
+                Cau Giay, Hanoi, Vietnam
               </p>
             </div>
             <p className="text-on-surface-variant/70 mt-6 pt-4 border-t border-outline-variant/10 text-caption">

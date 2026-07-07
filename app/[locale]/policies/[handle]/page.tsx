@@ -43,7 +43,7 @@ const STATIC_POLICIES: Record<string, { title: string; body: string }> = {
       <p>
         <strong>Email:</strong> support@nailestial.com<br />
         <!-- TODO: If you get a domain email (e.g. support@nailestial.com), swap it here. -->
-        <strong>Address:</strong> Ha Dong, Hanoi, Vietnam<br />
+        <strong>Address:</strong> Cau Giay, Hanoi, Vietnam<br />
         <strong>Business Form:</strong> Individual Seller (Vietnam-based)
       </p>
     `
@@ -79,7 +79,7 @@ const STATIC_POLICIES: Record<string, { title: string; body: string }> = {
       <p>
         <strong>Email:</strong> support@nailestial.com<br />
         <!-- TODO: If you get a domain email (e.g. support@nailestial.com), swap it here. -->
-        <strong>Address:</strong> Ha Dong, Hanoi, Vietnam<br />
+        <strong>Address:</strong> Cau Giay, Hanoi, Vietnam<br />
       </p>
     `
   },
