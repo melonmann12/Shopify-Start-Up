@@ -7,22 +7,23 @@ interface Props {
 
 export default function Hero({ locale }: Props) {
   return (
-    <section className="relative w-full overflow-hidden flex flex-col justify-end min-h-[90vh] md:min-h-[85vh] lg:min-h-[90vh] border-b border-outline-variant/20">
+    <section className="relative w-full flex flex-col md:justify-end min-h-0 md:min-h-[85vh] lg:min-h-[90vh] border-b border-outline-variant/20 bg-surface">
       {/* Background Image Layer */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="relative w-full md:absolute md:inset-0 z-0 pointer-events-none shrink-0 bg-surface">
         <Image
           src="/hero-section-image/img1.png"
           alt="Nailestial Luxury Hero"
-          fill
+          width={1600}
+          height={1067}
           priority
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto md:w-full md:h-full object-cover object-center"
           sizes="100vw"
         />
         {/* No gradient overlays - image is clean and natural */}
       </div>
 
-      {/* Floating Text Layer - Lower Left Editorial Block */}
-      <div className="relative z-10 text-left px-6 md:pl-[8%] pb-16 md:pb-[16%] lg:pb-[14%] flex flex-col items-start pointer-events-auto w-full max-w-full">
+      {/* Text Layer - Image-first on mobile, overlay on desktop */}
+      <div className="relative z-10 text-left px-6 py-12 md:py-0 md:pl-[8%] pb-28 md:pb-[16%] lg:pb-[14%] flex flex-col items-start justify-center flex-1 md:flex-none pointer-events-auto w-full max-w-full bg-surface md:bg-transparent">
         <div className="max-w-[360px] md:max-w-[420px]">
           <h1 className="font-serif text-[32px] md:text-[38px] lg:text-[44px] text-on-background leading-tight mb-4 font-normal tracking-wide">
             Handcrafted<br />
