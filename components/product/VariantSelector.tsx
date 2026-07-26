@@ -121,14 +121,23 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                 const isSelected = selectedOptions[option.name] === value
                 const isCustomOption = value === CUSTOM_SIZE_VALUE
 
-                // Custom is always "available" — it's not a real variant
+                // Build a combination of options to test
+                // For the current option, we use the `value` being mapped.
+                // For all OTHER options, we use the currently selected option, UNLESS it is "Custom",
+                // in which case we ignore that option for the purpose of checking availability
+                // (because "Custom" doesn't exist on Shopify variants, so requiring it would make everything unavailable).
                 const available = isCustomOption
                   ? true
                   : product.variants.nodes.some(
-                    (v) =>
-                      v.selectedOptions.some((o) => o.name === option.name && o.value === value) &&
-                      v.availableForSale
-                  )
+                      (v) =>
+                        v.availableForSale &&
+                        v.selectedOptions.every((o) => {
+                          if (o.name === option.name) return o.value === value
+                          // If another option is set to Custom, we skip filtering by it
+                          if (selectedOptions[o.name] === CUSTOM_SIZE_VALUE) return true
+                          return o.value === selectedOptions[o.name]
+                        })
+                    )
 
                 if (isColor) {
                   // Color Selector: Minimalist Rectangles
@@ -172,37 +181,30 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               })}
             </div>
 
-            {/* Custom Size Note Input — revealed smoothly when "Custom" is selected */}
-            <div
-              className={`grid transition-all duration-300 ease-in-out ${isSize ? isCustomSize ? 'grid-rows-[1fr] opacity-100 mt-5' : 'grid-rows-[0fr] opacity-0 pointer-events-none mt-0' : 'hidden'}`}
-            >
-              <div className="overflow-hidden">
-                <div className="border border-outline/20 bg-[#f5f5f3] p-5 space-y-4">
-                  <p className="font-serif italic text-xs text-on-surface font-medium leading-relaxed">
-                    Please leave your nail measurements here if choosing a custom size
-                  </p>
-                  <textarea
-                    id="custom-size-note"
-                    value={customSizeNote}
-                    onChange={(e) => {
-                      setCustomSizeNote(e.target.value)
-                      if (customSizeError && e.target.value.trim()) {
-                        setCustomSizeError('')
-                      }
-                    }}
-                    placeholder="e.g. Thumb: 14mm, Index: 12mm, Middle: 13mm, Ring: 12mm, Pinky: 10mm"
-                    rows={3}
-                    className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError ? 'border-red-500 focus:border-red-500' : 'border-outline/40 focus:border-on-background'}`}
-                  />
-                  {customSizeError && (
-                    <p className="font-sans text-xs text-red-500 font-medium">{customSizeError}</p>
-                  )}
-                  {/* <p className="font-sans text-on-surface-variant leading-relaxed">
-                    Measure the widest part of each nail bed in millimeters. This note will be attached to your order so we can craft your perfect fit.
-                  </p> */}
-                </div>
+            {/* Custom Size Note Input */}
+            {isSize && isCustomSize && (
+              <div className="mt-5 border border-outline/20 bg-[#f5f5f3] p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                <p className="font-serif italic text-xs text-on-surface font-medium leading-relaxed">
+                  Please leave your nail measurements here if choosing a custom size
+                </p>
+                <textarea
+                  id="custom-size-note"
+                  value={customSizeNote}
+                  onChange={(e) => {
+                    setCustomSizeNote(e.target.value)
+                    if (customSizeError && e.target.value.trim()) {
+                      setCustomSizeError('')
+                    }
+                  }}
+                  placeholder="e.g. Thumb: 14mm, Index: 12mm, Middle: 13mm, Ring: 12mm, Pinky: 10mm"
+                  rows={3}
+                  className={`w-full bg-white border px-4 py-3 font-sans text-sm text-on-background placeholder:text-on-surface-variant/50 focus:outline-none transition-colors resize-none ${customSizeError ? 'border-red-500 focus:border-red-500' : 'border-outline/40 focus:border-on-background'}`}
+                />
+                {customSizeError && (
+                  <p className="font-sans text-xs text-red-500 font-medium">{customSizeError}</p>
+                )}
               </div>
-            </div>
+            )}
           </div>
         )
       })}
@@ -233,6 +235,11 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
         ]
         return (
           <>
+            {/* Preload images so they are cached before the drawer opens */}
+            {hasSizeOrShapeOptions && GUIDE_IMAGES.map((img) => (
+              <link key={`preload-${img.src}`} rel="preload" href={img.src} as="image" fetchPriority="low" />
+            ))}
+
             {/* Backdrop — always rendered so opacity transition works */}
             <div
               aria-hidden="true"
@@ -246,23 +253,24 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               role="dialog"
               aria-modal="true"
               aria-label="Shape and size guide"
-              className={`fixed top-0 right-0 z-[100] h-full w-full sm:w-[420px] max-w-[100vw]
+              className={`fixed top-[57px] md:top-0 right-0 z-[100] h-[calc(100dvh-57px)] md:h-[100dvh] w-full sm:w-[85vw] md:w-[45vw] md:max-w-[600px]
                 bg-surface shadow-2xl flex flex-col
                 transition-transform duration-300 ease-in-out
                 ${isShapeGuideOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
               {/* Drawer header */}
-              <div className="flex items-center justify-between px-6 py-5 border-b border-outline/15 shrink-0">
-                <h2 className="font-serif text-xl font-normal text-on-background tracking-wide">
+              <div className="sticky top-0 z-20 flex items-center justify-between border-b border-outline/15 bg-surface px-5 py-4 md:px-6 md:py-5 shrink-0">
+                <h2 className="font-serif text-lg md:text-xl font-normal text-on-background tracking-wide">
                   Shape &amp; Size Guide
                 </h2>
                 <button
                   type="button"
                   aria-label="Close shape and size guide"
                   onClick={() => setIsShapeGuideOpen(false)}
-                  className="p-1.5 text-on-surface-variant hover:text-on-background transition-colors"
+                  className="flex h-11 items-center justify-center gap-2 text-on-background hover:text-on-surface-variant transition-colors pl-4"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                  <span className="text-xs uppercase tracking-widest font-medium">Close</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" strokeWidth="1.5"
                     strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -272,14 +280,14 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
               </div>
 
               {/* Scrollable image list */}
-              <div className="flex-1 overflow-y-auto px-5 py-6 space-y-5">
-                {GUIDE_IMAGES.map((img) => (
+              <div className="flex-1 overflow-y-auto px-5 py-6 space-y-6 md:space-y-8">
+                {GUIDE_IMAGES.map((img, idx) => (
                   <img
                     key={img.src}
                     src={img.src}
                     alt={img.alt}
-                    className="w-full h-auto object-contain block"
-                    loading="lazy"
+                    className="w-full h-auto object-contain block max-w-[92%] mx-auto md:max-w-full"
+                    loading={idx === 0 ? undefined : "lazy"}
                   />
                 ))}
               </div>

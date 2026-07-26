@@ -23,8 +23,8 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
       href={`/${locale}/products/${product.handle}`}
       className="bg-white border border-outline-variant/20 shadow-sm flex flex-col group h-full hover:shadow-md transition-all duration-500 rounded-none"
     >
-      {/* 1. PRODUCT IMAGE — portrait crop, fills card top */}
-      <div className="w-full aspect-[3/4] bg-transparent overflow-hidden relative">
+      {/* 1. PRODUCT IMAGE — square crop, fills card top */}
+      <div className="w-full aspect-square bg-transparent overflow-hidden relative">
         {image && (
           <Image
             src={image.url}
@@ -45,9 +45,9 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
       </div>
 
       {/* 2. PRODUCT INFO — title, price, purchase CTA */}
-      <div className="flex flex-col gap-3 p-5 mt-auto">
+      <div className="flex flex-col gap-2 p-3 md:gap-3 md:p-5 mt-auto">
         <div className="flex flex-col gap-1">
-          <h3 className="font-serif text-xl font-normal text-on-background leading-tight">
+          <h3 className="font-serif text-[15px] md:text-xl font-normal text-on-background leading-tight">
             {product.title}
           </h3>
           <p className="text-on-surface-variant text-label">
