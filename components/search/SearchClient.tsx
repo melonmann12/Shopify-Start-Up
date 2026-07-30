@@ -206,7 +206,7 @@ export default function SearchClient({
         {/* ── Product Grid or Empty State ── */}
         <div className="flex-1 w-full">
           {products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-outline-variant/15">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-on-background">
               {products.map((product, idx) => (
                 <ProductCard
                   key={product.id}

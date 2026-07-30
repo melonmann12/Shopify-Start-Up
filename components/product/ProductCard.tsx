@@ -21,7 +21,7 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
   return (
     <Link
       href={`/${locale}/products/${product.handle}`}
-      className="bg-white border border-outline-variant/20 shadow-sm flex flex-col group h-full hover:shadow-md transition-all duration-500 rounded-none"
+      className="bg-white border-r border-b border-on-background flex flex-col group h-full transition-all duration-500 rounded-none"
     >
       {/* 1. PRODUCT IMAGE — square crop, fills card top */}
       <div className="w-full aspect-square bg-transparent overflow-hidden relative">

@@ -103,7 +103,7 @@ export default function ProductClient({ product, locale }: Props) {
         {/* ── LEFT: Image Gallery ─────────────────────────────────────────────── */}
         <div className="w-full lg:w-[55%] flex flex-col gap-4">
           {/* Mobile Swipe Slider */}
-          <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-outline/30 overflow-hidden group">
+          <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-on-background overflow-hidden group">
             <div
               ref={mobileCarouselRef}
               onScroll={handleMobileScroll}
@@ -151,7 +151,7 @@ export default function ProductClient({ product, locale }: Props) {
           </div>
 
           {/* Desktop Main Image */}
-          <div className="hidden md:block bg-surface-container-lowest border border-outline/30 overflow-hidden aspect-square relative group">
+          <div className="hidden md:block bg-surface-container-lowest border border-on-background overflow-hidden aspect-square relative group">
             {allImages.map((img, i) => (
               <div
                 key={img.url + '-desk'}
@@ -201,7 +201,7 @@ export default function ProductClient({ product, locale }: Props) {
               <button
                 key={img.url}
                 onClick={() => setDisplayIndex(i)}
-                className={`bg-surface-container-lowest border overflow-hidden aspect-square hover:opacity-80 transition-all relative ${ i === displayIndex ? 'border-on-background border-2' : 'border-outline/30' }`}
+                className={`bg-surface-container-lowest border border-on-background overflow-hidden aspect-square hover:opacity-80 transition-all relative ${ i === displayIndex ? 'ring-1 ring-on-background' : '' }`}
               >
                 <Image
                   src={img.url}
