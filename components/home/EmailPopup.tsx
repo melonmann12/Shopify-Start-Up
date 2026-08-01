@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 
+const NEWSLETTER_POPUP_COOLDOWN_MS = 60 * 60 * 1000 // 1 hour
+
 export default function EmailPopup() {
   const [isOpen, setIsOpen] = useState(false)
   const [email, setEmail] = useState('')
@@ -10,10 +12,14 @@ export default function EmailPopup() {
 
   useEffect(() => {
     // 1. Guard against SSR: localStorage is only accessed on client-side mount
-    const hasDismissed = localStorage.getItem('nailestial_newsletter_dismissed')
-    if (hasDismissed) {
-      setIsDismissed(true)
-      return
+    const lastClosedAt = localStorage.getItem('nailestial_newsletter_popup_last_closed_at')
+    
+    if (lastClosedAt) {
+      const timeSinceClosed = Date.now() - parseInt(lastClosedAt, 10)
+      if (timeSinceClosed < NEWSLETTER_POPUP_COOLDOWN_MS) {
+        setIsDismissed(true)
+        return
+      }
     }
     
     // Set state to false to trigger the reactive timer and listener registration
@@ -45,7 +51,7 @@ export default function EmailPopup() {
 
   const handleClose = () => {
     setIsOpen(false)
-    localStorage.setItem('nailestial_newsletter_dismissed', 'true')
+    localStorage.setItem('nailestial_newsletter_popup_last_closed_at', Date.now().toString())
     setIsDismissed(true)
   }
 
@@ -59,7 +65,7 @@ export default function EmailPopup() {
     // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
 
     setIsSubmitted(true)
-    localStorage.setItem('nailestial_newsletter_dismissed', 'true')
+    localStorage.setItem('nailestial_newsletter_popup_last_closed_at', Date.now().toString())
     setIsDismissed(true)
     
     // Auto close after 2 seconds on success
