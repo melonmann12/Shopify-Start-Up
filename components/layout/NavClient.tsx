@@ -148,17 +148,18 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         </div>
 
         <Link
-          href={`/${locale}/about`}
-          className="hover:text-on-background transition-colors duration-200 py-5"
+          href={`/${locale}/collections/new-arrivals`}
+          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
         >
-          {UI_TEXT.ourStory}
+          {UI_TEXT.newArrivals}
+          <span className="bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-widest rounded-sm">NEW</span>
         </Link>
 
         <Link
-          href={`/${locale}/contact`}
+          href={`/${locale}/collections/best-sellers`}
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
-          {UI_TEXT.contact}
+          {UI_TEXT.bestSellers}
         </Link>
 
         {/* ── DESKTOP MEGA MENU PANEL (3 columns) ─────────────────────────── */}
@@ -474,22 +475,23 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   )}
                 </div>
 
-                {/* OUR STORY */}
+                {/* NEW ARRIVALS */}
                 <Link
-                  href={`/${locale}/about`}
+                  href={`/${locale}/collections/new-arrivals`}
                   onClick={() => setMenuOpen(false)}
-                  className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+                  className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors flex items-center gap-3"
                 >
-                  {UI_TEXT.ourStory}
+                  {UI_TEXT.newArrivals}
+                  <span className="font-sans bg-black text-white text-[10px] font-bold px-2 py-1 tracking-widest rounded-sm -translate-y-0.5">NEW</span>
                 </Link>
 
-                {/* CONTACT */}
+                {/* BEST SELLERS */}
                 <Link
-                  href={`/${locale}/contact`}
+                  href={`/${locale}/collections/best-sellers`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
                 >
-                  {UI_TEXT.contact}
+                  {UI_TEXT.bestSellers}
                 </Link>
 
               </div>

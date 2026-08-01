@@ -1,11 +1,12 @@
 import Hero from '@/components/home/Hero'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import EditorialSection from '@/components/home/EditorialSection'
-import ComparisonTable from '@/components/home/ComparisonTable'
-import SocialProof from '@/components/home/SocialProof'
 import InlineEmailCapture from '@/components/home/InlineEmailCapture'
 import CategoryShowcase from '@/components/home/CategoryShowcase'
 import EmailPopup from '@/components/home/EmailPopup'
+import AsSeenIn from '@/components/home/AsSeenIn'
+// import ComparisonTable from '@/components/home/ComparisonTable'
+// import SocialProof from '@/components/home/SocialProof'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -23,16 +24,28 @@ export default async function HomePage(props: Props) {
 
       <Hero locale={locale} />
       
-      <FeaturedProducts handle="new-arrivals" title="Curated Selection" locale={locale} />
+      <FeaturedProducts 
+        handle="new-arrivals" 
+        title="New Arrivals" 
+        subtitle="Freshly added press-on sets for your next everyday statement."
+        ctaLabel="Shop New Arrivals"
+        locale={locale} 
+      />
       
       {/* Three short feature columns covering Quality, Speed, and Reusability */}
       <EditorialSection locale={locale} />
+
+      <FeaturedProducts 
+        handle="best-sellers" 
+        title="Best Sellers" 
+        subtitle="Customer-favorite styles, curated for effortless salon-inspired wear."
+        ctaLabel="Shop Best Sellers"
+        locale={locale} 
+      />
       
-      {/* Comparison block of Nailestial vs. traditional press-ons vs. salons */}
-      <ComparisonTable />
+      {/* <SocialProof locale={locale} /> */}
       
-      {/* Social proof strip showing press logo & review placeholders */}
-      <SocialProof locale={locale} />
+      <AsSeenIn />
       
       {/* Secondary inline email capture block */}
       <InlineEmailCapture />

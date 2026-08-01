@@ -23,6 +23,7 @@ const SHOP_LINKS = [
 ]
 
 const CARE_LINKS = [
+  { label: 'Our Story', href: (l: string) => `/${l}/about` },
   { label: 'Contact & Support', href: (l: string) => `/${l}/contact` },
   { label: 'Track Your Order (soon)', href: (l: string) => `/${l}/track-order` },
   { label: 'Shipping Policy', href: (l: string) => `/${l}/policies/shipping-policy` },
