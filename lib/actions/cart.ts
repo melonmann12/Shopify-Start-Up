@@ -28,11 +28,20 @@ export async function addToCartAction(
   }
 
   if (cartId) {
-    const data = await shopifyFetch<{ cartLinesAdd: { cart: ShopifyCart } }>(
-      ADD_TO_CART,
-      { cartId, lines: [lineInput] }
-    )
-    cart = data.cartLinesAdd.cart
+    try {
+      const data = await shopifyFetch<{ cartLinesAdd: { cart: ShopifyCart } }>(
+        ADD_TO_CART,
+        { cartId, lines: [lineInput] }
+      )
+      cart = data.cartLinesAdd.cart
+    } catch (error) {
+      console.warn('Failed to add to existing cart, falling back to creating new cart:', error)
+      const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(
+        CREATE_CART,
+        { input: { lines: [lineInput] } }
+      )
+      cart = data.cartCreate.cart
+    }
   } else {
     const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(
       CREATE_CART,
@@ -63,5 +72,23 @@ export async function removeLineAction(cartId: string, lineId: string) {
   )
   revalidateTag('cart', 'max')
   return data.cartLinesRemove.cart
+}
+
+export async function createBuyNowCartAction(
+  variantId: string,
+  quantity: number,
+  attributes?: { key: string; value: string }[]
+) {
+  const lineInput: Record<string, unknown> = { merchandiseId: variantId, quantity }
+  if (attributes && attributes.length > 0) {
+    lineInput.attributes = attributes
+  }
+
+  const data = await shopifyFetch<{ cartCreate: { cart: ShopifyCart } }>(
+    CREATE_CART,
+    { input: { lines: [lineInput] } }
+  )
+  
+  return data.cartCreate.cart
 }
 

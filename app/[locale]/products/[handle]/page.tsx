@@ -5,6 +5,7 @@ import { shopifyFetch } from '@/lib/shopify/client'
 import { GET_PRODUCT_BY_HANDLE } from '@/lib/shopify/queries/product'
 import { countryMap, type Locale } from '@/lib/i18n/config'
 import ProductClient from '@/components/product/ProductClient'
+import YouMayAlsoLike from '@/components/product/YouMayAlsoLike'
 import Link from 'next/link'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 
@@ -83,6 +84,9 @@ export default async function ProductDetailPage(props: Props) {
 
       {/* Full two-column layout owned by ProductClient (image left, info+options right) */}
       <ProductClient product={product} locale={locale} />
+
+      {/* Cross-Selling Section */}
+      <YouMayAlsoLike currentProductId={product.id} locale={locale} />
     </main>
   )
 }

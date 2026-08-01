@@ -68,6 +68,7 @@ export function useCart() {
         mergeCart(newCart)
         // ALWAYS sync cartId — Shopify may return a cart with a different ID
         setCartId(newCart.id)
+        return newCart
       }
     } catch (error) {
       console.error('Failed to add to cart:', error)
