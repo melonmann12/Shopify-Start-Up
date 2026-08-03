@@ -39,15 +39,27 @@ export default function ProductClient({ product, locale }: Props) {
   )
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Meta Pixel] ProductClient mounted.')
+    }
     const variantId = selectedVariant?.id || product.variants.nodes[0]?.id
     if (variantId) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[Meta Pixel] ProductClient firing ViewContent for:', {
+          handle: product.handle,
+          title: product.title,
+          variantId,
+          price: product.priceRange.minVariantPrice.amount,
+          fbqExists: typeof window !== 'undefined' && !!window.fbq
+        })
+      }
       viewContent(
         variantId,
         product.title,
         Number(product.priceRange.minVariantPrice.amount)
       )
     }
-  }, [selectedVariant?.id, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes])
+  }, [selectedVariant?.id, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes, product.handle])
 
   // ── Gallery State ─────────────────────────────────────────────────────────────
   const [displayIndex, setDisplayIndex] = useState(0)
