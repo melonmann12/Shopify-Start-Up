@@ -32,8 +32,9 @@ export default async function HomePage(props: Props) {
         locale={locale} 
       />
       
-      {/* Three short feature columns covering Quality, Speed, and Reusability */}
+      {/* Editorial section temporarily hidden
       <EditorialSection locale={locale} />
+      */}
 
       <FeaturedProducts 
         handle="best-sellers" 

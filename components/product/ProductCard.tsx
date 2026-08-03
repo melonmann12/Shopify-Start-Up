@@ -11,6 +11,7 @@ interface Props {
 
 export default function ProductCard({ product, locale, isPriority = false }: Props) {
   const image = product.images.nodes[0]
+  const secondImage = product.images.nodes[1]
   const price = product.priceRange.minVariantPrice
 
   // Badge from metafield — only show if one is explicitly set; skip fallback text
@@ -32,7 +33,16 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
             fill
             priority={isPriority}
             loading={isPriority ? 'eager' : undefined}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+            className={`w-full h-full object-cover object-center transition-opacity duration-500 ease-out ${secondImage ? 'group-hover:opacity-0' : ''}`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          />
+        )}
+        {secondImage && (
+          <Image
+            src={secondImage.url}
+            alt={secondImage.altText ?? `${product.title} alternate view`}
+            fill
+            className="w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out hidden md:block"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         )}
