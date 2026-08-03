@@ -45,10 +45,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       type: 'website',
     },
     alternates: {
-      canonical: `/en/products/${params.handle}`,
+      canonical: `https://www.nailestial.com/${locale}/products/${params.handle}`,
       languages: {
-        vi: `/vi/products/${params.handle}`,
-        en: `/en/products/${params.handle}`,
+        vi: `https://www.nailestial.com/vi/products/${params.handle}`,
+        en: `https://www.nailestial.com/en/products/${params.handle}`,
       },
     },
   }

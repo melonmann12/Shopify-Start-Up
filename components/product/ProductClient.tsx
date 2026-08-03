@@ -38,10 +38,16 @@ export default function ProductClient({ product, locale }: Props) {
     [selectedOptions, product.variants.nodes]
   )
 
+  const trackedProductRef = useRef<string | null>(null)
+
   useEffect(() => {
+    if (trackedProductRef.current === product.handle) return
+    trackedProductRef.current = product.handle
+
     if (process.env.NODE_ENV === 'development') {
-      console.log('[Meta Pixel] ProductClient mounted.')
+      console.log('[Meta Pixel] ProductClient mounted. Firing ViewContent once for:', product.handle)
     }
+
     const variantId = selectedVariant?.id || product.variants.nodes[0]?.id
     if (variantId) {
       if (process.env.NODE_ENV === 'development') {
@@ -59,7 +65,7 @@ export default function ProductClient({ product, locale }: Props) {
         Number(product.priceRange.minVariantPrice.amount)
       )
     }
-  }, [selectedVariant?.id, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes, product.handle])
+  }, [product.handle, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes])
 
   // ── Gallery State ─────────────────────────────────────────────────────────────
   const [displayIndex, setDisplayIndex] = useState(0)
