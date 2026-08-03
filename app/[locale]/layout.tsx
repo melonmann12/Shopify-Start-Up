@@ -8,6 +8,8 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import CartDrawer from '@/components/cart/CartDrawer'
+import MetaPixel from '@/components/analytics/MetaPixel'
+import { Suspense } from 'react'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
@@ -89,6 +91,10 @@ export default async function LocaleLayout(props: Props) {
           <CartDrawer />
           <main className="flex-grow">{children}</main>
           <Footer locale={locale} />
+          
+          <Suspense fallback={null}>
+            <MetaPixel />
+          </Suspense>
         </NextIntlClientProvider>
       </body>
     </html>

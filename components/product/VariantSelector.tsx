@@ -211,6 +211,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
 
       <div className="mt-4">
         <AddToCartButton
+          productTitle={product.title}
           variant={isCustomSize
             ? /* For custom size, use the first available variant as the base product.
                  The custom sizing note is communicated via line item attributes,

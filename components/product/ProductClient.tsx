@@ -5,6 +5,7 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
+import { viewContent } from '@/lib/analytics/metaPixel'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
 const UI_TEXT = {
@@ -36,6 +37,17 @@ export default function ProductClient({ product, locale }: Props) {
       ),
     [selectedOptions, product.variants.nodes]
   )
+
+  useEffect(() => {
+    const variantId = selectedVariant?.id || product.variants.nodes[0]?.id
+    if (variantId) {
+      viewContent(
+        variantId,
+        product.title,
+        Number(product.priceRange.minVariantPrice.amount)
+      )
+    }
+  }, [selectedVariant?.id, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes])
 
   // ── Gallery State ─────────────────────────────────────────────────────────────
   const [displayIndex, setDisplayIndex] = useState(0)

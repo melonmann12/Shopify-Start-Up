@@ -3,16 +3,18 @@
 import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { createBuyNowCartAction } from '@/lib/actions/cart'
+import { addToCart as trackAddToCart } from '@/lib/analytics/metaPixel'
 import type { ShopifyProductVariant } from '@/lib/shopify/types'
 
 interface Props {
   variant?: ShopifyProductVariant
+  productTitle: string
   attributes?: { key: string; value: string }[]
   /** Return an error string to block add-to-cart, or null to allow */
   onValidate?: () => string | null
 }
 
-export default function AddToCartButton({ variant, attributes, onValidate }: Props) {
+export default function AddToCartButton({ variant, productTitle, attributes, onValidate }: Props) {
   const { addToCart } = useCart()
   const [isAddingToBag, setIsAddingToBag] = useState(false)
   const [isBuyingNow, setIsBuyingNow] = useState(false)
@@ -49,6 +51,15 @@ export default function AddToCartButton({ variant, attributes, onValidate }: Pro
     if (variant) {
       setIsAddingToBag(true)
       await addToCart(variant.id, 1, attributes)
+      
+      // Fire Meta Pixel tracking *after* successful cart addition
+      trackAddToCart(
+        variant.id,
+        productTitle,
+        Number(variant.price.amount),
+        1
+      )
+
       setIsAddingToBag(false)
     }
   }
@@ -62,6 +73,15 @@ export default function AddToCartButton({ variant, attributes, onValidate }: Pro
       setIsBuyingNow(true)
       try {
         const temporaryCart = await createBuyNowCartAction(variant.id, 1, attributes)
+        
+        // Fire Meta Pixel tracking *after* successful cart creation, before redirect
+        trackAddToCart(
+          variant.id,
+          productTitle,
+          Number(variant.price.amount),
+          1
+        )
+
         if (temporaryCart?.checkoutUrl) {
           window.location.href = temporaryCart.checkoutUrl
         } else {
