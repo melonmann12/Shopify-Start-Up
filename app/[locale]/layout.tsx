@@ -13,6 +13,7 @@ import { Suspense } from 'react'
 import '@/app/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.nailestial.com'),
   title: { default: 'Nailestial | Luxury Press-On Nails', template: '%s | Nailestial' },
   description: 'Shop premium, handcrafted reusable press-on nails. Experience salon-quality luxury manicures at home with Nailestial.',
   // favicon icons are injected manually via <link> tags in <head> below

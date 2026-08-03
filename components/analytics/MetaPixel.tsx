@@ -11,8 +11,7 @@ export default function MetaPixel() {
   const lastTrackedUrl = useRef<string | null>(null)
 
   useEffect(() => {
-    // Only fire if the script has actually loaded
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (typeof window !== 'undefined') {
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
       
       if (lastTrackedUrl.current === url) return
