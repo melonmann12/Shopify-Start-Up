@@ -12,9 +12,10 @@ interface PredictiveSearchOverlayProps {
   isOpen: boolean
   onClose: () => void
   locale: string
+  initialQuery?: string
 }
 
-export default function PredictiveSearchOverlay({ isOpen, onClose, locale }: PredictiveSearchOverlayProps) {
+export default function PredictiveSearchOverlay({ isOpen, onClose, locale, initialQuery = '' }: PredictiveSearchOverlayProps) {
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -25,8 +26,19 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale }: Pre
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
   }, [])
+
+  // Sync initial query when opened
+  useEffect(() => {
+    if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setQuery(initialQuery)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDebouncedQuery(initialQuery)
+    }
+  }, [isOpen, initialQuery])
 
   // Focus trap & Escape key
   useEffect(() => {
@@ -78,7 +90,9 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale }: Pre
   useEffect(() => {
     let isMounted = true
     if (!debouncedQuery.trim()) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setResults(null)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(false)
       return
     }
@@ -175,7 +189,7 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale }: Pre
             <div className="p-12 text-center flex flex-col items-center">
               <span className="material-symbols-outlined text-[32px] text-on-surface-variant/30 mb-3">search_off</span>
               <h3 className="font-serif text-2xl text-on-background mb-2">No suggestions found</h3>
-              <p className="text-on-surface-variant text-sm mb-6">We couldn't find anything matching "{query}".</p>
+              <p className="text-on-surface-variant text-sm mb-6">We couldn&apos;t find anything matching &quot;{query}&quot;.</p>
               <button 
                 onClick={handleSubmit}
                 className="px-6 py-2.5 bg-black text-white text-sm uppercase tracking-wider hover:bg-black/85 transition-colors"
@@ -262,7 +276,7 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale }: Pre
               onClick={handleSubmit}
               className="w-full py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-black/85 transition-colors"
             >
-              View all results for "{query}"
+              View all results for &quot;{query}&quot;
             </button>
           </div>
         )}

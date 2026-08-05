@@ -84,10 +84,10 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
   })
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-5">
       {/* ── Size & Shape Guide trigger — rendered once above all option groups */}
       {hasSizeOrShapeOptions && (
-        <div className="flex justify-end -mb-4">
+        <div className="flex justify-end -mb-3">
           <button
             type="button"
             aria-label="Open size and shape guide"
@@ -110,13 +110,13 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
 
         return (
           <div key={option.id}>
-            <div className="mb-4 flex items-start">
+            <div className="mb-2 flex items-start">
               <span className="text-on-surface-variant text-label">
                 Select {option.name}
               </span>
             </div>
 
-            <div className={isSize ? "grid grid-cols-4 sm:grid-cols-5 gap-3" : "grid grid-cols-2 sm:grid-cols-3 gap-2.5"}>
+            <div className={isSize ? "grid grid-cols-4 sm:grid-cols-5 gap-2" : "grid grid-cols-2 sm:grid-cols-3 gap-2"}>
               {values.map((value, idx) => {
                 const isSelected = selectedOptions[option.name] === value
                 const isCustomOption = value === CUSTOM_SIZE_VALUE
@@ -167,7 +167,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                       }
                     }}
                     disabled={!available}
-                    className={`py-2.5 px-3 transition-colors border duration-200 text-[11px] leading-snug text-center
+                    className={`py-2 px-3 transition-colors border duration-200 text-[11px] leading-snug text-center
                       ${isSelected
                         ? 'border-2 border-on-background bg-surface-container-lowest text-on-background font-bold'
                         : available
@@ -183,7 +183,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
 
             {/* Custom Size Note Input */}
             {isSize && isCustomSize && (
-              <div className="mt-5 border border-outline/20 bg-[#f5f5f3] p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="mt-4 border border-outline/20 bg-[#f5f5f3] p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
                 <p className="font-serif italic text-xs text-on-surface font-medium leading-relaxed">
                   Please leave your nail measurements here if choosing a custom size
                 </p>
@@ -209,7 +209,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
         )
       })}
 
-      <div className="mt-4">
+      <div className="mt-2">
         <AddToCartButton
           productTitle={product.title}
           variant={isCustomSize

@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import ProductCard from '@/components/product/ProductCard'
+import { useSearch } from '@/components/search/SearchProvider'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 
 interface CollectionItem {
@@ -36,9 +37,9 @@ export default function SearchClient({
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [, startTransition] = useTransition()
+  const { openSearch } = useSearch()
 
   // Client states
-  const [searchInput, setSearchInput] = useState(currentParams.q)
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   // Centralized URL state update function
@@ -63,11 +64,6 @@ export default function SearchClient({
     })
   }
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    updateUrl({ q: searchInput || null })
-  }
-
   const handleClearFilters = () => {
     updateUrl({ collection: null, available: null, product_type: null, sort: null })
   }
@@ -80,18 +76,19 @@ export default function SearchClient({
   return (
     <div className="w-full">
       {/* ── Search Bar Input ── */}
-      <form onSubmit={handleSearchSubmit} className="max-w-xl mx-auto mb-12 relative flex items-center">
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full bg-transparent border-b border-outline/35 py-4 px-2 text-lg text-on-background focus:outline-none focus:border-on-background transition-colors placeholder:text-on-surface-variant/40"
-        />
-        <button type="submit" aria-label="Search" className="absolute right-2 text-on-surface-variant hover:text-on-background transition-colors">
-          <span className="material-symbols-outlined text-[28px]">search</span>
+      <div className="max-w-xl mx-auto mb-12 relative flex items-center">
+        <button
+          onClick={() => openSearch(currentParams.q)}
+          onFocus={() => openSearch(currentParams.q)}
+          aria-label="Open product search"
+          className="w-full text-left bg-transparent border-b border-outline/35 py-4 px-2 text-lg text-on-background focus:outline-none focus:border-on-background transition-colors flex items-center"
+        >
+          <span className="text-on-surface-variant/40 flex-1">
+            {currentParams.q || 'Search items...'}
+          </span>
+          <span className="material-symbols-outlined text-[28px] text-on-surface-variant">search</span>
         </button>
-      </form>
+      </div>
 
       {/* ── Filter Controls Header ── */}
       <div className="flex justify-between items-center border-b border-outline-variant/15 pb-6 mb-8 text-label">
@@ -217,7 +214,7 @@ export default function SearchClient({
         {/* ── Product Grid or Empty State ── */}
         <div className="flex-1 w-full">
           {products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 border-t border-l border-on-background">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 border-t border-l border-on-background">
               {products.map((product, idx) => (
                 <ProductCard
                   key={product.id}

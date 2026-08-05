@@ -96,11 +96,11 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
   }
 
   return (
-    <div className="flex flex-col gap-4 mb-16 mt-4">
+    <div className="flex flex-col gap-3 mb-8 mt-2">
       <button
         onClick={handleAdd}
         disabled={!variant || !isAvailable || isAddingToBag || isBuyingNow}
-        className={`w-full py-5 border transition-colors duration-300 ${!variant || !isAvailable ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40' : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest' } text-label`}
+        className={`w-full py-4 border transition-colors duration-300 ${!variant || !isAvailable ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40' : 'border-on-background bg-surface-container-lowest text-on-background hover:bg-on-background hover:text-surface-container-lowest' } text-label`}
       >
         {isAddingToBag ? 'ADDING...' : (!variant ? 'SELECT SIZE' : !isAvailable ? 'OUT OF STOCK' : 'ADD TO BAG')}
       </button>
@@ -108,7 +108,7 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       <button
         onClick={handleBuyNow}
         disabled={!variant || !isAvailable || isAddingToBag || isBuyingNow}
-        className={`w-full py-5 border transition-colors duration-300 ${!variant || !isAvailable ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40' : 'border-on-background bg-on-background text-surface-container-lowest hover:bg-on-background/90' } text-label`}
+        className={`w-full py-4 border transition-colors duration-300 ${!variant || !isAvailable ? 'cursor-not-allowed border-outline/25 bg-transparent text-on-surface-variant/40' : 'border-on-background bg-on-background text-surface-container-lowest hover:bg-on-background/90' } text-label`}
       >
         {isBuyingNow ? 'PROCESSING...' : 'BUY NOW'}
       </button>

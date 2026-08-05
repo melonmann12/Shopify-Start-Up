@@ -9,6 +9,7 @@ import Footer from '@/components/layout/Footer'
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import CartDrawer from '@/components/cart/CartDrawer'
 import MetaPixel from '@/components/analytics/MetaPixel'
+import { SearchProvider } from '@/components/search/SearchProvider'
 import { Suspense } from 'react'
 import '@/app/globals.css'
 
@@ -87,15 +88,17 @@ export default async function LocaleLayout(props: Props) {
       </head>
       <body className="text-on-background font-body antialiased min-h-screen flex flex-col pt-20 relative z-0 overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
-          <AnnouncementBar />
-          <Navbar locale={locale} />
-          <CartDrawer />
-          <main className="flex-grow">{children}</main>
-          <Footer locale={locale} />
-          
-          <Suspense fallback={null}>
-            <MetaPixel />
-          </Suspense>
+          <SearchProvider locale={locale}>
+            <AnnouncementBar />
+            <Navbar locale={locale} />
+            <CartDrawer />
+            <main className="flex-grow">{children}</main>
+            <Footer locale={locale} />
+            
+            <Suspense fallback={null}>
+              <MetaPixel />
+            </Suspense>
+          </SearchProvider>
         </NextIntlClientProvider>
       </body>
     </html>

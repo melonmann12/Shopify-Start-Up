@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import HomeLink from './HomeLink'
-import PredictiveSearchOverlay from '../search/PredictiveSearchOverlay'
+import { useSearch } from '../search/SearchProvider'
 
 interface CollectionItem {
   id: string
@@ -80,8 +80,8 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     tracking: false,
   })
 
-  // Search Overlay
-  const [showPredictiveSearch, setShowPredictiveSearch] = useState(false)
+  // Search Overlay (Global)
+  const { openSearch } = useSearch()
   const router = useRouter()
 
   function toggleMobileSub(key: string) {
@@ -246,18 +246,12 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
       {/* ── STANDARD ACTIONS (Search, Cart, Mobile Menu) ─────────────────── */}
       <div className="flex items-center gap-6 text-on-surface-variant">
         <button
-          onClick={() => setShowPredictiveSearch(true)}
+          onClick={() => openSearch()}
           aria-label="search"
           className="hover:text-on-background transition-all duration-200 flex items-center justify-center"
         >
           <span className="material-symbols-outlined text-[20px]">search</span>
         </button>
-
-        <PredictiveSearchOverlay 
-          isOpen={showPredictiveSearch} 
-          onClose={() => setShowPredictiveSearch(false)} 
-          locale={locale} 
-        />
 
         <button
           id="cart-icon-btn"

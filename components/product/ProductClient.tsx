@@ -131,7 +131,7 @@ export default function ProductClient({ product, locale }: Props) {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-[8.333vw] w-full">
         
         {/* ── LEFT: Image Gallery ─────────────────────────────────────────────── */}
-        <div className="w-full lg:w-[55%] flex flex-col gap-4">
+        <div className="w-full lg:w-[48%] xl:w-[45%] flex flex-col gap-3">
           {/* Mobile Swipe Slider */}
           <div className="md:hidden relative w-full aspect-square bg-surface-container-lowest border border-on-background overflow-hidden group">
             <div
@@ -226,7 +226,7 @@ export default function ProductClient({ product, locale }: Props) {
           </div>
 
           {/* Desktop Thumbnail Strip */}
-          <div className="hidden md:grid grid-cols-4 md:grid-cols-5 gap-4">
+          <div className="hidden md:grid grid-cols-4 md:grid-cols-5 gap-2.5">
             {allImages.map((img, i) => (
               <button
                 key={img.url}
@@ -246,13 +246,13 @@ export default function ProductClient({ product, locale }: Props) {
         </div>
 
         {/* ── RIGHT: Product Info + Variant Selector ──────────────────────────── */}
-        <div className="w-full lg:w-[45%] flex flex-col pt-0 lg:pt-8">
+        <div className="w-full lg:w-[45%] flex flex-col pt-0">
           {/* Static product details */}
-          <div className="mb-8">
-            <p className="text-on-surface-variant mb-4 text-label">
+          <div className="mb-5">
+            <p className="text-on-surface-variant mb-2 text-label">
               {'nailestial'}
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-2 leading-tight">
               {product.title}
             </h1>
             <p className="text-2xl sm:text-3xl font-serif text-on-background">
@@ -271,7 +271,7 @@ export default function ProductClient({ product, locale }: Props) {
           />
 
           {/* 2. Collapsible Product Info Accordion */}
-          <div className="border-t border-outline/10 mt-8 space-y-0">
+          <div className="border-t border-outline/10 mt-6 space-y-0">
             {/* Tab: What's Included */}
             <div className="border-b border-outline/10">
               <button
