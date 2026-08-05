@@ -84,7 +84,7 @@ const SOCIALS = [
 ]
 
 // ─── Shared link style ────────────────────────────────────────────────────────
-const linkCls = 'font-sans text-xs text-on-surface-variant hover:text-on-background transition-colors leading-relaxed'
+const linkCls = 'font-sans text-sm text-on-surface-variant hover:text-on-background transition-colors leading-relaxed'
 
 export default function Footer({ locale = 'en' }: Props) {
   const year = new Date().getFullYear()
@@ -105,7 +105,7 @@ export default function Footer({ locale = 'en' }: Props) {
             height={36}
             className="h-7 w-auto object-contain brightness-95"
           />
-          <p className="font-sans text-xs text-on-surface-variant leading-relaxed max-w-[260px]">
+          <p className="font-sans text-sm text-on-surface-variant leading-relaxed max-w-[260px]">
             Luxury press-on nails designed for effortless, salon-inspired beauty at home.
           </p>
           {/* Social icons */}
@@ -127,7 +127,7 @@ export default function Footer({ locale = 'en' }: Props) {
 
         {/* Column 2 — Shop */}
         <div className="space-y-5">
-          <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-on-background">
+          <h3 className="font-sans text-[13px] font-semibold uppercase tracking-[0.1em] text-on-background">
             Shop
           </h3>
           <ul className="space-y-3">
@@ -143,7 +143,7 @@ export default function Footer({ locale = 'en' }: Props) {
 
         {/* Column 3 — Customer Care */}
         <div className="space-y-5">
-          <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-on-background">
+          <h3 className="font-sans text-[13px] font-semibold uppercase tracking-[0.1em] text-on-background">
             Customer Care
           </h3>
           <ul className="space-y-3">
@@ -159,7 +159,7 @@ export default function Footer({ locale = 'en' }: Props) {
 
         {/* Column 4 — Nail Guide */}
         <div className="space-y-5">
-          <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-on-background">
+          <h3 className="font-sans text-[13px] font-semibold uppercase tracking-[0.1em] text-on-background">
             Nail Guide
           </h3>
           <ul className="space-y-3">
@@ -178,7 +178,7 @@ export default function Footer({ locale = 'en' }: Props) {
       <div className="border-t border-outline/10">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-5
                         flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-on-surface-variant text-label order-2 sm:order-1">
+          <p className="text-on-surface-variant font-sans text-sm uppercase tracking-widest order-2 sm:order-1">
             © {year} Nailestial. All rights reserved.
           </p>
           <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 order-1 sm:order-2">

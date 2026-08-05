@@ -50,6 +50,11 @@ export const GET_PRODUCT_BY_HANDLE = `
         }
       }
       seo { title description }
+      collections(first: 5) {
+        nodes {
+          handle
+        }
+      }
     }
   }
 `

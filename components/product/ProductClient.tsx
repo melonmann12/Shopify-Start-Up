@@ -278,8 +278,8 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('included')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="text-on-surface text-label">
-                  What's Included
+                <span className="text-on-surface font-sans font-normal text-sm uppercase tracking-[0.05em]">
+                  What&apos;s Included
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
                   {activeAccordion.included ? 'remove' : 'add'}
@@ -288,7 +288,7 @@ export default function ProductClient({ product, locale }: Props) {
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.included ? 'max-h-[200px] pb-4' : 'max-h-0' }`}
               >
-                <p className="font-sans text-xs text-on-surface-variant leading-relaxed font-light">
+                <p className="font-sans text-sm text-on-surface-variant leading-relaxed font-light">
                   Every <span className="font-semibold text-on-background">Nailestial</span> set comes with a complete prep kit: 1x Nail Glue, 1x Adhesive Tabs, 1x Mini File, 1x Cuticle Stick, and 1x Alcohol Prep Pad.
                 </p>
               </div>
@@ -300,7 +300,7 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('sizing')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="text-on-surface text-label">
+                <span className="text-on-surface font-sans font-normal text-sm uppercase tracking-[0.05em]">
                   Sizing Guide
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
@@ -310,7 +310,7 @@ export default function ProductClient({ product, locale }: Props) {
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.sizing ? 'max-h-[200px] pb-4' : 'max-h-0' }`}
               >
-                <p className="font-sans text-xs text-on-surface-variant leading-relaxed font-light">
+                <p className="font-sans text-sm text-on-surface-variant leading-relaxed font-light">
                   Measure the widest part of your nail bed in millimeters or select from XS, S, M, L standard sizes. Refer to our Size Chart for seamless fitting.
                 </p>
               </div>
@@ -322,7 +322,7 @@ export default function ProductClient({ product, locale }: Props) {
                 onClick={() => toggleAccordion('application')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
               >
-                <span className="text-on-surface text-label">
+                <span className="text-on-surface font-sans font-normal text-sm uppercase tracking-[0.05em]">
                   Application & Removal
                 </span>
                 <span className="material-symbols-outlined text-[16px] text-on-surface-variant/65 group-hover:text-on-background transition-transform duration-300">
@@ -332,15 +332,15 @@ export default function ProductClient({ product, locale }: Props) {
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${ activeAccordion.application ? 'max-h-[300px] pb-4' : 'max-h-0' }`}
               >
-                <div className="font-sans text-xs text-on-surface-variant leading-relaxed font-light space-y-3">
+                <div className="font-sans text-sm text-on-surface-variant leading-relaxed font-light space-y-3">
                   <div>
-                    <strong className="block text-on-background mb-0.5 text-label">
+                    <strong className="block text-on-background mb-0.5 font-sans font-normal text-[13px] uppercase tracking-[0.05em]">
                       Application:
                     </strong>
                     Prep your natural nails, apply the adhesive tabs or glue, align the press-on at a 45° angle, and press down firmly for 15 seconds.
                   </div>
                   <div>
-                    <strong className="block text-on-background mb-0.5 text-label">
+                    <strong className="block text-on-background mb-0.5 font-sans font-normal text-[13px] uppercase tracking-[0.05em]">
                       Removal:
                     </strong>
                     Soak your hands in warm water mixed with soap and oil for 10-15 minutes, then gently lift the edges with the cuticle stick.

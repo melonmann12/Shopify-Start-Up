@@ -1,6 +1,7 @@
 // components/product/YouMayAlsoLike.tsx
 import { shopifyFetch } from '@/lib/shopify/client'
 import { GET_PRODUCTS } from '@/lib/shopify/queries/product'
+import { GET_COLLECTION } from '@/lib/shopify/queries/collection'
 import { countryMap } from '@/lib/i18n/config'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 import ProductCard from '@/components/product/ProductCard'
@@ -8,22 +9,41 @@ import ProductCard from '@/components/product/ProductCard'
 interface Props {
   currentProductId: string
   locale: string
+  collectionHandle?: string
 }
 
-export default async function YouMayAlsoLike({ currentProductId, locale = 'en' }: Props) {
+export default async function YouMayAlsoLike({ currentProductId, locale = 'en', collectionHandle }: Props) {
   const country = countryMap[locale as keyof typeof countryMap] ?? 'US'
   const language = locale.toUpperCase()
 
-  // Fetch the latest products to act as related products
-  const data = await shopifyFetch<{
-    products: { nodes: ShopifyProduct[] }
-  }>(GET_PRODUCTS, {
-    first: 5,
-    country,
-    language,
-  })
+  let products: ShopifyProduct[] = []
 
-  let products = data?.products?.nodes || []
+  if (collectionHandle) {
+    const data = await shopifyFetch<{
+      collection: { products: { nodes: ShopifyProduct[] } }
+    }>(GET_COLLECTION, {
+      handle: collectionHandle,
+      first: 5,
+      country,
+      language,
+      sortKey: 'BEST_SELLING'
+    })
+    products = data?.collection?.products?.nodes || []
+  }
+
+  // Fallback to global best selling if no collection or not enough products
+  // (we need at least 1 product besides the current one)
+  if (products.length < 2) {
+    const data = await shopifyFetch<{
+      products: { nodes: ShopifyProduct[] }
+    }>(GET_PRODUCTS, {
+      first: 5,
+      country,
+      language,
+      sortKey: 'BEST_SELLING'
+    })
+    products = data?.products?.nodes || []
+  }
 
   // Filter out the current product and take top 4
   products = products.filter(p => p.id !== currentProductId).slice(0, 4)
@@ -31,8 +51,8 @@ export default async function YouMayAlsoLike({ currentProductId, locale = 'en' }
   if (products.length === 0) return null
 
   return (
-    <section className="w-full border-t border-outline/10 pt-16 md:pt-24 mt-8 md:mt-16">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
+    <section className="w-full border-t border-outline/10 pt-12 md:pt-20 mt-6 md:mt-12">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal mb-3">
             You May Also Like

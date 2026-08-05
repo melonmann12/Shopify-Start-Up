@@ -68,6 +68,13 @@ export default async function ProductDetailPage(props: Props) {
   if (!data.product) notFound()
 
   const product = data.product
+  
+  // Find the first relevant collection to use for recommendations
+  const collections = product.collections?.nodes || []
+  const validCollection = collections.find(c => 
+    !['all', 'frontpage', 'home-page'].includes(c.handle.toLowerCase())
+  )
+  const recommendationCollectionHandle = validCollection?.handle || collections[0]?.handle
 
   return (
     <main className="flex-grow w-full max-w-[1600px] mx-auto px-6 md:px-[8.333vw] py-12 md:py-20 flex flex-col relative z-10">
@@ -86,7 +93,11 @@ export default async function ProductDetailPage(props: Props) {
       <ProductClient product={product} locale={locale} />
 
       {/* Cross-Selling Section */}
-      <YouMayAlsoLike currentProductId={product.id} locale={locale} />
+      <YouMayAlsoLike 
+        currentProductId={product.id} 
+        locale={locale} 
+        collectionHandle={recommendationCollectionHandle}
+      />
     </main>
   )
 }

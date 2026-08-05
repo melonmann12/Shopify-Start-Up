@@ -16,6 +16,7 @@ export interface ShopifyProduct {
   options: ShopifyProductOption[]
   variants: { nodes: ShopifyProductVariant[] }
   seo: { title: string; description: string }
+  collections?: { nodes: { handle: string }[] }
 }
 
 export interface ShopifyProductVariant {
