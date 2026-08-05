@@ -16,7 +16,7 @@ interface Props {
 // To update: replace '#' with the full URL for each platform.
 
 const SHOP_LINKS = [
-  { label: 'Shop All', href: (l: string) => `/${l}/collections/all` },
+  { label: 'Shop All', href: (l: string) => `/${l}/search` },
   { label: 'New Arrivals', href: (l: string) => `/${l}/collections/new-arrivals` },
   { label: 'Best Sellers', href: (l: string) => `/${l}/collections/best-sellers` },
   { label: 'On Sale', href: (l: string) => `/${l}/collections/sale` },

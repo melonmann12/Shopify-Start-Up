@@ -29,7 +29,7 @@ interface ProductsResponse {
 interface SearchParams {
   q?: string
   sort?: string
-  collection?: string
+  collection?: string | string[]
   available?: string
   product_type?: string
 }
@@ -50,7 +50,12 @@ export default async function SearchPage(props: Props) {
   // Parse search params
   const q = searchParams.q || ''
   const sort = searchParams.sort || 'relevance'
-  const collectionFilter = searchParams.collection || ''
+  
+  const collectionFilterRaw = searchParams.collection
+  const collectionFilters = Array.isArray(collectionFilterRaw)
+    ? collectionFilterRaw
+    : (collectionFilterRaw ? [collectionFilterRaw] : [])
+    
   const availableFilter = searchParams.available || ''
   const productTypeFilter = searchParams.product_type || ''
 
@@ -86,7 +91,7 @@ export default async function SearchPage(props: Props) {
   let products: ProductsResponse['products']['nodes'] = []
   try {
     const data = await shopifyFetch<ProductsResponse>(SEARCH_PRODUCTS, {
-      query: q,
+      ...(q ? { query: q } : {}),
       first: 100,
       sortKey,
       reverse,
@@ -123,10 +128,10 @@ export default async function SearchPage(props: Props) {
   // Hybrid Filter Logic on Server:
   let filteredProducts = [...products]
 
-  // 1. Filter by collection handle
-  if (collectionFilter) {
+  // 1. Filter by collection handle (OR logic)
+  if (collectionFilters.length > 0) {
     filteredProducts = filteredProducts.filter((p) =>
-      p.collections?.nodes?.some((c) => c.handle === collectionFilter)
+      p.collections?.nodes?.some((c) => collectionFilters.includes(c.handle))
     )
   }
 
@@ -149,7 +154,7 @@ export default async function SearchPage(props: Props) {
       <main className="pt-[100px] px-4 sm:px-8 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10">
         <header className="flex flex-col items-center justify-center mb-10 text-center py-6">
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background mb-4 font-normal">
-            {q ? `Search Results for "${q}"` : 'Search Products'}
+            {q ? `Search Results for "${q}"` : 'All Nails'}
           </h1>
           <p className="text-on-surface-variant max-w-xl mx-auto text-caption">
             Explore our luxury, handcrafted press-on nails and beauty essentials.
@@ -164,7 +169,7 @@ export default async function SearchPage(props: Props) {
           currentParams={{
             q,
             sort,
-            collection: collectionFilter,
+            collection: collectionFilters,
             available: availableFilter,
             product_type: productTypeFilter,
           }}

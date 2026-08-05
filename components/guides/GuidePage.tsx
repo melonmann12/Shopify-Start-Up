@@ -39,7 +39,7 @@ export default function GuidePage({ eyebrow = 'Nail Guide', title, intro, locale
       <div className="border-t border-outline/10 py-12 text-center">
         <p className="font-serif italic text-lg text-on-background mb-3">Ready to shop?</p>
         <Link
-          href={`/${locale}/collections/all`}
+          href={`/${locale}/search`}
           className="inline-block font-sans text-xs font-medium text-on-background border border-on-background/30 hover:border-on-background px-8 py-3 transition-colors"
         >
           Shop All Nails

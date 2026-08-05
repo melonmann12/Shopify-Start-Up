@@ -7,9 +7,10 @@ interface Props {
   product: ShopifyProduct
   locale: string
   isPriority?: boolean
+  typographyVariant?: 'default' | 'large'
 }
 
-export default function ProductCard({ product, locale, isPriority = false }: Props) {
+export default function ProductCard({ product, locale, isPriority = false, typographyVariant = 'default' }: Props) {
   const image = product.images.nodes[0]
   const secondImage = product.images.nodes[1]
   const price = product.priceRange.minVariantPrice
@@ -60,12 +61,12 @@ export default function ProductCard({ product, locale, isPriority = false }: Pro
           <h3 className="font-serif text-[15px] md:text-xl font-normal text-on-background leading-tight">
             {product.title}
           </h3>
-          <p className="text-on-surface-variant text-label">
+          <p className={`text-on-surface-variant ${typographyVariant === 'large' ? 'text-sm' : 'text-label'}`}>
             {formatPrice(price.amount, price.currencyCode, locale)}
           </p>
         </div>
 
-        <div className="text-on-background group-hover:opacity-50 transition-opacity duration-300 text-label">
+        <div className={`text-on-background group-hover:opacity-50 transition-opacity duration-300 ${typographyVariant === 'large' ? 'text-sm uppercase tracking-wider' : 'text-label'}`}>
           Purchase
         </div>
       </div>

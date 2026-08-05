@@ -22,7 +22,7 @@ export const PREDICTIVE_SEARCH = `
 
 export const SEARCH_PRODUCTS = `
   query SearchProducts(
-    $query: String!,
+    $query: String,
     $first: Int!,
     $sortKey: ProductSortKeys,
     $reverse: Boolean,
