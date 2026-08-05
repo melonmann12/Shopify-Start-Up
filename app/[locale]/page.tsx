@@ -4,7 +4,8 @@ import EditorialSection from '@/components/home/EditorialSection'
 import InlineEmailCapture from '@/components/home/InlineEmailCapture'
 import CategoryShowcase from '@/components/home/CategoryShowcase'
 import EmailPopup from '@/components/home/EmailPopup'
-import AsSeenIn from '@/components/home/AsSeenIn'
+// Temporarily disabled until real press logos are available.
+// import AsSeenIn from '@/components/home/AsSeenIn'
 // import ComparisonTable from '@/components/home/ComparisonTable'
 // import SocialProof from '@/components/home/SocialProof'
 
@@ -46,7 +47,8 @@ export default async function HomePage(props: Props) {
       
       {/* <SocialProof locale={locale} /> */}
       
-      <AsSeenIn />
+      {/* Temporarily disabled until real press logos are available. */}
+      {/* <AsSeenIn /> */}
       
       {/* Secondary inline email capture block */}
       <InlineEmailCapture />

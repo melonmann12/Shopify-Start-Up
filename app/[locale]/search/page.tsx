@@ -80,6 +80,10 @@ export default async function SearchPage(props: Props) {
       sortKey = 'CREATED_AT'
       reverse = true
       break
+    case 'best-selling':
+      sortKey = 'BEST_SELLING'
+      reverse = false
+      break
     case 'relevance':
     default:
       sortKey = 'RELEVANCE'

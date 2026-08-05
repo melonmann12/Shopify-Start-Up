@@ -139,7 +139,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         </div>
 
         <Link
-          href={`/${locale}/collections/new-arrivals`}
+          href={`/${locale}/search?sort=newest`}
           className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
         >
           {UI_TEXT.newArrivals}
@@ -147,7 +147,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         </Link>
 
         <Link
-          href={`/${locale}/collections/best-sellers`}
+          href={`/${locale}/search?sort=best-selling`}
           className="hover:text-on-background transition-colors duration-200 py-5"
         >
           {UI_TEXT.bestSellers}
@@ -174,10 +174,10 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   <Link href={`/${locale}/search`} className={menuLinkCls}>
                     {UI_TEXT.allNails}
                   </Link>
-                  <Link href={`/${locale}/collections/new-arrivals`} className={menuLinkCls}>
+                  <Link href={`/${locale}/search?sort=newest`} className={menuLinkCls}>
                     {UI_TEXT.newArrivals}
                   </Link>
-                  <Link href={`/${locale}/collections/best-sellers`} className={menuLinkCls}>
+                  <Link href={`/${locale}/search?sort=best-selling`} className={menuLinkCls}>
                     {UI_TEXT.bestSellers}
                   </Link>
                   <Link href={`/${locale}/collections/sale`} className={menuLinkCls}>
@@ -354,10 +354,10 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                             <Link href={`/${locale}/search`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.allNails}
                             </Link>
-                            <Link href={`/${locale}/collections/new-arrivals`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/search?sort=newest`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.newArrivals}
                             </Link>
-                            <Link href={`/${locale}/collections/best-sellers`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/search?sort=best-selling`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.bestSellers}
                             </Link>
                             <Link href={`/${locale}/collections/sale`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
@@ -449,7 +449,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
                 {/* NEW ARRIVALS */}
                 <Link
-                  href={`/${locale}/collections/new-arrivals`}
+                  href={`/${locale}/search?sort=newest`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors flex items-center gap-3"
                 >
@@ -459,7 +459,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
                 {/* BEST SELLERS */}
                 <Link
-                  href={`/${locale}/collections/best-sellers`}
+                  href={`/${locale}/search?sort=best-selling`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
                 >

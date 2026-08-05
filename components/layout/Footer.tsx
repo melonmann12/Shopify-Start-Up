@@ -17,8 +17,8 @@ interface Props {
 
 const SHOP_LINKS = [
   { label: 'Shop All', href: (l: string) => `/${l}/search` },
-  { label: 'New Arrivals', href: (l: string) => `/${l}/collections/new-arrivals` },
-  { label: 'Best Sellers', href: (l: string) => `/${l}/collections/best-sellers` },
+  { label: 'New Arrivals', href: (l: string) => `/${l}/search?sort=newest` },
+  { label: 'Best Sellers', href: (l: string) => `/${l}/search?sort=best-selling` },
   { label: 'On Sale', href: (l: string) => `/${l}/collections/sale` },
 ]
 

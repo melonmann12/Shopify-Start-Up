@@ -117,6 +117,7 @@ export default function SearchClient({
           >
             <option value="relevance">Relevance</option>
             <option value="newest">Newest</option>
+            <option value="best-selling">Best Selling</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
             <option value="title-asc">A-Z</option>
