@@ -67,12 +67,11 @@ export default async function FeaturedProducts({ handle, title, subtitle, ctaLab
         </Link>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-0 border-t border-l border-on-background">
-        {products.map((product, index) => (
+        {products.map((product) => (
           <ProductCard 
             key={product.id} 
             product={product} 
             locale={locale} 
-            isPriority={index < 4}
           />
         ))}
       </div>

@@ -1,9 +1,8 @@
 // app/[locale]/products/[handle]/page.tsx
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { shopifyFetch } from '@/lib/shopify/client'
-import { GET_PRODUCT_BY_HANDLE } from '@/lib/shopify/queries/product'
-import { countryMap, type Locale } from '@/lib/i18n/config'
+import { getProductByHandle } from '@/lib/shopify/queries/product'
+import { type Locale } from '@/lib/i18n/config'
 import ProductClient from '@/components/product/ProductClient'
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike'
 import Link from 'next/link'
@@ -18,17 +17,13 @@ interface Props {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const locale = params.locale as Locale
-  let data: { product: ShopifyProduct | null } | null = null
+  let product: ShopifyProduct | null = null
   try {
-    data = await shopifyFetch<{ product: ShopifyProduct | null }>(
-      GET_PRODUCT_BY_HANDLE,
-      { handle: params.handle, country: countryMap[locale] ?? 'US', language: locale.toUpperCase() }
-    )
+    product = await getProductByHandle(params.handle, locale)
   } catch {
     return { title: 'Product | Nailestial' }
   }
 
-  const product = data?.product
   if (!product) return { title: 'Product | Nailestial' }
 
   const title = product.seo?.title || `${product.title} | Nailestial`
@@ -57,17 +52,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function ProductDetailPage(props: Props) {
   const params = await props.params
   const locale = params.locale as Locale
-  const country = countryMap[locale] ?? 'US'
-  const language = locale.toUpperCase()
+  const product = await getProductByHandle(params.handle, locale)
 
-  const data = await shopifyFetch<{ product: ShopifyProduct | null }>(
-    GET_PRODUCT_BY_HANDLE,
-    { handle: params.handle, country, language }
-  )
-
-  if (!data.product) notFound()
-
-  const product = data.product
+  if (!product) notFound()
   
   // Find the first relevant collection to use for recommendations
   const collections = product.collections?.nodes || []

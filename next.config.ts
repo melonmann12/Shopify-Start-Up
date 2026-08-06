@@ -5,7 +5,6 @@ const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.shopify.com' },
       { protocol: 'https', hostname: '*.myshopify.com' },

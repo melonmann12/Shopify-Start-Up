@@ -1,4 +1,8 @@
 // lib/shopify/queries/product.ts
+import { cache } from 'react'
+import { shopifyFetch } from '../client'
+import { countryMap, type Locale } from '../../i18n/config'
+import type { ShopifyProduct } from '../types'
 
 export const GET_PRODUCT_BY_HANDLE = `
   query GetProduct($handle: String!, $country: CountryCode!, $language: LanguageCode!)
@@ -98,3 +102,15 @@ export const GET_PRODUCTS = `
     }
   }
 `
+
+export const getProductByHandle = cache(async (handle: string, locale: Locale) => {
+  const country = countryMap[locale] ?? 'US'
+  const language = locale.toUpperCase()
+
+  const data = await shopifyFetch<{ product: ShopifyProduct | null }>(
+    GET_PRODUCT_BY_HANDLE,
+    { handle, country, language }
+  )
+
+  return data.product
+})

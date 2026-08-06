@@ -38,7 +38,7 @@ export async function shopifyFetch<T>(
     process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ||
     ''
   const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
-
+  
   try {
     // 1. Strict sanitation: Ensure if context is missing or corrupted by static file routing (e.g. "ROBOTS.TXT"), it safely defaults to "EN" or "VI".
     if (variables.language) {

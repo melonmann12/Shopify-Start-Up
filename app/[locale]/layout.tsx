@@ -1,7 +1,7 @@
 // app/[locale]/layout.tsx
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { locales, type Locale } from '@/lib/i18n/config'
 import Navbar from '@/components/layout/Navbar'
@@ -33,6 +33,8 @@ export default async function LocaleLayout(props: Props) {
   const { locale } = params
 
   if (!locales.includes(locale as Locale)) notFound()
+
+  setRequestLocale(locale)
 
   const messages = await getMessages()
 

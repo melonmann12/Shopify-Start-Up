@@ -1,3 +1,5 @@
+import { setRequestLocale } from 'next-intl/server'
+import { locales } from '@/lib/i18n/config'
 import Hero from '@/components/home/Hero'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import EditorialSection from '@/components/home/EditorialSection'
@@ -12,10 +14,15 @@ import EmailPopup from '@/components/home/EmailPopup'
 interface Props {
   params: Promise<{ locale: string }>
 }
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
 
 export default async function HomePage(props: Props) {
   const params = await props.params
   const { locale } = params
+
+  setRequestLocale(locale)
 
   return (
     <div className="w-full relative overflow-hidden">
