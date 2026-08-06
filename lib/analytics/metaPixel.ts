@@ -127,38 +127,6 @@ export const addToCart = (
   }
 }
 
-export const initiateCheckout = (
-  cartNodes: { variantId: string; title: string; price: number; quantity: number }[],
-  currency: string = 'USD'
-) => {
-  if (typeof window !== 'undefined') {
-    ensureFbq()
-    const eventId = generateEventId()
-    
-    const content_ids = cartNodes.map(node => formatMetaContentId(node.variantId))
-    const contents = cartNodes.map(node => ({
-      id: formatMetaContentId(node.variantId),
-      quantity: node.quantity
-    }))
-    const value = cartNodes.reduce((total, node) => total + (node.price * node.quantity), 0)
-
-    const payload = {
-      content_ids,
-      content_type: 'product',
-      contents,
-      value,
-      currency,
-      num_items: cartNodes.reduce((total, node) => total + node.quantity, 0),
-      event_source_url: window.location.href
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`[Meta Pixel] track InitiateCheckout:`, { ...payload, eventId })
-    }
-    window.fbq('track', 'InitiateCheckout', payload, { eventID: eventId })
-  }
-}
-
 export const purchase = (
   orderId: string,
   cartNodes: { variantId: string; title: string; price: number; quantity: number }[],
@@ -192,3 +160,4 @@ export const purchase = (
     window.fbq('track', 'Purchase', payload, { eventID: eventId })
   }
 }
+
