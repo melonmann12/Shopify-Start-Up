@@ -10,6 +10,14 @@ import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
 const UI_TEXT = {
   description: "Description",
+  freeShipping: {
+    en: "Free Shipping Over $50 USD",
+    vi: "Miễn phí vận chuyển cho đơn từ $50 USD"
+  },
+  securePayment: {
+    en: "Secure Payment Method",
+    vi: "Thanh toán an toàn"
+  }
 }
 
 interface Props {
@@ -269,6 +277,22 @@ export default function ProductClient({ product, locale }: Props) {
             selectedVariant={selectedVariant}
             onSelectOption={selectOption}
           />
+
+          {/* Reassurance Block */}
+          <div className="mt-5 flex flex-col gap-2">
+            <div className="flex items-center gap-3 px-4 py-3 border border-outline/10 rounded-sm">
+              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">local_shipping</span>
+              <span className="font-sans text-[13px] text-on-surface-variant tracking-wide">
+                {locale === 'vi' ? UI_TEXT.freeShipping.vi : UI_TEXT.freeShipping.en}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 px-4 py-3 border border-outline/10 rounded-sm">
+              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+              <span className="font-sans text-[13px] text-on-surface-variant tracking-wide">
+                {locale === 'vi' ? UI_TEXT.securePayment.vi : UI_TEXT.securePayment.en}
+              </span>
+            </div>
+          </div>
 
           {/* 2. Collapsible Product Info Accordion */}
           <div className="border-t border-outline/10 mt-6 space-y-0">

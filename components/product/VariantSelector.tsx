@@ -92,7 +92,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
             type="button"
             aria-label="Open size and shape guide"
             onClick={() => setIsShapeGuideOpen(true)}
-            className="font-serif italic text-[13px] text-on-surface-variant hover:text-on-background underline decoration-outline-variant/30 hover:decoration-on-background underline-offset-4 transition-colors"
+            className="font-serif italic text-[15px] text-on-surface-variant hover:text-on-background underline decoration-outline-variant/30 hover:decoration-on-background underline-offset-4 transition-colors"
           >
             Size &amp; Shape Guide
           </button>
