@@ -32,7 +32,8 @@ const UI_TEXT = {
   // navigation menus / metaobjects are configured for this storefront.
   pressOnNails: 'Press-on Nails',
   allNails: 'All Nails',
-  newArrivals: 'BACK TO SCHOOL',
+  newArrivals: 'NEW ARRIVALS',
+  backToSchool: 'BACK TO SCHOOL',
   halloween: 'HALLOWEEN',
   bestSellers: 'Best Sellers',
   onSale: 'On Sale',
@@ -114,23 +115,16 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     <>
       {/* ── DESKTOP NAVIGATION LINKS ──────────────────────────────────────── */}
       <div
-        className="hidden md:flex items-center gap-6 lg:gap-12 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label"
+        className="hidden lg:flex items-center gap-4 xl:gap-8 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-[11px] xl:text-label whitespace-nowrap"
         onMouseLeave={() => setIsShopOpen(false)}
       >
-        <HomeLink
-          href={`/${locale}`}
-          className="hover:text-on-background transition-colors duration-200 py-5"
-        >
-          {UI_TEXT.home}
-        </HomeLink>
-
         <div
           className="h-full flex items-center"
           onMouseEnter={() => setIsShopOpen(true)}
         >
           <Link
             href={`/${locale}/collections`}
-            className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1 cursor-pointer"
+            className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1 cursor-pointer whitespace-nowrap"
           >
             {UI_TEXT.shop}
             <span className="material-symbols-outlined font-bold select-none">
@@ -140,23 +134,30 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         </div>
 
         <Link
-          href={`/${locale}/collections/back-to-school`}
-          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
+          href={`/${locale}/search?sort=newest`}
+          className="hover:text-on-background transition-colors duration-200 py-5 whitespace-nowrap"
         >
           {UI_TEXT.newArrivals}
-          <span className="bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-widest rounded-sm">HOT</span>
+        </Link>
+
+        <Link
+          href={`/${locale}/collections/back-to-school`}
+          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5 whitespace-nowrap"
+        >
+          {UI_TEXT.backToSchool}
+          <span className="bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-widest rounded-sm whitespace-nowrap">HOT</span>
         </Link>
 
         <Link
           href={`/${locale}/collections/halloween`}
-          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
+          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5 whitespace-nowrap"
         >
           {UI_TEXT.halloween}
         </Link>
 
         <Link
           href={`/${locale}/search?sort=best-selling`}
-          className="hover:text-on-background transition-colors duration-200 py-5"
+          className="hover:text-on-background transition-colors duration-200 py-5 whitespace-nowrap"
         >
           {UI_TEXT.bestSellers}
         </Link>
@@ -182,8 +183,11 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   <Link href={`/${locale}/search`} className={menuLinkCls}>
                     {UI_TEXT.allNails}
                   </Link>
-                  <Link href={`/${locale}/collections/back-to-school`} className={menuLinkCls}>
+                  <Link href={`/${locale}/search?sort=newest`} className={menuLinkCls}>
                     {UI_TEXT.newArrivals}
+                  </Link>
+                  <Link href={`/${locale}/collections/back-to-school`} className={menuLinkCls}>
+                    {UI_TEXT.backToSchool}
                   </Link>
                   <Link href={`/${locale}/collections/halloween`} className={menuLinkCls}>
                     {UI_TEXT.halloween}
@@ -285,14 +289,14 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         <button
           aria-label="Menu"
           onClick={() => setMenuOpen((v) => !v)}
-          className="md:hidden p-2 text-on-surface-variant hover:text-on-background"
+          className="lg:hidden p-2 text-on-surface-variant hover:text-on-background"
         >
           <span className="material-symbols-outlined text-[20px]">{menuOpen ? 'close' : 'menu'}</span>
         </button>
 
         {/* ── MOBILE NAVIGATION DRAWER ─────────────────────────────────────── */}
         {menuOpen && (
-          <div className="fixed inset-0 z-50 flex md:hidden">
+          <div className="fixed inset-0 z-50 flex lg:hidden">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/40 transition-opacity"
@@ -321,14 +325,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
               <div className="flex flex-col gap-6 text-left">
 
-                {/* HOME */}
-                <HomeLink
-                  href={`/${locale}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
-                >
-                  {UI_TEXT.home}
-                </HomeLink>
+
 
                 {/* SHOP (accordion) */}
                 <div className="border-b border-outline-variant/10 pb-4">
@@ -365,8 +362,11 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                             <Link href={`/${locale}/search`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.allNails}
                             </Link>
-                            <Link href={`/${locale}/collections/back-to-school`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/search?sort=newest`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.newArrivals}
+                            </Link>
+                            <Link href={`/${locale}/collections/back-to-school`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                              {UI_TEXT.backToSchool}
                             </Link>
                             <Link href={`/${locale}/collections/halloween`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.halloween}
@@ -461,13 +461,22 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   )}
                 </div>
 
+                {/* NEW ARRIVALS */}
+                <Link
+                  href={`/${locale}/search?sort=newest`}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
+                >
+                  {UI_TEXT.newArrivals}
+                </Link>
+
                 {/* BACK TO SCHOOL */}
                 <Link
                   href={`/${locale}/collections/back-to-school`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors flex items-center gap-3"
                 >
-                  {UI_TEXT.newArrivals}
+                  {UI_TEXT.backToSchool}
                   <span className="font-sans bg-black text-white text-[10px] font-bold px-2 py-1 tracking-widest rounded-sm -translate-y-0.5">HOT</span>
                 </Link>
 
