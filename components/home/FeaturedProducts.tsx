@@ -48,6 +48,12 @@ export default async function FeaturedProducts({ handle, title, subtitle, ctaLab
 
   if (products.length === 0) return null
 
+  const href = isNewArrivals
+    ? `/${locale}/search?sort=newest`
+    : handle === 'best-sellers'
+    ? `/${locale}/search?sort=best-selling`
+    : `/${locale}/collections/${handle}`
+
   return (
     <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 pt-16 md:pt-24 mt-8 md:mt-12 relative z-10 bg-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-10 gap-6">
@@ -60,7 +66,7 @@ export default async function FeaturedProducts({ handle, title, subtitle, ctaLab
           )}
         </div>
         <Link
-          href={`/${locale}/collections/${handle}`}
+          href={href}
           className="text-xs text-on-surface hover:text-on-surface-variant flex items-center gap-2 pb-0.5 border-b border-primary group text-label shrink-0"
         >
           {ctaLabel} <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
