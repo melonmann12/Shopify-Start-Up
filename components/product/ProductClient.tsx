@@ -7,6 +7,8 @@ import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
+import ProductReviews from './ProductReviews'
+import { mockTotalReviews, mockAverageRating } from '@/lib/data/mock-product-reviews'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
 const UI_TEXT = {
@@ -293,6 +295,36 @@ export default function ProductClient({ product, locale }: Props) {
                 </>
               )}
             </div>
+            
+            {/* Top Review Summary */}
+            <a 
+              href="#customer-reviews" 
+              className="inline-flex items-center gap-1.5 mt-3 group focus:outline-none focus:ring-1 focus:ring-on-background rounded-sm"
+              aria-label={`${mockAverageRating} out of 5 stars, based on ${mockTotalReviews} reviews`}
+            >
+              <div className="flex gap-px text-on-background">
+                {[...Array(5)].map((_, i) => {
+                  const rating = mockAverageRating;
+                  const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
+                  const isFull = i < Math.floor(rating);
+                  return (
+                    <span
+                      key={i}
+                      className="material-symbols-outlined text-[14px]"
+                      style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
+                    >
+                      {isHalf ? 'star_half' : 'star'}
+                    </span>
+                  );
+                })}
+              </div>
+              <span className="font-sans text-xs font-medium text-on-background group-hover:underline">
+                {mockAverageRating}
+              </span>
+              <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
+                ({mockTotalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
+              </span>
+            </a>
           </div>
 
 
@@ -418,6 +450,9 @@ export default function ProductClient({ product, locale }: Props) {
       </div>
 
       {/* Comparison section (Craftsmanship Breakdown) intentionally removed from render to focus on conversion */}
+      
+      {/* Customer Reviews Carousel */}
+      <ProductReviews locale={locale} />
     </div>
   )
 }
