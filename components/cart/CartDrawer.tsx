@@ -159,6 +159,20 @@ export default function CartDrawer() {
 
     setIsRedirecting(true)
 
+    // Fire InitiateCheckout before redirecting
+    const cartToTrack = latestCart || cart
+    if (cartToTrack && cartToTrack.lines.nodes.length > 0) {
+      import('@/lib/analytics/metaPixel').then(({ initiateCheckout }) => {
+        const cartNodes = cartToTrack.lines.nodes.map(line => ({
+          variantId: line.merchandise.id,
+          title: line.merchandise.product?.title || '',
+          price: Number(line.merchandise.price?.amount || 0),
+          quantity: line.quantity
+        }))
+        initiateCheckout(cartNodes, cartToTrack.cost.subtotalAmount.currencyCode)
+      })
+    }
+
     // Safety reset: if navigation hasn't started within 5s, unlock the button
     // so the user can retry rather than being permanently stuck.
     const safetyTimer = setTimeout(() => setIsRedirecting(false), 5000)
@@ -170,6 +184,7 @@ export default function CartDrawer() {
       setIsRedirecting(false)
     }
   }
+
 
 
   if (!isOpen) return null

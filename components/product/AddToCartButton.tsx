@@ -81,6 +81,16 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
           Number(variant.price.amount),
           1
         )
+        
+        // Import dynamically to avoid heavy bundles if not needed
+        import('@/lib/analytics/metaPixel').then(({ initiateCheckout }) => {
+          initiateCheckout([{
+            variantId: variant.id,
+            title: productTitle,
+            price: Number(variant.price.amount),
+            quantity: 1
+          }], temporaryCart?.cost?.subtotalAmount?.currencyCode || 'USD')
+        })
 
         if (temporaryCart?.checkoutUrl) {
           window.location.href = temporaryCart.checkoutUrl
@@ -94,6 +104,7 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       }
     }
   }
+
 
   return (
     <div className="flex flex-col gap-3 mb-8 mt-2">
