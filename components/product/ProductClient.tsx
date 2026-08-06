@@ -133,6 +133,17 @@ export default function ProductClient({ product, locale }: Props) {
 
   const displayBadgeText = product.title.split(' ')[0]
   const basePrice = product.priceRange.minVariantPrice
+  
+  const currentVariant = selectedVariant || product.variants.nodes[0]
+  const currentPriceObj = currentVariant?.price || basePrice
+  const currentPriceAmount = Number(currentPriceObj.amount)
+  
+  const compareAtPriceObj = currentVariant?.compareAtPrice
+  const compareAtPriceAmount = compareAtPriceObj ? Number(compareAtPriceObj.amount) : null
+  
+  const isDiscounted = compareAtPriceAmount !== null && compareAtPriceAmount > currentPriceAmount
+  const savingsPercent = isDiscounted ? Math.round(((compareAtPriceAmount - currentPriceAmount) / compareAtPriceAmount) * 100) : 0
+  const showBadge = isDiscounted && savingsPercent > 0
 
   return (
     <div className="w-full flex flex-col gap-16 md:gap-24">
@@ -267,9 +278,21 @@ export default function ProductClient({ product, locale }: Props) {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-2 leading-tight">
               {product.title}
             </h1>
-            <p className="text-2xl sm:text-3xl font-serif text-on-background">
-              {formatPrice(basePrice.amount, basePrice.currencyCode, locale)}
-            </p>
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 mt-1">
+              <p className="text-2xl sm:text-3xl font-serif text-on-background leading-none">
+                {formatPrice(currentPriceObj.amount, currentPriceObj.currencyCode, locale)}
+              </p>
+              {showBadge && compareAtPriceObj && (
+                <>
+                  <p className="text-lg sm:text-xl font-serif text-on-surface-variant line-through leading-none">
+                    {formatPrice(compareAtPriceObj.amount, compareAtPriceObj.currencyCode, locale)}
+                  </p>
+                  <span className="inline-flex items-center bg-on-background text-surface-container-lowest text-[10px] sm:text-[11px] font-sans font-medium tracking-wider px-2 py-0.5 uppercase rounded-sm leading-none -translate-y-px">
+                    {locale === 'vi' ? `TIẾT KIỆM ${savingsPercent}%` : `SAVE ${savingsPercent}%`}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
 
 

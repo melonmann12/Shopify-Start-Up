@@ -93,7 +93,7 @@ export const GET_PRODUCTS = `
           nodes { url altText width height }
         }
         variants(first: 1) {
-          nodes { availableForSale }
+          nodes { availableForSale compareAtPrice { amount currencyCode } }
         }
         metafields(identifiers: [{ namespace: "custom", key: "badge_label" }]) {
           value

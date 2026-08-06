@@ -49,7 +49,7 @@ export const SEARCH_PRODUCTS = `
           nodes { url altText width height }
         }
         variants(first: 1) {
-          nodes { availableForSale }
+          nodes { availableForSale compareAtPrice { amount currencyCode } }
         }
         collections(first: 10) {
           nodes {

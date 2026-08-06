@@ -15,6 +15,10 @@ export default function ProductCard({ product, locale, isPriority = false, typog
   const image = product.images.nodes[0]
   const secondImage = product.images.nodes[1]
   const price = product.priceRange.minVariantPrice
+  const compareAtPriceObj = product.variants?.nodes?.[0]?.compareAtPrice
+  const priceAmount = Number(price.amount)
+  const compareAtAmount = compareAtPriceObj ? Number(compareAtPriceObj.amount) : null
+  const isDiscounted = compareAtAmount !== null && compareAtAmount > priceAmount
 
   // Badge from metafield — only show if one is explicitly set; skip fallback text
   const badge = product.metafields?.find(
@@ -62,9 +66,16 @@ export default function ProductCard({ product, locale, isPriority = false, typog
           <h3 className="font-serif text-[15px] md:text-xl font-normal text-on-background leading-tight">
             {product.title}
           </h3>
-          <p className={`text-on-surface-variant ${typographyVariant === 'large' ? 'text-label md:text-sm' : 'text-label'}`}>
-            {formatPrice(price.amount, price.currencyCode, locale)}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 leading-none">
+            <span className={`text-on-surface-variant ${typographyVariant === 'large' ? 'text-label md:text-sm' : 'text-label'}`}>
+              {formatPrice(price.amount, price.currencyCode, locale)}
+            </span>
+            {isDiscounted && compareAtPriceObj && (
+              <span className={`text-on-surface-variant/60 line-through ${typographyVariant === 'large' ? 'text-[11px] md:text-xs' : 'text-[10px] sm:text-[11px]'}`}>
+                {formatPrice(compareAtPriceObj.amount, compareAtPriceObj.currencyCode, locale)}
+              </span>
+            )}
+          </div>
         </div>
 
         <div className={`text-on-background group-hover:opacity-50 transition-opacity duration-300 ${typographyVariant === 'large' ? 'text-label md:text-sm md:uppercase md:tracking-wider' : 'text-label'}`}>

@@ -18,6 +18,7 @@ export const GET_COLLECTION = `
         nodes {
           id title handle vendor
           priceRange { minVariantPrice { amount currencyCode } }
+          variants(first: 1) { nodes { availableForSale compareAtPrice { amount currencyCode } } }
           images(first: 2) { nodes { url altText width height } }
         }
       }
