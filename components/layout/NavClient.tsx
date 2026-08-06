@@ -334,7 +334,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                     className="w-full flex justify-between items-center text-left focus:outline-none"
                   >
                     <span className="font-serif text-3xl text-on-background">
-                      {UI_TEXT.shop}
+                      {UI_TEXT.shop.toUpperCase()}
                     </span>
                     <span className="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform select-none">
                       {mobileShopOpen ? 'expand_less' : 'expand_more'}
@@ -495,7 +495,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors"
                 >
-                  {UI_TEXT.bestSellers}
+                  {UI_TEXT.bestSellers.toUpperCase()}
                 </Link>
 
               </div>
