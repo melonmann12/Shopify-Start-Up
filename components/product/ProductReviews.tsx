@@ -1,20 +1,28 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import type { ProductReview } from '@/lib/judgeme/adapter'
 import { mockProductReviews, mockTotalReviews, mockAverageRating } from '@/lib/data/mock-product-reviews'
 
 interface ProductReviewsProps {
   locale: string
+  reviews: ProductReview[]
+  averageRating: number
+  totalReviews: number
 }
 
-export default function ProductReviews({ locale }: ProductReviewsProps) {
+export default function ProductReviews({ locale, reviews, averageRating, totalReviews }: ProductReviewsProps) {
   const carouselRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
-  // We now import the aggregates directly to avoid duplication
-  const totalReviews = mockTotalReviews
-  const averageRating = mockAverageRating.toFixed(1)
+  // Real reviews first, mock cards afterward.
+  const displayReviews = [...reviews, ...mockProductReviews]
+  const hasRealReviews = reviews.length > 0
+
+  if (displayReviews.length === 0) {
+    return null
+  }
 
   const checkScroll = () => {
     if (carouselRef.current) {
@@ -65,32 +73,60 @@ export default function ProductReviews({ locale }: ProductReviewsProps) {
   }
 
   return (
-    <section id="customer-reviews" className="w-full border-t border-outline-variant/30 pt-8 md:pt-12">
+    <section id="customer-reviews" className="w-full border-t border-outline-variant/30 pt-8 md:pt-12 scroll-mt-24 md:scroll-mt-32">
       {/* Review Summary */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
           <h2 className="font-serif text-3xl md:text-4xl text-on-background mb-4">
             {locale === 'vi' ? 'Đánh giá của khách hàng' : 'Customer Reviews'}
           </h2>
-          <div className="flex items-center gap-3">
-            <div className="flex gap-0.5 text-on-background">
-              {[...Array(5)].map((_, i) => (
-                <span
-                  key={i}
-                  className="material-symbols-outlined text-[18px]"
-                  style={{ fontVariationSettings: `'FILL' 1` }}
-                >
-                  star
-                </span>
-              ))}
+          
+          {hasRealReviews ? (
+            <div className="flex items-center gap-3">
+              <div className="flex gap-0.5 text-on-background">
+                {[...Array(5)].map((_, i) => (
+                  <span
+                    key={i}
+                    className="material-symbols-outlined text-[18px]"
+                    style={{ fontVariationSettings: `'FILL' 1` }}
+                  >
+                    star
+                  </span>
+                ))}
+              </div>
+              <span className="font-sans text-sm font-medium text-on-background">
+                {averageRating}
+              </span>
+              <span className="font-sans text-sm text-on-surface-variant">
+                ({totalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
+              </span>
             </div>
-            <span className="font-sans text-sm font-medium text-on-background">
-              {averageRating}
-            </span>
-            <span className="font-sans text-sm text-on-surface-variant">
-              ({totalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
-            </span>
-          </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <div className="flex gap-0.5 text-on-background">
+                {[...Array(5)].map((_, i) => {
+                  const rating = mockAverageRating;
+                  const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
+                  const isFull = i < Math.floor(rating);
+                  return (
+                    <span
+                      key={i}
+                      className="material-symbols-outlined text-[18px]"
+                      style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
+                    >
+                      {isHalf ? 'star_half' : 'star'}
+                    </span>
+                  );
+                })}
+              </div>
+              <span className="font-sans text-sm font-medium text-on-background">
+                {mockAverageRating}
+              </span>
+              <span className="font-sans text-sm text-on-surface-variant">
+                ({mockTotalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Desktop Carousel Controls */}
@@ -120,7 +156,7 @@ export default function ProductReviews({ locale }: ProductReviewsProps) {
         className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:gap-6 pb-6 -mx-6 px-6 md:mx-0 md:px-0"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {mockProductReviews.map((review) => (
+        {displayReviews.map((review) => (
           <div 
             key={review.id}
             className="snap-start shrink-0 w-[85vw] sm:w-[300px] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col p-6 md:p-8 bg-surface-container-lowest border border-outline-variant/30 rounded-sm"
@@ -145,11 +181,19 @@ export default function ProductReviews({ locale }: ProductReviewsProps) {
             </p>
             
             <div className="flex flex-col gap-1 mt-auto pt-6 border-t border-outline-variant/20">
-              <span className="font-sans text-sm font-medium text-on-background">
-                {review.reviewerName}
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-sans text-sm font-medium text-on-background">
+                  {review.reviewerName}
+                </span>
+                {review.verified && (
+                  <span className="material-symbols-outlined text-[14px] text-green-600" aria-label="Verified Buyer">
+                    check_circle
+                  </span>
+                )}
+              </div>
+              
               {(review.selectedSize || review.selectedShape) && (
-                <span className="font-sans text-xs text-on-surface-variant">
+                <span className="font-sans text-xs text-on-surface-variant mt-1">
                   {review.selectedShape}{review.selectedShape && review.selectedSize ? ' • ' : ''}{review.selectedSize}
                 </span>
               )}

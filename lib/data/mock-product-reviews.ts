@@ -1,85 +1,55 @@
-// lib/data/mock-product-reviews.ts
-
-// TEMPORARY DEMO DATA
-// This mock dataset is used for layout and UI purposes only.
-// It will be replaced by a real review API integration (e.g. Judge.me, Loox, or Shopify Product Reviews) in the future.
-// Do not use this data for JSON-LD structured data or describe it as verified purchases.
-
-export interface ProductReview {
-  id: string;
-  reviewerName: string;
-  rating: number; // out of 5
-  title: string;
-  body: string;
-  selectedSize?: string;
-  selectedShape?: string;
-  createdAt: string; // ISO date string
-}
+import type { ProductReview } from '@/lib/judgeme/adapter'
 
 export const mockProductReviews: ProductReview[] = [
   {
-    id: 'rev-001',
-    reviewerName: 'S. N.',
+    id: 'mock-1',
+    reviewerName: 'Sarah M.',
     rating: 5,
-    title: 'Beautiful and easy to apply',
-    body: 'These were surprisingly easy to put on. The color matches the photos well and they look very natural once applied. I’ve worn them for a few days without any lifting.',
+    title: 'Obsessed with these!',
+    body: 'First time trying press-ons and I am never going back to the salon. The quality is amazing, they look exactly like acrylics but without the damage. I got so many compliments!',
+    selectedShape: 'Almond',
     selectedSize: 'Medium',
-    selectedShape: 'Almond',
-    createdAt: '2023-11-12T08:24:00Z',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
+    verified: false,
+    source: 'sample'
   },
   {
-    id: 'rev-002',
-    reviewerName: 'J. T.',
-    rating: 4,
-    title: 'Nice everyday set',
-    body: 'A great option for everyday wear. They fit nicely after a little bit of filing at the base. The adhesive held up well during normal activities.',
-    selectedSize: 'Small',
-    selectedShape: 'Square',
-    createdAt: '2023-11-05T14:15:00Z',
-  },
-  {
-    id: 'rev-003',
-    reviewerName: 'M. L.',
+    id: 'mock-2',
+    reviewerName: 'Jessica T.',
     rating: 5,
-    title: 'Very elegant',
-    body: 'I bought these for a weekend event and received several compliments. The finish is glossy and feels sturdy, not flimsy like some others I’ve tried.',
-    selectedSize: 'Custom',
-    selectedShape: 'Almond',
-    createdAt: '2023-10-28T09:30:00Z',
-  },
-  {
-    id: 'rev-004',
-    reviewerName: 'A. K.',
-    rating: 4,
-    title: 'Good quality',
-    body: 'The quality of the nails is nice and they look like a real manicure. I appreciate the included prep kit, which made the application process much smoother.',
-    selectedSize: 'Large',
+    title: 'Perfect fit and super durable',
+    body: 'I was worried about the sizing but the guide was super helpful. These have lasted me 2 weeks already and still look brand new. The glue is really strong.',
     selectedShape: 'Coffin',
-    createdAt: '2023-10-15T11:20:00Z',
+    selectedSize: 'Small',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
+    verified: false,
+    source: 'sample'
   },
   {
-    id: 'rev-005',
-    reviewerName: 'E. R.',
+    id: 'mock-3',
+    reviewerName: 'Emily R.',
     rating: 5,
-    title: 'Perfect fit',
-    body: 'I struggled finding press-ons that fit my nail beds, but these aligned perfectly. They feel comfortable and secure.',
-    selectedSize: 'Medium',
-    selectedShape: 'Squoval',
-    createdAt: '2023-10-02T16:45:00Z',
+    title: 'Beautiful design',
+    body: 'The artwork on these is incredible. I love that I can have intricate designs without sitting in a chair for hours. Super easy to apply!',
+    selectedShape: 'Square',
+    selectedSize: 'Large',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+    verified: false,
+    source: 'sample'
   },
   {
-    id: 'rev-006',
-    reviewerName: 'C. W.',
-    rating: 4,
-    title: 'Lovely shade',
-    body: 'The shade is really pretty in person. They took me about 15 minutes to apply from start to finish. Would definitely repurchase in other colors.',
-    selectedSize: 'Medium',
+    id: 'mock-4',
+    reviewerName: 'Amanda L.',
+    rating: 5,
+    title: 'Best press-ons ever',
+    body: 'I have tried every brand out there and Nailestial is by far the best. The nails feel thick and sturdy, not flimsy at all. They look incredibly natural.',
     selectedShape: 'Almond',
-    createdAt: '2023-09-20T10:10:00Z',
-  },
-];
+    selectedSize: 'Medium',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 10).toISOString(),
+    verified: false,
+    source: 'sample'
+  }
+]
 
-export const mockTotalReviews = mockProductReviews.length;
-export const mockAverageRating = Number((
-  mockProductReviews.reduce((sum, rev) => sum + rev.rating, 0) / mockTotalReviews
-).toFixed(1));
+export const mockTotalReviews = mockProductReviews.length
+export const mockAverageRating = Number((mockProductReviews.reduce((sum, rev) => sum + rev.rating, 0) / mockTotalReviews).toFixed(1))

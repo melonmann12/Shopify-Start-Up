@@ -7,6 +7,7 @@ import ProductClient from '@/components/product/ProductClient'
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike'
 import Link from 'next/link'
 import type { ShopifyProduct } from '@/lib/shopify/types'
+import { getProductReviews } from '@/lib/judgeme/api'
 
 export const revalidate = 3600
 
@@ -63,6 +64,9 @@ export default async function ProductDetailPage(props: Props) {
   )
   const recommendationCollectionHandle = validCollection?.handle || collections[0]?.handle
 
+  // Fetch real reviews from Judge.me
+  const { reviews, averageRating, reviewCount } = await getProductReviews(product.id)
+
   return (
     <main className="flex-grow w-full max-w-[1600px] mx-auto px-6 md:px-[8.333vw] py-12 md:py-20 flex flex-col relative z-10">
       {/* Breadcrumbs */}
@@ -77,7 +81,13 @@ export default async function ProductDetailPage(props: Props) {
       </nav>
 
       {/* Full two-column layout owned by ProductClient (image left, info+options right) */}
-      <ProductClient product={product} locale={locale} />
+      <ProductClient 
+        product={product} 
+        locale={locale} 
+        reviews={reviews}
+        averageRating={averageRating}
+        reviewCount={reviewCount}
+      />
 
       {/* Cross-Selling Section */}
       <YouMayAlsoLike 

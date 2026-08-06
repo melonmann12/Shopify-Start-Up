@@ -8,6 +8,7 @@ import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
 import ProductReviews from './ProductReviews'
+import type { ProductReview } from '@/lib/judgeme/adapter'
 import { mockTotalReviews, mockAverageRating } from '@/lib/data/mock-product-reviews'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
@@ -26,9 +27,12 @@ const UI_TEXT = {
 interface Props {
   product: ShopifyProduct
   locale: string
+  reviews?: ProductReview[]
+  averageRating?: number
+  reviewCount?: number
 }
 
-export default function ProductClient({ product, locale }: Props) {
+export default function ProductClient({ product, locale, reviews = [], averageRating = 0, reviewCount = 0 }: Props) {
 
   // ── Variant State ────────────────────────────────────────────────────────────
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
@@ -148,7 +152,7 @@ export default function ProductClient({ product, locale }: Props) {
   const showBadge = isDiscounted && savingsPercent > 0
 
   return (
-    <div className="w-full flex flex-col gap-16 md:gap-24">
+    <div className="w-full flex flex-col gap-12 md:gap-16">
       {/* ── Main PDP Split View ──────────────────────────────────────────────── */}
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-[8.333vw] w-full">
         
@@ -297,34 +301,79 @@ export default function ProductClient({ product, locale }: Props) {
             </div>
             
             {/* Top Review Summary */}
-            <a 
-              href="#customer-reviews" 
-              className="inline-flex items-center gap-1.5 mt-3 group focus:outline-none focus:ring-1 focus:ring-on-background rounded-sm"
-              aria-label={`${mockAverageRating} out of 5 stars, based on ${mockTotalReviews} reviews`}
-            >
-              <div className="flex gap-px text-on-background">
-                {[...Array(5)].map((_, i) => {
-                  const rating = mockAverageRating;
-                  const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
-                  const isFull = i < Math.floor(rating);
-                  return (
-                    <span
-                      key={i}
-                      className="material-symbols-outlined text-[14px]"
-                      style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
-                    >
-                      {isHalf ? 'star_half' : 'star'}
-                    </span>
-                  );
-                })}
-              </div>
-              <span className="font-sans text-xs font-medium text-on-background group-hover:underline">
-                {mockAverageRating}
-              </span>
-              <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
-                ({mockTotalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
-              </span>
-            </a>
+            {reviewCount > 0 ? (
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById('customer-reviews');
+                  if (target) {
+                    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 mt-3 group focus:outline-none focus:ring-1 focus:ring-on-background rounded-sm appearance-none bg-transparent border-none p-0 cursor-pointer"
+                aria-label="Scroll to customer reviews"
+              >
+                <div className="flex gap-px text-on-background">
+                  {[...Array(5)].map((_, i) => {
+                    const rating = averageRating;
+                    const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
+                    const isFull = i < Math.floor(rating);
+                    return (
+                      <span
+                        key={i}
+                        className="material-symbols-outlined text-[14px]"
+                        style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
+                      >
+                        {isHalf ? 'star_half' : 'star'}
+                      </span>
+                    );
+                  })}
+                </div>
+                <span className="font-sans text-xs font-medium text-on-background group-hover:underline">
+                  {averageRating}
+                </span>
+                <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
+                  ({reviewCount} {locale === 'vi' ? 'đánh giá' : 'reviews'})
+                </span>
+              </button>
+            ) : (
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById('customer-reviews');
+                  if (target) {
+                    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 mt-3 group focus:outline-none focus:ring-1 focus:ring-on-background rounded-sm appearance-none bg-transparent border-none p-0 cursor-pointer"
+                aria-label="Scroll to customer reviews"
+              >
+                <div className="flex gap-px text-on-background">
+                  {[...Array(5)].map((_, i) => {
+                    const rating = mockAverageRating;
+                    const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
+                    const isFull = i < Math.floor(rating);
+                    return (
+                      <span
+                        key={i}
+                        className="material-symbols-outlined text-[14px]"
+                        style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
+                      >
+                        {isHalf ? 'star_half' : 'star'}
+                      </span>
+                    );
+                  })}
+                </div>
+                <span className="font-sans text-xs font-medium text-on-background group-hover:underline">
+                  {mockAverageRating}
+                </span>
+                <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
+                  ({mockTotalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
+                </span>
+              </button>
+            )}
           </div>
 
 
@@ -452,7 +501,7 @@ export default function ProductClient({ product, locale }: Props) {
       {/* Comparison section (Craftsmanship Breakdown) intentionally removed from render to focus on conversion */}
       
       {/* Customer Reviews Carousel */}
-      <ProductReviews locale={locale} />
+      <ProductReviews locale={locale} reviews={reviews} averageRating={averageRating} totalReviews={reviewCount} />
     </div>
   )
 }
