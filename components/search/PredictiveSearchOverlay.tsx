@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import shopifyLoader from '@/lib/shopify/image-loader'
 import Link from 'next/link'
 import { getPredictiveSearch, type PredictiveSearchResult } from '@/lib/actions/search'
 import { formatPrice } from '@/lib/currency'
@@ -248,6 +249,7 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale, initi
                             {image && (
                               <Image 
                                 src={image.url}
+                                loader={shopifyLoader}
                                 alt={image.altText || product.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"

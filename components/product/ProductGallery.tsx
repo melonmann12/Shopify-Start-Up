@@ -1,6 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
 import Image from 'next/image'
+import shopifyLoader from '@/lib/shopify/image-loader'
 import type { ShopifyImage } from '@/lib/shopify/types'
 
 interface Props {
@@ -52,6 +53,7 @@ export default function ProductGallery({ images, title }: Props) {
             <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-square">
               <Image
                 src={img.url}
+                loader={shopifyLoader}
                 alt={img.altText ?? title}
                 fill
                 priority={i === 0}
@@ -85,6 +87,7 @@ export default function ProductGallery({ images, title }: Props) {
         {images[activeIndex] && (
           <Image
             src={images[activeIndex].url}
+            loader={shopifyLoader}
             alt={images[activeIndex].altText ?? title}
             fill
             priority
@@ -107,6 +110,7 @@ export default function ProductGallery({ images, title }: Props) {
           >
             <Image
               src={img.url}
+              loader={shopifyLoader}
               alt={img.altText ?? title}
               fill
               className="w-full h-full object-cover"

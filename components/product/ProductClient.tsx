@@ -3,6 +3,7 @@
 // Owns shared variant state and renders the full two-column PDP layout.
 import { useState, useMemo, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
@@ -151,6 +152,7 @@ export default function ProductClient({ product, locale }: Props) {
                 <div key={img.url + '-mob'} className="w-full h-full shrink-0 snap-center relative aspect-square">
                   <Image
                     src={img.url}
+                    loader={shopifyLoader}
                     alt={img.altText ?? product.title}
                     fill
                     priority={true}
@@ -197,6 +199,7 @@ export default function ProductClient({ product, locale }: Props) {
               >
                 <Image
                   src={img.url}
+                  loader={shopifyLoader}
                   alt={img.altText ?? product.title}
                   fill
                   priority={true}
@@ -243,6 +246,7 @@ export default function ProductClient({ product, locale }: Props) {
               >
                 <Image
                   src={img.url}
+                  loader={shopifyLoader}
                   alt={img.altText ?? product.title}
                   fill
                   className="w-full h-full object-cover"

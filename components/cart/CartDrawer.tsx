@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { useCartStore } from '@/store/cart'
 import Image from 'next/image'
+import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 
 const UI_TEXT = {
@@ -57,6 +58,7 @@ function CartLineItem({
         {image && (
           <Image
             src={image}
+            loader={shopifyLoader}
             alt={merchandise.product?.title || 'Product Image'}
             fill
             sizes="80px"

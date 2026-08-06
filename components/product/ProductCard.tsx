@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ShopifyImage from '@/components/ui/ShopifyImage'
 import Link from 'next/link'
 import { formatPrice } from '@/lib/currency'
 import type { ShopifyProduct } from '@/lib/shopify/types'
@@ -28,7 +29,7 @@ export default function ProductCard({ product, locale, isPriority = false, typog
       {/* 1. PRODUCT IMAGE — square crop, fills card top */}
       <div className="w-full aspect-square bg-transparent overflow-hidden relative">
         {image && (
-          <Image
+          <ShopifyImage
             src={image.url}
             alt={image.altText ?? product.title}
             fill
@@ -39,7 +40,7 @@ export default function ProductCard({ product, locale, isPriority = false, typog
           />
         )}
         {secondImage && (
-          <Image
+          <ShopifyImage
             src={secondImage.url}
             alt={secondImage.altText ?? `${product.title} alternate view`}
             fill
