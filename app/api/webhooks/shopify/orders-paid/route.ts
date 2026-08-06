@@ -26,9 +26,14 @@ function secureCompare(a: string, b: string): boolean {
   const bufA = Buffer.from(a);
   const bufB = Buffer.from(b);
   if (bufA.length !== bufB.length) {
+    console.error('Webhook Diagnostics: HMAC_LENGTH_MISMATCH');
     return false;
   }
-  return crypto.timingSafeEqual(bufA, bufB);
+  const match = crypto.timingSafeEqual(bufA, bufB);
+  if (!match) {
+    console.error('Webhook Diagnostics: HMAC_MISMATCH');
+  }
+  return match;
 }
 
 export async function POST(req: NextRequest) {
@@ -40,8 +45,14 @@ export async function POST(req: NextRequest) {
     const hmacHeader = req.headers.get('x-shopify-hmac-sha256');
     const webhookSecret = process.env.SHOPIFY_WEBHOOK_SECRET;
 
-    if (!hmacHeader || !webhookSecret) {
-      return NextResponse.json({ error: 'Unauthorized: Missing signature or secret' }, { status: 401 });
+    if (!webhookSecret) {
+      console.error('Webhook Diagnostics: MISSING_WEBHOOK_SECRET');
+      return NextResponse.json({ error: 'Unauthorized: Missing secret' }, { status: 401 });
+    }
+
+    if (!hmacHeader) {
+      console.error('Webhook Diagnostics: MISSING_HMAC_HEADER');
+      return NextResponse.json({ error: 'Unauthorized: Missing signature' }, { status: 401 });
     }
 
     const generatedHash = crypto
@@ -60,10 +71,12 @@ export async function POST(req: NextRequest) {
     const expectedDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 
     if (topic !== 'orders/paid') {
+      console.error(`Webhook Diagnostics: TOPIC_MISMATCH (Expected: orders/paid, Received: ${topic || 'null'})`);
       return NextResponse.json({ message: 'Ignored: Topic not orders/paid' }, { status: 200 });
     }
 
     if (expectedDomain && shopDomain !== expectedDomain) {
+      console.error(`Webhook Diagnostics: SHOP_DOMAIN_MISMATCH (Expected: ${expectedDomain}, Received: ${shopDomain || 'null'})`);
       return NextResponse.json({ error: 'Unauthorized: Invalid shop domain' }, { status: 401 });
     }
 
