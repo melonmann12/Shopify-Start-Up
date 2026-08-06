@@ -32,7 +32,8 @@ const UI_TEXT = {
   // navigation menus / metaobjects are configured for this storefront.
   pressOnNails: 'Press-on Nails',
   allNails: 'All Nails',
-  newArrivals: 'New Arrivals',
+  newArrivals: 'BACK TO SCHOOL',
+  halloween: 'HALLOWEEN',
   bestSellers: 'Best Sellers',
   onSale: 'On Sale',
 
@@ -113,7 +114,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     <>
       {/* ── DESKTOP NAVIGATION LINKS ──────────────────────────────────────── */}
       <div
-        className="hidden md:flex items-center gap-10 lg:gap-12 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label"
+        className="hidden md:flex items-center gap-6 lg:gap-12 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label"
         onMouseLeave={() => setIsShopOpen(false)}
       >
         <HomeLink
@@ -139,11 +140,18 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         </div>
 
         <Link
-          href={`/${locale}/search?sort=newest`}
+          href={`/${locale}/collections/back-to-school`}
           className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
         >
           {UI_TEXT.newArrivals}
-          <span className="bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-widest rounded-sm">NEW</span>
+          <span className="bg-black text-white text-[9px] font-bold px-1.5 py-0.5 tracking-widest rounded-sm">HOT</span>
+        </Link>
+
+        <Link
+          href={`/${locale}/collections/halloween`}
+          className="hover:text-on-background transition-colors duration-200 py-5 flex items-center gap-1.5"
+        >
+          {UI_TEXT.halloween}
         </Link>
 
         <Link
@@ -174,8 +182,11 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   <Link href={`/${locale}/search`} className={menuLinkCls}>
                     {UI_TEXT.allNails}
                   </Link>
-                  <Link href={`/${locale}/search?sort=newest`} className={menuLinkCls}>
+                  <Link href={`/${locale}/collections/back-to-school`} className={menuLinkCls}>
                     {UI_TEXT.newArrivals}
+                  </Link>
+                  <Link href={`/${locale}/collections/halloween`} className={menuLinkCls}>
+                    {UI_TEXT.halloween}
                   </Link>
                   <Link href={`/${locale}/search?sort=best-selling`} className={menuLinkCls}>
                     {UI_TEXT.bestSellers}
@@ -354,8 +365,11 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                             <Link href={`/${locale}/search`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.allNails}
                             </Link>
-                            <Link href={`/${locale}/search?sort=newest`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                            <Link href={`/${locale}/collections/back-to-school`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.newArrivals}
+                            </Link>
+                            <Link href={`/${locale}/collections/halloween`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
+                              {UI_TEXT.halloween}
                             </Link>
                             <Link href={`/${locale}/search?sort=best-selling`} onClick={() => setMenuOpen(false)} className="font-sans text-xs text-on-surface-variant">
                               {UI_TEXT.bestSellers}
@@ -447,14 +461,23 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   )}
                 </div>
 
-                {/* NEW ARRIVALS */}
+                {/* BACK TO SCHOOL */}
                 <Link
-                  href={`/${locale}/search?sort=newest`}
+                  href={`/${locale}/collections/back-to-school`}
                   onClick={() => setMenuOpen(false)}
                   className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors flex items-center gap-3"
                 >
                   {UI_TEXT.newArrivals}
-                  <span className="font-sans bg-black text-white text-[10px] font-bold px-2 py-1 tracking-widest rounded-sm -translate-y-0.5">NEW</span>
+                  <span className="font-sans bg-black text-white text-[10px] font-bold px-2 py-1 tracking-widest rounded-sm -translate-y-0.5">HOT</span>
+                </Link>
+
+                {/* HALLOWEEN */}
+                <Link
+                  href={`/${locale}/collections/halloween`}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-serif text-3xl text-on-background hover:text-on-surface-variant transition-colors flex items-center gap-3"
+                >
+                  {UI_TEXT.halloween}
                 </Link>
 
                 {/* BEST SELLERS */}
