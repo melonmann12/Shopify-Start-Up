@@ -20,6 +20,15 @@ function normalizeAndHashPhone(phone: string | undefined | null): string | undef
   return crypto.createHash('sha256').update(normalized).digest('hex');
 }
 
+function normalizeDomain(domain: string | undefined | null): string {
+  if (!domain) return '';
+  return domain
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/\/+$/, '');
+}
+
 // Ensure constant time comparison works by padding if lengths differ
 // (timingSafeEqual requires equal length buffers)
 function secureCompare(a: string, b: string): boolean {
@@ -66,17 +75,24 @@ export async function POST(req: NextRequest) {
 
     // 5. Validate Shopify Headers
     const topic = req.headers.get('x-shopify-topic');
-    const shopDomain = req.headers.get('x-shopify-shop-domain');
     const webhookId = req.headers.get('x-shopify-webhook-id');
-    const expectedDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+    
+    const rawExpectedDomain = process.env.SHOPIFY_STORE_DOMAIN;
+    if (!rawExpectedDomain) {
+      console.error('Webhook Diagnostics: MISSING_SHOPIFY_STORE_DOMAIN');
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+
+    const expectedDomain = normalizeDomain(rawExpectedDomain);
+    const receivedDomain = normalizeDomain(req.headers.get('x-shopify-shop-domain'));
 
     if (topic !== 'orders/paid') {
-      console.error(`Webhook Diagnostics: TOPIC_MISMATCH (Expected: orders/paid, Received: ${topic || 'null'})`);
+      console.error('Webhook Diagnostics: TOPIC_MISMATCH');
       return NextResponse.json({ message: 'Ignored: Topic not orders/paid' }, { status: 200 });
     }
 
-    if (expectedDomain && shopDomain !== expectedDomain) {
-      console.error(`Webhook Diagnostics: SHOP_DOMAIN_MISMATCH (Expected: ${expectedDomain}, Received: ${shopDomain || 'null'})`);
+    if (receivedDomain !== expectedDomain) {
+      console.error('Webhook Diagnostics: SHOP_DOMAIN_MISMATCH');
       return NextResponse.json({ error: 'Unauthorized: Invalid shop domain' }, { status: 401 });
     }
 
@@ -108,7 +124,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 7. Deterministic event_id
-    const eventId = `shopify_purchase_${shopDomain || 'unknown'}_${order.id}`;
+    const eventId = `shopify_purchase_${expectedDomain}_${order.id}`;
 
     // 8. Build Meta Purchase event payload
     const eventTime = Math.floor(
