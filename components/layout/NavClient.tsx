@@ -115,7 +115,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
     <>
       {/* ── DESKTOP NAVIGATION LINKS ──────────────────────────────────────── */}
       <div
-        className="hidden lg:flex items-center gap-4 xl:gap-8 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-[11px] xl:text-label whitespace-nowrap"
+        className="hidden lg:flex items-center gap-3 xl:gap-8 absolute left-1/2 -translate-x-1/2 h-full top-0 text-on-surface-variant z-40 text-label whitespace-nowrap"
         onMouseLeave={() => setIsShopOpen(false)}
       >
         <div
