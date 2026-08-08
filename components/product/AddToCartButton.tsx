@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
 import { createBuyNowCartAction } from '@/lib/actions/cart'
 import { addToCart as trackAddToCart } from '@/lib/analytics/metaPixel'
+import { sendShopifyAnalytics, AnalyticsEventName, getClientBrowserParameters } from '@shopify/hydrogen-react'
+import type { ShopifyAddToCartPayload } from '@shopify/hydrogen-react'
 import type { ShopifyProductVariant } from '@/lib/shopify/types'
 
 interface Props {
@@ -59,6 +61,30 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
         Number(variant.price.amount),
         1
       )
+      
+      // Fire Shopify Analytics
+      const shopifyPayload: ShopifyAddToCartPayload = {
+        ...getClientBrowserParameters(),
+        hasUserConsent: true,
+        shopId: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID || '',
+        currency: variant.price.currencyCode as any,
+        products: [{
+          productGid: variant.id.replace(/\/ProductVariant\//, '/Product/'), // Approximate product ID if not available
+          variantGid: variant.id,
+          name: productTitle,
+          variantName: variant.title,
+          brand: '',
+          price: variant.price.amount,
+          quantity: 1,
+        }],
+        totalValue: Number(variant.price.amount),
+        cartId: '',
+      };
+      
+      sendShopifyAnalytics({
+        eventName: AnalyticsEventName.ADD_TO_CART,
+        payload: shopifyPayload
+      }).catch(e => console.warn('[Shopify Analytics] Failed to send ADD_TO_CART', e))
 
       setIsAddingToBag(false)
     }
@@ -81,6 +107,30 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
           Number(variant.price.amount),
           1
         )
+        
+        // Fire Shopify Analytics
+        const shopifyPayload: ShopifyAddToCartPayload = {
+          ...getClientBrowserParameters(),
+          hasUserConsent: true,
+          shopId: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID || '',
+          currency: variant.price.currencyCode as any,
+          products: [{
+            productGid: variant.id.replace(/\/ProductVariant\//, '/Product/'),
+            variantGid: variant.id,
+            name: productTitle,
+            variantName: variant.title,
+            brand: '',
+            price: variant.price.amount,
+            quantity: 1,
+          }],
+          totalValue: Number(variant.price.amount),
+          cartId: temporaryCart.id,
+        }
+        
+        sendShopifyAnalytics({
+          eventName: AnalyticsEventName.ADD_TO_CART,
+          payload: shopifyPayload
+        }).catch(e => console.warn('[Shopify Analytics] Failed to send ADD_TO_CART', e))
 
         if (temporaryCart?.checkoutUrl) {
           window.location.href = temporaryCart.checkoutUrl

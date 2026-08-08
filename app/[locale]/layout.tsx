@@ -9,6 +9,8 @@ import Footer from '@/components/layout/Footer'
 import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import CartDrawer from '@/components/cart/CartDrawer'
 import MetaPixel from '@/components/analytics/MetaPixel'
+import { ShopifyAnalyticsProvider } from '@/components/analytics/ShopifyAnalyticsProvider'
+import { ShopifyAnalytics } from '@/components/analytics/ShopifyAnalytics'
 import { SearchProvider } from '@/components/search/SearchProvider'
 import { Suspense } from 'react'
 import '@/app/globals.css'
@@ -90,17 +92,20 @@ export default async function LocaleLayout(props: Props) {
       </head>
       <body className="text-on-background font-body antialiased min-h-screen flex flex-col pt-20 relative z-0 overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
-          <SearchProvider locale={locale}>
-            <AnnouncementBar />
-            <Navbar locale={locale} />
-            <CartDrawer />
-            <main className="flex-grow">{children}</main>
-            <Footer locale={locale} />
-            
-            <Suspense fallback={null}>
-              <MetaPixel />
-            </Suspense>
-          </SearchProvider>
+          <ShopifyAnalyticsProvider domain={process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || ''}>
+            <SearchProvider locale={locale}>
+              <AnnouncementBar />
+              <Navbar locale={locale} />
+              <CartDrawer />
+              <main className="flex-grow">{children}</main>
+              <Footer locale={locale} />
+              
+              <Suspense fallback={null}>
+                <MetaPixel />
+                <ShopifyAnalytics />
+              </Suspense>
+            </SearchProvider>
+          </ShopifyAnalyticsProvider>
         </NextIntlClientProvider>
       </body>
     </html>
