@@ -86,3 +86,15 @@ export interface ShopifyPoliciesResponse {
     refundPolicy: ShopifyPolicy | null
   }
 }
+
+export interface ShopifyFilter {
+  id: string
+  label: string
+  type: string
+  values: {
+    id: string
+    label: string
+    input: string
+    count: number
+  }[]
+}

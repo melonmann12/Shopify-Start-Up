@@ -4,6 +4,7 @@ import { SEARCH_PRODUCTS } from '@/lib/shopify/queries/search'
 import { GET_COLLECTIONS } from '@/lib/shopify/queries/collection'
 import { countryMap, type Locale } from '@/lib/i18n/config'
 import SearchClient from '@/components/search/SearchClient'
+import SearchHeroInput from '@/components/search/SearchHeroInput'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 
 export const revalidate = 0 // Search results should be dynamic
@@ -155,15 +156,37 @@ export default async function SearchPage(props: Props) {
 
   return (
     <div className="w-full relative overflow-hidden bg-surface min-h-screen">
-      <main className="pt-[100px] px-4 sm:px-8 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10">
-        <header className="flex flex-col items-center justify-center mb-10 text-center py-6">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background mb-4 font-normal">
+      
+      {/* ── Search Hero Section ── */}
+      <div className="relative w-full h-[320px] md:h-[420px] pt-[80px] md:pt-[100px] flex flex-col items-center justify-center">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/search-hero-section-img/Banner - Fall Nails.png" 
+            alt="Search Hero" 
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Subtle ivory gradient overlay for text readability without obscuring hands */}
+          <div className="absolute inset-0 bg-surface/10"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface/80 via-surface/40 to-transparent"></div>
+        </div>
+
+        {/* Content Layer */}
+        <header className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-on-background mb-4 font-normal drop-shadow-sm">
             {q ? `Search Results for "${q}"` : 'All Nails'}
           </h1>
-          <p className="text-on-surface-variant max-w-xl mx-auto text-caption">
+          <p className="text-on-surface-variant max-w-xl mx-auto text-caption font-medium">
             Explore our luxury, handcrafted press-on nails and beauty essentials.
           </p>
+          
+          {/* Search Input seamlessly integrated into hero */}
+          <SearchHeroInput initialQuery={q} />
         </header>
+      </div>
+
+      <main className="px-4 sm:px-8 md:px-12 max-w-[1920px] mx-auto pb-24 relative z-10 mt-6 md:mt-10">
 
         <SearchClient
           products={filteredProducts as ShopifyProduct[]}

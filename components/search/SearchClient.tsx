@@ -75,20 +75,6 @@ export default function SearchClient({
 
   return (
     <div className="w-full">
-      {/* ── Search Bar Input ── */}
-      <div className="max-w-xl mx-auto mb-12 relative flex items-center">
-        <button
-          onClick={() => openSearch(currentParams.q)}
-          onFocus={() => openSearch(currentParams.q)}
-          aria-label="Open product search"
-          className="w-full text-left bg-transparent border-b border-outline/35 py-4 px-2 text-lg text-on-background focus:outline-none focus:border-on-background transition-colors flex items-center"
-        >
-          <span className="text-on-surface-variant/40 flex-1">
-            {currentParams.q || 'Search items...'}
-          </span>
-          <span className="material-symbols-outlined text-[28px] text-on-surface-variant">search</span>
-        </button>
-      </div>
 
       {/* ── Filter Controls Header ── */}
       <div className="flex justify-between items-center border-b border-outline-variant/15 pb-6 mb-8 text-label">
