@@ -1,5 +1,15 @@
 import type { JudgeMeReviewsResult } from './api';
 
+export interface JudgeMePicture {
+  hidden: boolean;
+  urls: {
+    small?: string;
+    compact?: string;
+    huge?: string;
+    original?: string;
+  };
+}
+
 export interface ProductReview {
   id: string;
   reviewerName: string;
@@ -11,6 +21,8 @@ export interface ProductReview {
   createdAt: string; // ISO date string
   verified: boolean;
   source: 'judgeme' | 'sample';
+  pictures?: JudgeMePicture[];
+  hasPublishedPictures?: boolean;
 }
 
 /**
@@ -42,6 +54,8 @@ export function adaptJudgeMeReviews(data: any): JudgeMeReviewsResult {
     // Judge.me custom fields might contain size/shape depending on how they were configured
     selectedSize: r.custom_fields?.Size || undefined,
     selectedShape: r.custom_fields?.Shape || undefined,
+    pictures: Array.isArray(r.pictures) ? r.pictures : undefined,
+    hasPublishedPictures: Boolean(r.has_published_pictures),
   }));
 
   const totalReviews = reviews.length;

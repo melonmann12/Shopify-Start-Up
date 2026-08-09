@@ -7,10 +7,8 @@ import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
-// Temporarily hidden — keep Customer Reviews implementation for future re-enable.
-// import ProductReviews from './ProductReviews'
+import ProductReviews from './ProductReviews'
 import type { ProductReview } from '@/lib/judgeme/adapter'
-import { mockTotalReviews, mockAverageRating } from '@/lib/data/mock-product-reviews'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
 
 const UI_TEXT = {
@@ -299,7 +297,7 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
             </div>
             
             {/* Top Review Summary */}
-            {reviewCount > 0 ? (
+            {reviewCount > 0 && (
               <button 
                 onClick={(e) => {
                   e.preventDefault();
@@ -333,42 +331,6 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
                 </span>
                 <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
                   ({reviewCount} {locale === 'vi' ? 'đánh giá' : 'reviews'})
-                </span>
-              </button>
-            ) : (
-              <button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = document.getElementById('customer-reviews');
-                  if (target) {
-                    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                    target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-                  }
-                }}
-                className="inline-flex items-center gap-1.5 mt-3 group focus:outline-none focus:ring-1 focus:ring-on-background rounded-sm appearance-none bg-transparent border-none p-0 cursor-pointer"
-                aria-label="Scroll to customer reviews"
-              >
-                <div className="flex gap-px text-on-background">
-                  {[...Array(5)].map((_, i) => {
-                    const rating = mockAverageRating;
-                    const isHalf = i === Math.floor(rating) && rating % 1 !== 0;
-                    const isFull = i < Math.floor(rating);
-                    return (
-                      <span
-                        key={i}
-                        className="material-symbols-outlined text-[14px]"
-                        style={{ fontVariationSettings: `'FILL' ${isFull ? 1 : isHalf ? 0.5 : 0}` }}
-                      >
-                        {isHalf ? 'star_half' : 'star'}
-                      </span>
-                    );
-                  })}
-                </div>
-                <span className="font-sans text-xs font-medium text-on-background group-hover:underline">
-                  {mockAverageRating}
-                </span>
-                <span className="font-sans text-xs text-on-surface-variant group-hover:underline">
-                  ({mockTotalReviews} {locale === 'vi' ? 'đánh giá' : 'reviews'})
                 </span>
               </button>
             )}
@@ -498,8 +460,15 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
 
       {/* Comparison section (Craftsmanship Breakdown) intentionally removed from render to focus on conversion */}
       
-      {/* Temporarily hidden — keep Customer Reviews implementation for future re-enable. */}
-      {/* <ProductReviews locale={locale} reviews={reviews} averageRating={averageRating} totalReviews={reviewCount} /> */}
+      {/* Customer Reviews Carousel */}
+      <ProductReviews 
+        locale={locale} 
+        reviews={reviews} 
+        averageRating={averageRating} 
+        totalReviews={reviewCount}
+        productId={product.id}
+        productTitle={product.title}
+      />
     </div>
   )
 }

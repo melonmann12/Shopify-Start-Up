@@ -35,28 +35,7 @@ export async function getProductReviews(shopifyProductId: string): Promise<Judge
     if (!numericId) return defaultEmptyResult;
 
     // Step 1: Resolve the Judge.me internal product ID
-    const productUrl = new URL('https://api.judge.me/api/v1/products/-1');
-    productUrl.searchParams.set('api_token', privateToken);
-    productUrl.searchParams.set('shop_domain', shopDomain);
-    productUrl.searchParams.set('external_id', numericId);
-
-    const productResponse = await fetch(productUrl.toString(), {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' },
-      next: { revalidate: 3600 },
-    });
-
-    if (!productResponse.ok) {
-      if (productResponse.status === 404) {
-        // Product doesn't exist in Judge.me yet, meaning no reviews.
-        return defaultEmptyResult;
-      }
-      console.warn(`[Judge.me] Product lookup failed: ${productResponse.status} ${productResponse.statusText}`);
-      return defaultEmptyResult;
-    }
-
-    const productData = await productResponse.json();
-    const internalProductId = productData.product?.id;
+    const internalProductId = await getInternalProductId(shopifyProductId);
 
     if (!internalProductId) {
       console.warn(`[Judge.me] No internal product ID found for external_id ${numericId}`);
@@ -74,7 +53,7 @@ export async function getProductReviews(shopifyProductId: string): Promise<Judge
     const reviewsResponse = await fetch(reviewsUrl.toString(), {
       method: 'GET',
       headers: { 'Accept': 'application/json' },
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     });
 
     if (!reviewsResponse.ok) {
@@ -89,5 +68,50 @@ export async function getProductReviews(shopifyProductId: string): Promise<Judge
   } catch (error) {
     console.warn('[Judge.me] Error fetching reviews:', error);
     return defaultEmptyResult;
+  }
+}
+
+/**
+ * Resolves a Shopify Product ID to a Judge.me Internal Product ID.
+ */
+export async function getInternalProductId(shopifyProductId: string): Promise<number | null> {
+  const shopDomain = process.env.JUDGEME_SHOP_DOMAIN;
+  const privateToken = process.env.JUDGEME_PRIVATE_TOKEN;
+
+  if (!shopDomain || !privateToken) {
+    return null;
+  }
+
+  const numericId = shopifyProductId.includes('gid://') 
+    ? shopifyProductId.split('/').pop() 
+    : shopifyProductId;
+
+  if (!numericId) return null;
+
+  try {
+    const productUrl = new URL('https://api.judge.me/api/v1/products/-1');
+    productUrl.searchParams.set('api_token', privateToken);
+    productUrl.searchParams.set('shop_domain', shopDomain);
+    productUrl.searchParams.set('external_id', numericId);
+
+    const productResponse = await fetch(productUrl.toString(), {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      // Reduced caching since this is also used for mutations (submitting review)
+      next: { revalidate: 60 },
+    });
+
+    if (!productResponse.ok) {
+      if (productResponse.status !== 404) {
+        console.warn(`[Judge.me] Product lookup failed: ${productResponse.status} ${productResponse.statusText}`);
+      }
+      return null;
+    }
+
+    const productData = await productResponse.json();
+    return productData.product?.id || null;
+  } catch (error) {
+    console.warn('[Judge.me] Error resolving internal product ID:', error);
+    return null;
   }
 }

@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@shopify/hydrogen-react": "^2026.4.3",
+    "cloudinary": "^2.10.0",
     "framer-motion": "^12.38.0",
     "graphql": "^16.13.2",
     "graphql-request": "^7.4.0",
