@@ -102,12 +102,13 @@ export const addToCart = (
   title: string,
   price: number,
   quantity: number = 1,
-  currency: string = 'USD'
+  currency: string = 'USD',
+  event_id?: string
 ) => {
   if (typeof window !== 'undefined') {
     ensureFbq()
     const metaId = formatMetaContentId(variantId)
-    const eventId = generateEventId()
+    const eventId = event_id || generateEventId()
 
     const payload = {
       content_ids: [metaId],

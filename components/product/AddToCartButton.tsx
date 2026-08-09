@@ -54,13 +54,31 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       setIsAddingToBag(true)
       await addToCart(variant.id, 1, attributes)
       
+      const event_id = `atc_${Date.now()}_${crypto.randomUUID()}`
+
       // Fire Meta Pixel tracking *after* successful cart addition
       trackAddToCart(
         variant.id,
         productTitle,
         Number(variant.price.amount),
-        1
+        1,
+        variant.price.currencyCode || 'USD',
+        event_id
       )
+      
+      // Fire Meta CAPI (best-effort, non-blocking)
+      fetch('/api/meta/add-to-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_id,
+          variantId: variant.id,
+          price: Number(variant.price.amount),
+          currency: variant.price.currencyCode || 'USD',
+          productTitle,
+          event_source_url: window.location.href,
+        })
+      }).catch(e => console.warn('[Meta CAPI] AddToCart failed', e))
       
       // Fire Shopify Analytics
       const shopifyPayload: ShopifyAddToCartPayload = {
@@ -100,13 +118,31 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       try {
         const temporaryCart = await createBuyNowCartAction(variant.id, 1, attributes)
         
+        const event_id = `atc_${Date.now()}_${crypto.randomUUID()}`
+
         // Fire Meta Pixel tracking *after* successful cart creation, before redirect
         trackAddToCart(
           variant.id,
           productTitle,
           Number(variant.price.amount),
-          1
+          1,
+          variant.price.currencyCode || 'USD',
+          event_id
         )
+
+        // Fire Meta CAPI (best-effort, non-blocking)
+        fetch('/api/meta/add-to-cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_id,
+            variantId: variant.id,
+            price: Number(variant.price.amount),
+            currency: variant.price.currencyCode || 'USD',
+            productTitle,
+            event_source_url: window.location.href,
+          })
+        }).catch(e => console.warn('[Meta CAPI] AddToCart failed', e))
         
         // Fire Shopify Analytics
         const shopifyPayload: ShopifyAddToCartPayload = {
