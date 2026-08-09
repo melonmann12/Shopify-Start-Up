@@ -7,7 +7,8 @@ import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
-import ProductReviews from './ProductReviews'
+// Temporarily hidden — keep Customer Reviews implementation for future re-enable.
+// import ProductReviews from './ProductReviews'
 import type { ProductReview } from '@/lib/judgeme/adapter'
 import { mockTotalReviews, mockAverageRating } from '@/lib/data/mock-product-reviews'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
@@ -497,8 +498,8 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
 
       {/* Comparison section (Craftsmanship Breakdown) intentionally removed from render to focus on conversion */}
       
-      {/* Customer Reviews Carousel */}
-      <ProductReviews locale={locale} reviews={reviews} averageRating={averageRating} totalReviews={reviewCount} />
+      {/* Temporarily hidden — keep Customer Reviews implementation for future re-enable. */}
+      {/* <ProductReviews locale={locale} reviews={reviews} averageRating={averageRating} totalReviews={reviewCount} /> */}
     </div>
   )
 }

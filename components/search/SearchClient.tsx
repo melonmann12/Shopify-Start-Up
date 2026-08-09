@@ -102,9 +102,12 @@ export default function SearchClient({
             Filters
           </button>
           
+          {/* Temporarily hidden — keep result-count logic for future re-enable. */}
+          {/*
           <span className="text-on-surface-variant text-sm">
             {products.length} {products.length === 1 ? 'result' : 'results'} found
           </span>
+          */}
         </div>
 
         {/* Sort Dropdown */}
