@@ -278,22 +278,19 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
         <div className="w-full lg:w-[45%] flex flex-col pt-0">
           {/* Static product details */}
           <div className="mb-5">
-            <p className="text-on-surface-variant mb-2 text-label">
-              {'nailestial'}
-            </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-2 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-normal text-on-background tracking-normal mb-2 leading-tight lg:-mt-1.5">
               {product.title}
             </h1>
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 mt-1">
-              <p className="text-2xl sm:text-3xl font-serif text-on-background leading-none">
+              <p className="text-label text-2xl sm:text-3xl text-on-background leading-none">
                 {formatPrice(currentPriceObj.amount, currentPriceObj.currencyCode, locale)}
               </p>
               {showBadge && compareAtPriceObj && (
                 <>
-                  <p className="text-lg sm:text-xl font-serif text-on-surface-variant line-through leading-none">
+                  <p className="text-label text-lg sm:text-xl text-on-surface-variant line-through leading-none">
                     {formatPrice(compareAtPriceObj.amount, compareAtPriceObj.currencyCode, locale)}
                   </p>
-                  <span className="inline-flex items-center bg-on-background text-surface-container-lowest text-[10px] sm:text-[11px] font-sans font-medium tracking-wider px-2 py-0.5 uppercase rounded-sm leading-none -translate-y-px">
+                  <span className="inline-flex items-center bg-on-background text-surface-container-lowest text-label text-[10px] sm:text-[11px] px-2 py-0.5 rounded-sm leading-none -translate-y-px">
                     {locale === 'vi' ? `TIẾT KIỆM ${savingsPercent}%` : `SAVE ${savingsPercent}%`}
                   </span>
                 </>
@@ -387,14 +384,14 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
           />
 
           {/* Reassurance Block */}
-          <div className="mt-5 flex flex-col gap-2">
-            <div className="flex items-center gap-3 px-4 py-3 border border-outline/10 rounded-sm">
+          <div className="mt-2 flex flex-col gap-3">
+            <div className="flex items-center gap-3 px-4 py-3 bg-[#f5f5f3] border border-outline/10 rounded-sm">
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant">local_shipping</span>
               <span className="font-sans text-[13px] text-on-surface-variant tracking-wide">
                 {locale === 'vi' ? UI_TEXT.freeShipping.vi : UI_TEXT.freeShipping.en}
               </span>
             </div>
-            <div className="flex items-center gap-3 px-4 py-3 border border-outline/10 rounded-sm">
+            <div className="flex items-center gap-3 px-4 py-3 bg-[#f5f5f3] border border-outline/10 rounded-sm">
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
               <span className="font-sans text-[13px] text-on-surface-variant tracking-wide">
                 {locale === 'vi' ? UI_TEXT.securePayment.vi : UI_TEXT.securePayment.en}

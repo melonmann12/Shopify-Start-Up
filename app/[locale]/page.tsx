@@ -10,7 +10,8 @@ import EmailPopup from '@/components/home/EmailPopup'
 // import AsSeenIn from '@/components/home/AsSeenIn'
 // import ComparisonTable from '@/components/home/ComparisonTable'
 // import SocialProof from '@/components/home/SocialProof'
-import UgcSocialProof from '@/components/sections/UgcSocialProof'
+// Temporarily hidden — keep UGC implementation for future re-enable.
+// import UgcSocialProof from '@/components/sections/UgcSocialProof'
 interface Props {
   params: Promise<{ locale: string }>
 }
@@ -52,7 +53,8 @@ export default async function HomePage(props: Props) {
         locale={locale} 
       />
       
-      <UgcSocialProof locale={locale} />
+      {/* Temporarily hidden — keep UGC implementation for future re-enable. */}
+      {/* <UgcSocialProof locale={locale} /> */}
       
       {/* Temporarily disabled until real press logos are available. */}
       {/* <AsSeenIn /> */}

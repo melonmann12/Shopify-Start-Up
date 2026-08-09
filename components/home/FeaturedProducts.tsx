@@ -55,7 +55,7 @@ export default async function FeaturedProducts({ handle, title, subtitle, ctaLab
     : `/${locale}/collections/${handle}`
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 pt-16 md:pt-24 mt-8 md:mt-12 relative z-10 bg-white">
+    <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mt-10 md:mt-12 lg:mt-16 relative z-10 bg-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-10 gap-6">
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal mb-3">{title}</h2>

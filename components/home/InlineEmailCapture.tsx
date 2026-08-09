@@ -19,7 +19,7 @@ export default function InlineEmailCapture() {
   }
 
   return (
-    <section id="newsletter" className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 relative z-10">
+    <section id="newsletter" className="max-w-screen-2xl mx-auto px-6 md:px-12 mt-10 md:mt-12 lg:mt-16 mb-10 md:mb-12 lg:mb-16 relative z-10">
       <div className="border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm py-16 px-6 md:px-12 flex flex-col items-center text-center">
         
         {!isSubmitted ? (

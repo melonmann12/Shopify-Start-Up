@@ -102,7 +102,11 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       sendShopifyAnalytics({
         eventName: AnalyticsEventName.ADD_TO_CART,
         payload: shopifyPayload
-      }).catch(e => console.warn('[Shopify Analytics] Failed to send ADD_TO_CART', e))
+      }).catch(() => {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[Shopify Analytics] ADD_TO_CART delivery blocked or failed')
+        }
+      })
 
       setIsAddingToBag(false)
     }
@@ -166,7 +170,11 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
         sendShopifyAnalytics({
           eventName: AnalyticsEventName.ADD_TO_CART,
           payload: shopifyPayload
-        }).catch(e => console.warn('[Shopify Analytics] Failed to send ADD_TO_CART', e))
+        }).catch(() => {
+          if (process.env.NODE_ENV === 'development') {
+            console.warn('[Shopify Analytics] ADD_TO_CART delivery blocked or failed')
+          }
+        })
 
         if (temporaryCart?.checkoutUrl) {
           window.location.href = temporaryCart.checkoutUrl
@@ -183,7 +191,7 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
 
 
   return (
-    <div className="flex flex-col gap-3 mb-8 mt-2">
+    <div className="flex flex-col gap-3 mb-2 md:mb-4 mt-2">
       <button
         onClick={handleAdd}
         disabled={!variant || !isAvailable || isAddingToBag || isBuyingNow}

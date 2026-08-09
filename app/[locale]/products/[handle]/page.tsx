@@ -5,7 +5,8 @@ import { getProductByHandle } from '@/lib/shopify/queries/product'
 import { type Locale } from '@/lib/i18n/config'
 import ProductClient from '@/components/product/ProductClient'
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike'
-import UgcSocialProof from '@/components/sections/UgcSocialProof'
+// Temporarily hidden — keep UGC implementation for future re-enable.
+// import UgcSocialProof from '@/components/sections/UgcSocialProof'
 import Link from 'next/link'
 import type { ShopifyProduct } from '@/lib/shopify/types'
 import { getProductReviews } from '@/lib/judgeme/api'
@@ -97,7 +98,8 @@ export default async function ProductDetailPage(props: Props) {
         collectionHandle={recommendationCollectionHandle}
       />
 
-      <UgcSocialProof locale={locale} />
+      {/* Temporarily hidden — keep UGC implementation for future re-enable. */}
+      {/* <UgcSocialProof locale={locale} /> */}
     </main>
   )
 }

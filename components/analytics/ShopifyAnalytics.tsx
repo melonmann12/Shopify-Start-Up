@@ -37,8 +37,10 @@ export function ShopifyAnalytics({ hasUserConsent = true }: { hasUserConsent?: b
     sendShopifyAnalytics({
       eventName: AnalyticsEventName.PAGE_VIEW,
       payload
-    }).catch(e => {
-      console.warn('[Shopify Analytics] Failed to send page view', e)
+    }).catch(() => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[Shopify Analytics] PAGE_VIEW delivery blocked or failed')
+      }
     })
   }, [pathname, searchParams, hasUserConsent])
 
