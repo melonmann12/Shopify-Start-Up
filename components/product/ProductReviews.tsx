@@ -186,27 +186,18 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
                 key={review.id}
                 className="snap-start shrink-0 w-[85vw] sm:w-[320px] md:w-[340px] lg:w-[360px] flex flex-col p-5 md:p-6 bg-surface-container-lowest border border-outline-variant/30 rounded-sm"
               >
-                {/* Header: Stars, Name, Date */}
+                {/* Header: Stars, Name */}
                 <div className="flex flex-col gap-2 mb-4">
                   {renderStars(review.rating)}
-                  <div className="flex justify-between items-start w-full gap-2">
-                    <div className="flex items-center gap-1.5 overflow-hidden">
-                      <span className="font-sans text-sm font-medium text-on-background truncate">
-                        {review.reviewerName}
-                      </span>
-                      {review.verified && (
-                        <span className="material-symbols-outlined text-[15px] text-green-600 shrink-0" aria-label="Verified Buyer" title="Verified Buyer">
-                          check_circle
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs text-on-surface-variant shrink-0 mt-0.5">
-                      {new Date(review.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
+                  <div className="flex items-center gap-1.5 overflow-hidden">
+                    <span className="font-sans text-sm font-medium text-on-background truncate">
+                      {review.reviewerName}
                     </span>
+                    {review.verified && (
+                      <span className="material-symbols-outlined text-[15px] text-green-600 shrink-0" aria-label="Verified Buyer" title="Verified Buyer">
+                        check_circle
+                      </span>
+                    )}
                   </div>
                 </div>
                 
@@ -385,13 +376,6 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-on-surface-variant">
-                        {new Date(activeReview.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </span>
                       {(activeReview.selectedSize || activeReview.selectedShape) && (
                         <span className="font-sans text-sm text-on-surface-variant mt-1">
                           {activeReview.selectedShape}{activeReview.selectedShape && activeReview.selectedSize ? ' • ' : ''}{activeReview.selectedSize}
