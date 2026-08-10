@@ -4,13 +4,17 @@ import { useEffect, useRef } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useShopifyCookies, sendShopifyAnalytics, getClientBrowserParameters, AnalyticsEventName } from '@shopify/hydrogen-react'
 import type { ShopifyPageViewPayload } from '@shopify/hydrogen-react'
+import { useShopifyConsent } from '@/hooks/useShopifyConsent'
 
-export function ShopifyAnalytics({ hasUserConsent = true }: { hasUserConsent?: boolean }) {
+export function ShopifyAnalytics() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const lastTrackedUrl = useRef<string | null>(null)
+  const hasUserConsent = useShopifyConsent()
 
-  // This will make a request to /api/unstable/graphql.json to fetch tracking values
+
+
+  // This will make a request to /api/2026-04/graphql.json to fetch tracking values
   useShopifyCookies({ fetchTrackingValues: true, hasUserConsent })
 
   useEffect(() => {

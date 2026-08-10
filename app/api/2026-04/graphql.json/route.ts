@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   if (uniqueToken) headers.set('shopify-unique-token', uniqueToken);
 
   try {
-    const response = await fetch(`https://${domain}/api/unstable/graphql.json`, {
+    const response = await fetch(`https://${domain}/api/2026-04/graphql.json`, {
       method: 'POST',
       headers,
       body,

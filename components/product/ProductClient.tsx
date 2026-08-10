@@ -7,9 +7,11 @@ import shopifyLoader from '@/lib/shopify/image-loader'
 import { formatPrice } from '@/lib/currency'
 import VariantSelector from './VariantSelector'
 import { viewContent } from '@/lib/analytics/metaPixel'
+import { sendShopifyAnalytics, AnalyticsEventName, getClientBrowserParameters } from '@shopify/hydrogen-react'
 import ProductReviews from './ProductReviews'
 import type { ProductReview } from '@/lib/judgeme/adapter'
 import type { ShopifyProduct, ShopifyProductVariant } from '@/lib/shopify/types'
+import { useShopifyConsent } from '@/hooks/useShopifyConsent'
 
 const UI_TEXT = {
   description: "Description",
@@ -32,6 +34,7 @@ interface Props {
 }
 
 export default function ProductClient({ product, locale, reviews = [], averageRating = 0, reviewCount = 0 }: Props) {
+  const hasUserConsent = useShopifyConsent()
 
   // ── Variant State ────────────────────────────────────────────────────────────
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
@@ -78,8 +81,34 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
         product.title,
         Number(product.priceRange.minVariantPrice.amount)
       )
+
+      const shopifyPayload: any = {
+        ...getClientBrowserParameters(),
+        hasUserConsent,
+        shopId: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID || '',
+        currency: product.priceRange.minVariantPrice.currencyCode as any,
+        products: [{
+          productGid: product.id,
+          variantGid: variantId,
+          name: product.title,
+          variantName: selectedVariant?.title || '',
+          brand: '',
+          price: product.priceRange.minVariantPrice.amount,
+          quantity: 1,
+        }],
+        totalValue: Number(product.priceRange.minVariantPrice.amount),
+      }
+
+      sendShopifyAnalytics({
+        eventName: AnalyticsEventName.PRODUCT_VIEW as any,
+        payload: shopifyPayload
+      }).catch(() => {
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[Shopify Analytics] PRODUCT_VIEW delivery blocked or failed')
+        }
+      })
     }
-  }, [product.handle, product.title, product.priceRange.minVariantPrice.amount, product.variants.nodes])
+  }, [product.id, product.handle, product.title, product.priceRange.minVariantPrice.amount, product.priceRange.minVariantPrice.currencyCode, product.variants.nodes])
 
   // ── Gallery State ─────────────────────────────────────────────────────────────
   const [displayIndex, setDisplayIndex] = useState(0)

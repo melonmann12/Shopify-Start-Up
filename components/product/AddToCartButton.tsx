@@ -6,6 +6,7 @@ import { createBuyNowCartAction } from '@/lib/actions/cart'
 import { addToCart as trackAddToCart } from '@/lib/analytics/metaPixel'
 import { sendShopifyAnalytics, AnalyticsEventName, getClientBrowserParameters } from '@shopify/hydrogen-react'
 import type { ShopifyAddToCartPayload } from '@shopify/hydrogen-react'
+import { useShopifyConsent } from '@/hooks/useShopifyConsent'
 import type { ShopifyProductVariant } from '@/lib/shopify/types'
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 
 export default function AddToCartButton({ variant, productTitle, attributes, onValidate }: Props) {
   const { addToCart } = useCart()
+  const hasUserConsent = useShopifyConsent()
   const [isAddingToBag, setIsAddingToBag] = useState(false)
   const [isBuyingNow, setIsBuyingNow] = useState(false)
 
@@ -83,7 +85,7 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
       // Fire Shopify Analytics
       const shopifyPayload: ShopifyAddToCartPayload = {
         ...getClientBrowserParameters(),
-        hasUserConsent: true,
+        hasUserConsent,
         shopId: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID || '',
         currency: variant.price.currencyCode as any,
         products: [{
@@ -151,7 +153,7 @@ export default function AddToCartButton({ variant, productTitle, attributes, onV
         // Fire Shopify Analytics
         const shopifyPayload: ShopifyAddToCartPayload = {
           ...getClientBrowserParameters(),
-          hasUserConsent: true,
+          hasUserConsent,
           shopId: process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID || '',
           currency: variant.price.currencyCode as any,
           products: [{

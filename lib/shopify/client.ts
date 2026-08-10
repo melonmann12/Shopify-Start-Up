@@ -5,20 +5,26 @@ const apiVersion = '2024-10'
 
 // Lazily create a client on each request so that Server Actions (which have
 // their own module evaluation scope) always read process.env at runtime.
-function createShopifyClient() {
+function createShopifyClient(buyerIp?: string) {
   const domain =
     process.env.SHOPIFY_STORE_DOMAIN ||
     process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN ||
     ''
   const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
 
+  const headers: Record<string, string> = {
+    'X-Shopify-Storefront-Access-Token': token,
+    'Content-Type': 'application/json',
+  }
+
+  if (buyerIp) {
+    headers['Shopify-Storefront-Buyer-IP'] = buyerIp
+  }
+
   return new GraphQLClient(
     `https://${domain}/api/${apiVersion}/graphql.json`,
     {
-      headers: {
-        'X-Shopify-Storefront-Access-Token': token,
-        'Content-Type': 'application/json',
-      },
+      headers,
     }
   )
 }
@@ -30,8 +36,21 @@ export async function shopifyFetch<T>(
   query: string,
   variables: Record<string, unknown>
 ): Promise<T> {
+  let buyerIp = ''
+  try {
+    // In Next.js 15+, headers() is asynchronous
+    const { headers } = await import('next/headers')
+    const headersList = await headers()
+    buyerIp = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || ''
+    if (buyerIp.includes(',')) {
+      buyerIp = buyerIp.split(',')[0].trim()
+    }
+  } catch (e) {
+    // Ignore error if headers() is called outside of request context
+  }
+
   // Build a fresh client so Server Actions always get correct env values
-  const client = createShopifyClient()
+  const client = createShopifyClient(buyerIp)
 
   const domain =
     process.env.SHOPIFY_STORE_DOMAIN ||
