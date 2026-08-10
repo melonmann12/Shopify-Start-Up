@@ -52,6 +52,7 @@ export default async function Navbar({ locale = 'en' }: Props) {
             alt="Nailestial"
             width={160}
             height={40}
+            style={{ width: 'auto' }}
             className="h-8 sm:h-10 w-auto object-contain"
             priority
           />

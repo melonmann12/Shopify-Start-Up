@@ -1,6 +1,6 @@
 import createMiddleware from 'next-intl/middleware'
 import { locales, defaultLocale } from '@/lib/i18n/config'
-import type { NextRequest } from 'next/server'
+import { type NextRequest } from 'next/server'
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -8,8 +8,8 @@ const intlMiddleware = createMiddleware({
   localePrefix: 'always',
 })
 
-export default function proxy(request: NextRequest) {
-  // 1. Strict Bypass for Static & Metadata Files
+export default async function proxy(request: NextRequest) {
+  // Strict Bypass for Static & Metadata Files
   const pathname = request.nextUrl.pathname
   if (
     pathname.includes('robots.txt') ||
@@ -24,6 +24,7 @@ export default function proxy(request: NextRequest) {
     return
   }
 
+  // Normal App Router execution (Next-Intl)
   return intlMiddleware(request)
 }
 

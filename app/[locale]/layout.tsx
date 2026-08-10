@@ -104,6 +104,7 @@ export default async function LocaleLayout(props: Props) {
                 <MetaPixel />
                 <ShopifyAnalytics />
               </Suspense>
+
             </SearchProvider>
           </ShopifyAnalyticsProvider>
         </NextIntlClientProvider>

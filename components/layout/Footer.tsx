@@ -122,6 +122,7 @@ export default function Footer({ locale = 'en' }: Props) {
             alt="Nailestial"
             width={140}
             height={36}
+            style={{ width: 'auto' }}
             className="h-7 w-auto object-contain brightness-95"
           />
           <p className="font-sans text-sm text-on-surface-variant leading-relaxed max-w-[260px]">

@@ -312,6 +312,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
                   alt="nailestial"
                   width={140}
                   height={36}
+                  style={{ width: 'auto' }}
                   className="h-7 w-auto object-contain"
                 />
                 <button
