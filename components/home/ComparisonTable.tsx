@@ -57,7 +57,7 @@ export default function ComparisonTable() {
           {comparisonRows.map((row, index) => (
             <div 
               key={index} 
-              className="h-20 flex items-center text-left text-on-surface-variant/80 border-t border-outline-variant/10 text-label"
+              className="h-20 flex items-center text-left text-on-surface-variant/80 border-t border-black/10 text-label"
             >
               {row.metric}
             </div>
@@ -87,7 +87,7 @@ export default function ComparisonTable() {
           {comparisonRows.map((row, index) => (
             <div 
               key={index} 
-              className="h-20 border-t border-outline-variant/10 flex flex-col justify-center items-center px-6 text-center"
+              className="h-20 border-t border-black/10 flex flex-col justify-center items-center px-6 text-center"
             >
               <div className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-full bg-on-surface/5 text-on-surface mb-1.5 select-none">
                 <span className="material-symbols-outlined text-[13px] font-bold">check</span>
@@ -118,7 +118,7 @@ export default function ComparisonTable() {
           {comparisonRows.map((row, index) => (
             <div 
               key={index} 
-              className="h-20 border-t border-outline-variant/10 flex flex-col justify-center items-center px-6 text-center"
+              className="h-20 border-t border-black/10 flex flex-col justify-center items-center px-6 text-center"
             >
               {row.drugstore.isPositive ? (
                 <div className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-full bg-on-surface/5 text-on-surface/80 mb-1.5 select-none">
@@ -155,7 +155,7 @@ export default function ComparisonTable() {
           {comparisonRows.map((row, index) => (
             <div 
               key={index} 
-              className="h-20 border-t border-outline-variant/10 flex flex-col justify-center items-center px-6 text-center"
+              className="h-20 border-t border-black/10 flex flex-col justify-center items-center px-6 text-center"
             >
               {row.salon.isPositive ? (
                 <div className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-full bg-on-surface/5 text-on-surface/80 mb-1.5 select-none">
@@ -185,7 +185,7 @@ export default function ComparisonTable() {
             THE STANDARD
           </div>
           
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/10">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-black/10">
             <span className="font-serif text-xl font-normal text-on-background">
               NAILESTIAL
             </span>
@@ -215,7 +215,7 @@ export default function ComparisonTable() {
 
         {/* Drugstore Card */}
         <div className="border border-outline-variant/15 bg-surface-container-lowest/5 p-6 opacity-75">
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/10">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-black/10">
             <span className="font-serif text-lg font-normal text-on-surface-variant tracking-wide">
               Drugstore Press-Ons
             </span>
@@ -251,7 +251,7 @@ export default function ComparisonTable() {
 
         {/* Salon Card */}
         <div className="border border-outline-variant/15 bg-surface-container-lowest/5 p-6 opacity-75">
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant/10">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-black/10">
             <span className="font-serif text-lg font-normal text-on-surface-variant tracking-wide">
               Salon Manicure
             </span>

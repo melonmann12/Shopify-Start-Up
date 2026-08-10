@@ -66,7 +66,7 @@ export default async function TrackOrderPage({ params }: Props) {
 
       {/* Shipping note */}
       <section className="px-6 md:px-16 pb-24 max-w-xl mx-auto">
-        <div className="border-t border-outline/10 pt-8 space-y-4">
+        <div className="border-t border-black/10 pt-8 space-y-4">
           <h2 className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-on-background">
             Shipping Timeframes
           </h2>

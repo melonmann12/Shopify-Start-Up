@@ -115,7 +115,7 @@ export default function EmailPopup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
-                className="w-full border-b border-outline-variant/60 bg-transparent px-0 py-3 font-body text-sm text-primary placeholder:text-on-surface-variant/40 focus:border-primary focus:outline-none transition-colors"
+                className="w-full border-b border-black/10 bg-transparent px-0 py-3 font-body text-sm text-primary placeholder:text-on-surface-variant/40 focus:border-primary focus:outline-none transition-colors"
               />
               <button
                 type="submit"

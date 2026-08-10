@@ -260,7 +260,7 @@ export default function VariantSelector({ product, locale, selectedOptions, sele
                 ${isShapeGuideOpen ? 'translate-x-0' : 'translate-x-full'}`}
             >
               {/* Drawer header */}
-              <div className="sticky top-0 z-20 flex items-center justify-between border-b border-outline/15 bg-surface px-5 py-4 md:px-6 md:py-5 shrink-0">
+              <div className="sticky top-0 z-20 flex items-center justify-between border-b border-black/10 bg-surface px-5 py-4 md:px-6 md:py-5 shrink-0">
                 <h2 className="font-serif text-lg md:text-xl font-normal text-on-background tracking-wide">
                   Shape &amp; Size Guide
                 </h2>

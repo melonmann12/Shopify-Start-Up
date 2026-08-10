@@ -7,7 +7,7 @@ interface Props {
 
 export default function Hero({ locale }: Props) {
   return (
-    <section className="relative w-full flex flex-col md:justify-end min-h-0 md:min-h-[85vh] lg:min-h-[90vh] border-b border-outline-variant/20 bg-surface">
+    <section className="relative w-full flex flex-col md:justify-end min-h-0 md:min-h-[85vh] lg:min-h-[90vh] border-b border-black/10 bg-surface">
       {/* Background Image Layer */}
       <div className="relative w-full h-[45vh] min-h-[380px] md:h-auto md:min-h-0 md:absolute md:inset-0 z-0 pointer-events-none shrink-0 bg-surface overflow-hidden">
         <Image

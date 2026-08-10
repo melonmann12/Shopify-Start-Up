@@ -109,7 +109,7 @@ export default function Footer({ locale = 'en' }: Props) {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="w-full border-t border-outline/20 bg-surface mt-auto relative z-10">
+    <footer className="w-full border-t border-black/10 bg-surface mt-auto relative z-10">
 
       {/* ── Main columns ─────────────────────────────────────────────────── */}
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-16 md:py-20
@@ -194,7 +194,7 @@ export default function Footer({ locale = 'en' }: Props) {
       </div>
 
       {/* ── Bottom bar ───────────────────────────────────────────────────── */}
-      <div className="border-t border-outline/10">
+      <div className="border-t border-black/10">
         <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-5
                         flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-on-surface-variant font-sans text-sm uppercase tracking-widest order-2 sm:order-1">

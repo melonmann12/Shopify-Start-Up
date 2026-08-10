@@ -42,7 +42,7 @@ export default function InlineEmailCapture() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email address"
-                  className="w-full border-b border-outline-variant/60 bg-transparent px-0 py-3.5 font-body text-sm text-primary placeholder:text-on-surface-variant/40 focus:border-primary focus:outline-none transition-colors text-left"
+                  className="w-full border-b border-black/10 bg-transparent px-0 py-3.5 font-body text-sm text-primary placeholder:text-on-surface-variant/40 focus:border-primary focus:outline-none transition-colors text-left"
                 />
               </div>
               <button

@@ -227,7 +227,7 @@ export default async function PolicyPage(props: Props) {
           dangerouslySetInnerHTML={{ __html: policy.body }} 
         />
         
-        <div className="pt-24 mt-24 border-t border-outline/20 text-center">
+        <div className="pt-24 mt-24 border-t border-black/10 text-center">
             <p className="font-serif text-xl text-on-background">
                 Questions? Contact our support team at <Link className="font-normal italic underline decoration-outline/30 underline-offset-4 hover:decoration-on-background transition-colors duration-200" href={`/${locale}/contact`}>Contact Page</Link>
             </p>

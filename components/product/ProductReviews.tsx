@@ -18,7 +18,8 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  const [activeReview, setActiveReview] = useState<ProductReview | null>(null)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
 
   const hasRealReviews = reviews.length > 0
 
@@ -43,12 +44,14 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
     }
   }, [])
 
-  // Handle Escape key for Lightbox
+  // Handle Escape key for Lightbox/Modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && lightboxImage) setLightboxImage(null)
+      if (e.key === 'Escape' && activeReview) {
+        setActiveReview(null)
+      }
     }
-    if (lightboxImage) {
+    if (activeReview) {
       document.addEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'hidden'
     }
@@ -56,7 +59,17 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
       document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'unset'
     }
-  }, [lightboxImage])
+  }, [activeReview])
+
+  const openReviewModal = (review: ProductReview, imageIndex = 0) => {
+    setActiveReview(review)
+    setActiveImageIndex(imageIndex)
+  }
+
+  const closeReviewModal = () => {
+    setActiveReview(null)
+    setActiveImageIndex(0)
+  }
 
   const scrollByAmount = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
@@ -86,7 +99,7 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
   }
 
   return (
-    <section id="customer-reviews" className="w-full border-t border-outline-variant/30 pt-8 md:pt-12 scroll-mt-24 md:scroll-mt-32">
+    <section id="customer-reviews" className="w-full border-t border-black/10 pt-8 md:pt-12 scroll-mt-24 md:scroll-mt-32">
       {/* Review Summary */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
@@ -171,45 +184,65 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
             return (
               <div 
                 key={review.id}
-                className="snap-start shrink-0 w-[85vw] sm:w-[450px] md:w-[560px] lg:w-[640px] flex flex-col p-5 md:p-6 bg-surface-container-lowest border border-outline-variant/30 rounded-sm"
+                className="snap-start shrink-0 w-[85vw] sm:w-[320px] md:w-[340px] lg:w-[360px] flex flex-col p-5 md:p-6 bg-surface-container-lowest border border-outline-variant/30 rounded-sm"
               >
-                <div className="flex justify-between items-start mb-3">
+                {/* Header: Stars, Name, Date */}
+                <div className="flex flex-col gap-2 mb-4">
                   {renderStars(review.rating)}
-                  <span className="text-xs text-on-surface-variant">
-                    {new Date(review.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
-                    })}
-                  </span>
+                  <div className="flex justify-between items-start w-full gap-2">
+                    <div className="flex items-center gap-1.5 overflow-hidden">
+                      <span className="font-sans text-sm font-medium text-on-background truncate">
+                        {review.reviewerName}
+                      </span>
+                      {review.verified && (
+                        <span className="material-symbols-outlined text-[15px] text-green-600 shrink-0" aria-label="Verified Buyer" title="Verified Buyer">
+                          check_circle
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-on-surface-variant shrink-0 mt-0.5">
+                      {new Date(review.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </span>
+                  </div>
                 </div>
                 
-                <h3 className="font-serif text-xl text-on-background mb-2">
+                <h3 className="font-serif text-lg md:text-xl text-on-background mb-2">
                   {review.title}
                 </h3>
                 
-                <p className="font-sans text-sm md:text-base text-on-surface-variant leading-relaxed mb-4">
-                  {review.body}
-                </p>
+                <div className="mb-4">
+                  <p className="font-sans text-sm text-on-surface-variant leading-relaxed line-clamp-4">
+                    {review.body}
+                  </p>
+                  
+                  {/* More button */}
+                  {(review.body.length > 150 || publishedPictures.length > 0) && (
+                    <button 
+                      onClick={() => openReviewModal(review)}
+                      className="text-xs font-medium underline mt-2 text-on-background hover:text-on-surface-variant transition-colors"
+                    >
+                      {locale === 'vi' ? 'Xem thêm' : 'More'}
+                    </button>
+                  )}
+                </div>
 
                 {/* Render published review images if any exist */}
                 {publishedPictures.length > 0 && (
-                  <div className="flex gap-3 mb-4 overflow-x-auto pb-2 hide-scrollbar">
+                  <div className="flex gap-2 mt-auto overflow-x-auto hide-scrollbar pt-2">
                     {publishedPictures.map((pic, idx) => {
-                      // Fallback to whichever URL exists
                       const imgUrl = pic.urls?.compact || pic.urls?.small || pic.urls?.huge || pic.urls?.original;
-                      const fullUrl = pic.urls?.original || pic.urls?.huge || imgUrl;
-                      
                       if (!imgUrl) return null;
 
                       return (
                         <div 
                           key={idx} 
-                          className="relative w-24 h-24 md:w-[120px] md:h-[120px] shrink-0 rounded-sm overflow-hidden border border-outline-variant/20 cursor-pointer group"
-                          onClick={() => {
-                            if (fullUrl) setLightboxImage(fullUrl);
-                          }}
-                          title="Click to view full image"
+                          className="relative w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-sm overflow-hidden border border-outline-variant/20 cursor-pointer group"
+                          onClick={() => openReviewModal(review, idx)}
+                          title="View review"
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
@@ -218,39 +251,19 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
                             className="w-full h-full object-cover transition-opacity group-hover:opacity-80" 
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 pointer-events-none">
-                            <span className="material-symbols-outlined text-white text-[24px]">zoom_in</span>
-                          </div>
                         </div>
                       )
                     })}
                   </div>
                 )}
                 
-                <div className="flex flex-col gap-1 mt-auto pt-4 border-t border-outline-variant/20">
-                  <div className="flex justify-between items-center w-full">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-sans text-sm font-medium text-on-background">
-                        {review.reviewerName}
-                      </span>
-                      {review.verified && (
-                        <span className="material-symbols-outlined text-[15px] text-green-600" aria-label="Verified Buyer" title="Verified Buyer">
-                          check_circle
-                        </span>
-                      )}
-                    </div>
-                    
-                    {(review.selectedSize || review.selectedShape) && (
-                      <span className="font-sans text-xs text-on-surface-variant">
-                        {review.selectedShape}{review.selectedShape && review.selectedSize ? ' • ' : ''}{review.selectedSize}
-                      </span>
-                    )}
+                {(review.selectedSize || review.selectedShape) && (
+                  <div className="mt-auto pt-4 border-t border-black/10">
+                    <span className="font-sans text-xs text-on-surface-variant block">
+                      {review.selectedShape}{review.selectedShape && review.selectedSize ? ' • ' : ''}{review.selectedSize}
+                    </span>
                   </div>
-                  
-                  {/* TODO: Implement Merchant Replies. 
-                      Judge.me GET /reviews API does not currently expose public merchant replies.
-                      When available, render them here in a distinct styled block. */}
-                </div>
+                )}
               </div>
             )
           })}
@@ -272,30 +285,131 @@ export default function ProductReviews({ locale, reviews, averageRating, totalRe
         productTitle={productTitle}
       />
 
-      {/* Lightweight Image Lightbox */}
-      {lightboxImage && (
+      {/* Review Detail Modal */}
+      {activeReview && (
         <div 
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4"
-          onClick={() => setLightboxImage(null)}
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 p-4 md:p-8"
+          onClick={closeReviewModal}
           role="dialog"
           aria-modal="true"
         >
-          <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors p-2 z-10"
-            onClick={() => setLightboxImage(null)}
-            aria-label="Close image"
+          {/* Modal Container */}
+          <div 
+            className={`relative flex flex-col md:flex-row bg-surface-container-lowest rounded-sm w-full max-h-[90vh] overflow-y-auto ${activeReview.hasPublishedPictures && activeReview.pictures && activeReview.pictures.filter(p => !p.hidden).length > 0 ? 'max-w-5xl' : 'max-w-2xl'}`}
+            onClick={(e) => e.stopPropagation()}
           >
-            <span className="material-symbols-outlined text-[32px]">close</span>
-          </button>
-          
-          <div className="relative w-full max-w-5xl max-h-[90vh] flex items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src={lightboxImage} 
-              alt="Review full size" 
-              className="max-w-full max-h-[90vh] object-contain rounded-sm"
-              onClick={(e) => e.stopPropagation()} // Prevent click-through closing when clicking the image itself
-            />
+            <button 
+              className="absolute top-4 right-4 text-on-background hover:text-on-surface-variant transition-colors p-2 z-10 bg-surface-container-lowest/80 rounded-full"
+              onClick={closeReviewModal}
+              aria-label="Close review modal"
+            >
+              <span className="material-symbols-outlined text-[24px]">close</span>
+            </button>
+            
+            {/* Modal Content Logic */}
+            {(() => {
+              const reviewPics = activeReview.pictures ? activeReview.pictures.filter(p => !p.hidden) : [];
+              const hasMedia = reviewPics.length > 0;
+              
+              const currentPicUrl = hasMedia ? (reviewPics[activeImageIndex].urls?.original || reviewPics[activeImageIndex].urls?.huge || reviewPics[activeImageIndex].urls?.small) : null;
+
+              return (
+                <>
+                  {/* Left Column: Media (Only if hasMedia) */}
+                  {hasMedia && (
+                    <div className="w-full md:w-1/2 bg-surface-variant/20 flex flex-col">
+                      <div className="relative flex-grow flex items-center justify-center min-h-[300px] md:min-h-[500px]">
+                        {currentPicUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={currentPicUrl} alt="Review media" className="w-full h-full object-contain max-h-[50vh] md:max-h-[70vh]" />
+                        )}
+                        
+                        {/* Navigation Arrows */}
+                        {reviewPics.length > 1 && (
+                          <>
+                            <button
+                              className="absolute left-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 hover:bg-white text-black shadow-sm transition-colors"
+                              onClick={(e) => { e.stopPropagation(); setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : reviewPics.length - 1)); }}
+                              aria-label="Previous image"
+                            >
+                              <span className="material-symbols-outlined text-[20px]">chevron_left</span>
+                            </button>
+                            <button
+                              className="absolute right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/80 hover:bg-white text-black shadow-sm transition-colors"
+                              onClick={(e) => { e.stopPropagation(); setActiveImageIndex((prev) => (prev < reviewPics.length - 1 ? prev + 1 : 0)); }}
+                              aria-label="Next image"
+                            >
+                              <span className="material-symbols-outlined text-[20px]">chevron_right</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                      
+                      {/* Thumbnails row */}
+                      {reviewPics.length > 1 && (
+                        <div className="flex gap-2 p-4 overflow-x-auto hide-scrollbar bg-surface-container-lowest">
+                          {reviewPics.map((pic, idx) => {
+                            const thumbUrl = pic.urls?.compact || pic.urls?.small;
+                            if (!thumbUrl) return null;
+                            return (
+                              <button
+                                key={idx}
+                                onClick={(e) => { e.stopPropagation(); setActiveImageIndex(idx); }}
+                                className={`w-16 h-16 shrink-0 rounded-sm overflow-hidden border ${idx === activeImageIndex ? 'border-primary ring-1 ring-primary' : 'border-outline-variant/30 opacity-60 hover:opacity-100'} transition-all`}
+                                aria-label={`View image ${idx + 1}`}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={thumbUrl} alt="" className="w-full h-full object-cover" />
+                              </button>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Right Column / Centered Modal: Review Details */}
+                  <div className={`w-full p-6 md:p-10 flex flex-col ${hasMedia ? 'md:w-1/2' : ''}`}>
+                    <div className="mb-4">
+                      {renderStars(activeReview.rating)}
+                    </div>
+                    
+                    <div className="flex flex-col gap-1 mb-6 border-b border-black/10 pb-4">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-sans text-base font-medium text-on-background">
+                          {activeReview.reviewerName}
+                        </span>
+                        {activeReview.verified && (
+                          <span className="material-symbols-outlined text-[16px] text-green-600" aria-label="Verified Buyer" title="Verified Buyer">
+                            check_circle
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm text-on-surface-variant">
+                        {new Date(activeReview.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                      {(activeReview.selectedSize || activeReview.selectedShape) && (
+                        <span className="font-sans text-sm text-on-surface-variant mt-1">
+                          {activeReview.selectedShape}{activeReview.selectedShape && activeReview.selectedSize ? ' • ' : ''}{activeReview.selectedSize}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <h3 className="font-serif text-2xl text-on-background mb-4">
+                      {activeReview.title}
+                    </h3>
+                    
+                    <div className="prose prose-sm md:prose-base prose-neutral max-w-none text-on-surface-variant overflow-y-auto pr-2">
+                      <p className="whitespace-pre-wrap">{activeReview.body}</p>
+                    </div>
+                  </div>
+                </>
+              );
+            })()}
           </div>
         </div>
       )}

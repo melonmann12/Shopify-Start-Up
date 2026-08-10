@@ -16,7 +16,7 @@ export default function FilterSortBar() {
   }
 
   return (
-    <div className="max-w-[1920px] mx-auto py-6 flex flex-row justify-between items-center border-b border-outline-variant/30 gap-4 mb-12 relative z-10">
+    <div className="max-w-[1920px] mx-auto py-6 flex flex-row justify-between items-center border-b border-black/10 gap-4 mb-12 relative z-10">
       <button className="flex items-center gap-2 text-on-background hover:text-on-surface-variant transition-colors duration-200 text-label">
         <span className="material-symbols-outlined text-[16px]">tune</span>
         Filter

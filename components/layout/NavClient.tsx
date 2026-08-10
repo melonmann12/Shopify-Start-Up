@@ -165,7 +165,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
         {/* ── DESKTOP MEGA MENU PANEL (3 columns) ─────────────────────────── */}
         {isShopOpen && (
           <div
-            className="absolute top-full left-1/2 -translate-x-1/2 w-screen bg-surface border-b border-outline-variant/15 shadow-ambient py-12 animate-fade-in z-50 text-left cursor-default"
+            className="absolute top-full left-1/2 -translate-x-1/2 w-screen bg-surface border-b border-black/10 shadow-ambient py-12 animate-fade-in z-50 text-left cursor-default"
             onMouseEnter={() => setIsShopOpen(true)}
             onMouseLeave={() => setIsShopOpen(false)}
           >
@@ -328,7 +328,7 @@ export default function NavClient({ initialCollections = [] }: NavClientProps) {
 
 
                 {/* SHOP (accordion) */}
-                <div className="border-b border-outline-variant/10 pb-4">
+                <div className="border-b border-black/10 pb-4">
                   <button
                     onClick={() => setMobileShopOpen((v) => !v)}
                     className="w-full flex justify-between items-center text-left focus:outline-none"

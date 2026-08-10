@@ -8,7 +8,7 @@ interface Props {
 export default function SocialProof({ locale = 'en' }: Props) {
   return (
     <section className="max-w-screen-2xl mx-auto px-6 md:px-12 mb-24 md:mb-32 relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch pt-16 border-t border-outline-variant/20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch pt-16 border-t border-black/10">
         
         {/* Left Side: Press/Media Logos Placeholder */}
         <div className="flex flex-col justify-between h-full border border-outline-variant/20 bg-surface-container-lowest/5 backdrop-blur-sm p-6 md:p-8">

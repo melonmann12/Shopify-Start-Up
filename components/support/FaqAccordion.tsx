@@ -34,7 +34,7 @@ export default function FaqAccordion() {
         {FAQS.map((faq, index) => {
           const isOpen = openIndex === index
           return (
-            <div key={index} className="border-b border-outline-variant/20 py-8">
+            <div key={index} className="border-b border-black/10 py-8">
               <div 
                 className={`flex justify-between items-center cursor-pointer group ${isOpen ? 'mb-6' : ''}`} 
                 onClick={() => toggleOpen(index)}

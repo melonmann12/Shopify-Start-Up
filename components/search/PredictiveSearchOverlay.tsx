@@ -149,7 +149,7 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale, initi
       <div className="relative w-full h-full md:h-auto md:max-w-4xl bg-surface md:shadow-ambient flex flex-col md:rounded-b-none overflow-hidden animate-fade-in">
         
         {/* Header / Input */}
-        <div className="px-6 py-6 border-b border-outline-variant/15 flex items-center gap-4 shrink-0 bg-surface">
+        <div className="px-6 py-6 border-b border-black/10 flex items-center gap-4 shrink-0 bg-surface">
           <form onSubmit={handleSubmit} className="flex-1 flex items-center relative">
             <span className="material-symbols-outlined text-[24px] text-on-surface-variant absolute left-0 pointer-events-none">search</span>
             <input
@@ -273,7 +273,7 @@ export default function PredictiveSearchOverlay({ isOpen, onClose, locale, initi
         
         {/* Footer actions for mobile */}
         {query && !isEmpty && !isLoading && (
-          <div className="md:hidden border-t border-outline-variant/15 p-4 bg-surface shrink-0">
+          <div className="md:hidden border-t border-black/10 p-4 bg-surface shrink-0">
             <button 
               onClick={handleSubmit}
               className="w-full py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-black/85 transition-colors"

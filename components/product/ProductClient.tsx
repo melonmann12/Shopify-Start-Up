@@ -363,9 +363,9 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
           </div>
 
           {/* 2. Collapsible Product Info Accordion */}
-          <div className="border-t border-outline/10 mt-6 space-y-0">
+          <div className="border-t border-black/10 mt-6 space-y-0">
             {/* Tab: What's Included */}
-            <div className="border-b border-outline/10">
+            <div className="border-b border-black/10">
               <button
                 onClick={() => toggleAccordion('included')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
@@ -387,7 +387,7 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
             </div>
 
             {/* Tab: Sizing Guide */}
-            <div className="border-b border-outline/10">
+            <div className="border-b border-black/10">
               <button
                 onClick={() => toggleAccordion('sizing')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
@@ -409,7 +409,7 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
             </div>
 
             {/* Tab: Application & Removal */}
-            <div className="border-b border-outline/10">
+            <div className="border-b border-black/10">
               <button
                 onClick={() => toggleAccordion('application')}
                 className="w-full py-4 flex items-center justify-between text-left focus:outline-none group"
@@ -444,7 +444,7 @@ export default function ProductClient({ product, locale, reviews = [], averageRa
 
           {/* Description Panel */}
           {/* Description intentionally hidden for now to increase conversion focus
-          <div className="border-t border-outline/10 pt-8 mt-8">
+          <div className="border-t border-black/10 pt-8 mt-8">
             <h3 className="text-on-surface-variant mb-6 text-label">
               {UI_TEXT.description}
             </h3>

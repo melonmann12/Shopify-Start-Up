@@ -51,7 +51,7 @@ export default async function YouMayAlsoLike({ currentProductId, locale = 'en', 
   if (products.length === 0) return null
 
   return (
-    <section className="w-full border-t border-outline/10 pt-4 md:pt-6 lg:pt-8 mt-0 md:mt-2">
+    <section className="w-full border-t border-black/10 pt-4 md:pt-6 lg:pt-8 mt-0 md:mt-2">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl md:text-4xl font-normal text-on-background tracking-normal mb-3">

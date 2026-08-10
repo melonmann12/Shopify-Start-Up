@@ -45,7 +45,7 @@ export default async function SizeAndShapeGuidePage({ params }: Props) {
           </ol>
         </section>
 
-        <div className="border-t border-outline/10" />
+        <div className="border-t border-black/10" />
 
         {/* Section 2 */}
         <section>
@@ -61,7 +61,7 @@ export default async function SizeAndShapeGuidePage({ params }: Props) {
               { shape: 'Square', desc: 'Clean straight sides with a flat tip. Timeless and structured.' },
               { shape: 'Oval', desc: 'Similar to almond but softer. Versatile and elegant — suits most nail lengths.' },
             ].map(({ shape, desc }) => (
-              <div key={shape} className="flex gap-4 pb-5 border-b border-outline/10 last:border-0 last:pb-0">
+              <div key={shape} className="flex gap-4 pb-5 border-b border-black/10 last:border-0 last:pb-0">
                 <span className="shrink-0 font-serif italic text-base text-on-background w-20">{shape}</span>
                 <p className="font-sans text-xs text-on-surface-variant leading-relaxed">{desc}</p>
               </div>
@@ -69,7 +69,7 @@ export default async function SizeAndShapeGuidePage({ params }: Props) {
           </div>
         </section>
 
-        <div className="border-t border-outline/10" />
+        <div className="border-t border-black/10" />
 
         {/* Section 3 */}
         <section>

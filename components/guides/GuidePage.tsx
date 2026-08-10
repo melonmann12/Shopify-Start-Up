@@ -36,7 +36,7 @@ export default function GuidePage({ eyebrow = 'Nail Guide', title, intro, locale
       </section>
 
       {/* Footer CTA */}
-      <div className="border-t border-outline/10 py-12 text-center">
+      <div className="border-t border-black/10 py-12 text-center">
         <p className="font-serif italic text-lg text-on-background mb-3">Ready to shop?</p>
         <Link
           href={`/${locale}/search`}

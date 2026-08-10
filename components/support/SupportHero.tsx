@@ -28,7 +28,7 @@ export default function SupportHero() {
                 support@nailestial.com
               </a>
             </div>
-            <p className="text-on-surface-variant/70 mt-6 pt-4 border-t border-outline-variant/10 text-caption">
+            <p className="text-on-surface-variant/70 mt-6 pt-4 border-t border-black/10 text-caption">
               We aim to respond within 1-2 business days.
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function SupportHero() {
                 Cau Giay, Hanoi, Vietnam
               </p>
             </div>
-            <p className="text-on-surface-variant/70 mt-6 pt-4 border-t border-outline-variant/10 text-caption">
+            <p className="text-on-surface-variant/70 mt-6 pt-4 border-t border-black/10 text-caption">
               Vietnam-based Individual Seller
             </p>
           </div>

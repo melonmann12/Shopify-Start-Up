@@ -77,7 +77,7 @@ export default function SearchClient({
     <div className="w-full">
 
       {/* ── Filter Controls Header ── */}
-      <div className="flex justify-between items-center border-b border-outline-variant/15 pb-6 mb-8 text-label">
+      <div className="flex justify-between items-center border-b border-black/10 pb-6 mb-8 text-label">
         <div className="flex items-center gap-4">
           {/* Mobile Filter Button */}
           <button

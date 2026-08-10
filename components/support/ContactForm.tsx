@@ -38,7 +38,7 @@ export default function ContactForm() {
               <div className="relative">
                 <label className="block text-xs text-on-surface-variant mb-2 text-label" htmlFor="name">Name</label>
                 <input 
-                  className="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors disabled:opacity-50 outline-none" 
+                  className="w-full bg-transparent border-0 border-b border-black/10 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors disabled:opacity-50 outline-none" 
                   id="name" 
                   name="name" 
                   placeholder=" " 
@@ -51,7 +51,7 @@ export default function ContactForm() {
               <div className="relative">
                 <label className="block text-xs text-on-surface-variant mb-2 text-label" htmlFor="email">Email</label>
                 <input 
-                  className="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors disabled:opacity-50 outline-none" 
+                  className="w-full bg-transparent border-0 border-b border-black/10 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors disabled:opacity-50 outline-none" 
                   id="email" 
                   name="email" 
                   placeholder=" " 
@@ -65,7 +65,7 @@ export default function ContactForm() {
             <div className="relative">
               <label className="block text-xs text-on-surface-variant mb-2 text-label" htmlFor="message">Message</label>
               <textarea 
-                className="w-full bg-transparent border-0 border-b border-outline-variant/30 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors resize-none disabled:opacity-50 outline-none" 
+                className="w-full bg-transparent border-0 border-b border-black/10 px-0 py-3 font-body text-base text-primary focus:ring-0 focus:border-primary transition-colors resize-none disabled:opacity-50 outline-none" 
                 id="message" 
                 name="message" 
                 placeholder=" " 

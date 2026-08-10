@@ -67,7 +67,7 @@ export default function CollectionClient({
   return (
     <div className="w-full">
       {/* ── Filter Controls Header ── */}
-      <div className="flex justify-between items-center border-b border-outline-variant/30 pb-6 mb-8 text-label relative z-10">
+      <div className="flex justify-between items-center border-b border-black/10 pb-6 mb-8 text-label relative z-10">
         <div className="flex items-center gap-4">
           <button
             onClick={() => setMobileFiltersOpen(true)}
